@@ -84,7 +84,7 @@ export default class ProductManager {
 
   deleteProduct = async(id) => {
     const listProduct = await this.getProduct()
-    const productIndex = listProduct.findIndex(product => product.id === id)
+    const productIndex = listProduct.findIndex(product => product.id === parseInt(id))
 
     if(productIndex >= 0) {
     listProduct.splice(productIndex, 1)
@@ -96,9 +96,6 @@ export default class ProductManager {
   console.log("no se encontro el producto a eliminar")
   return false
 }
- 
-
-
-  };
+  }
 }
 
