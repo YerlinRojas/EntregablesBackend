@@ -17,11 +17,8 @@ app.use(express.urlencoded({extended:true}))
 
 //routes
 app.use('/', viewsRouter)
-app.use('/home', productRouter)
-app.use('/realtimeproducts', viewsRouter)
-app.use('/api/products', productRouter)
-app.use('/api/carts', cartRouter)
-
+app.use('/products', productRouter)
+app.use('/carts', cartRouter)
 
 //config handlebars
 app.engine('handlebars', handlebars.engine())
@@ -47,7 +44,6 @@ mongoose.connect(URL,{
   .catch(e => {
       console.log("Can't connect to DB")
   })
-
 
 
 

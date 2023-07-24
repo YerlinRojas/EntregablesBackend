@@ -76,13 +76,25 @@ router.delete('/:pid', async(req,res)=>{
 router.get('/', async(req,res)=>{
     try {
         const productsList = await productModel.find().lean().exec()
+        console.log({productsList})
         res.render('home', {productsList})
-
+        
     } catch (error) {
         console.error('Error obteniendo producto:', error)
         res.status(500).json({error: 'Internal server error'})
     }
 })
+
+router.get('/create', async(req,res)=>{
+    try {
+        res.render('create', {})
+        
+    } catch (error) {
+        console.error('Error renderizar producto:', error)
+        res.status(500).json({error: 'Internal server error'})
+    }
+})
+
 
 //funcion mongoose crear
 router.post('/create', async(req,res)=>{
@@ -94,7 +106,7 @@ router.post('/create', async(req,res)=>{
         await newProductGenerated.save()
 
         console.log ('new product from mongoose:', {newProductGenerated})
-        res.redirect('/home')
+        res.redirect('/products')
     } catch (error) {
         console.error('Error al enviar producto:', error)
         res.status(500).json({error: 'Internal server error'})

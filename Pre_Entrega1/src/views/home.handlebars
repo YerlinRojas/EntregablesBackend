@@ -1,9 +1,10 @@
 <h1>Lista de productos</h1>
 
 <table class="default" border="1px">
-    {{#each productList}}
+    {{#each productsList}}
     <tr>
-    
+    <th>ID:</th>
+    <td>{{this._id}}</td> 
     </tr>
     <tr>
     <th>Title:</th>
@@ -19,7 +20,7 @@
     </tr>
     <tr>
     <th>Category:</th>
-    <td>{{this.categeory}}</td>
+    <td>{{this.category}}</td> 
     </tr>
     <tr>
     <th>Thumbnail:</th>
@@ -34,5 +35,4 @@
     <td>{{this.stock}}</td>
     </tr>
   {{/each}}
-
 </table>

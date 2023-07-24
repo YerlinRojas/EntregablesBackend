@@ -12,8 +12,7 @@ router.get('/' , (req, res) =>{
 
 router.get('/home', async(req,res)=>{
     try {
-    const products = await productManager.getProduct()
-    res.render('home', { products });
+ res.render('home')
 
     } catch (error) {
     console.error('Error obteniendo el producto:', error)
