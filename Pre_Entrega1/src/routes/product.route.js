@@ -1,21 +1,23 @@
 import { Router } from 'express'
-import ProductManager from '../manager/product.manager.js'
+import ProductManager from '../dao/manager/product.manager.js'
+import productModel from '../dao/models/product.model.js'
 
 const router = Router()
-const productManager = new ProductManager()
 
-router.get('/', async(req,res)=>{
+//const productManager = new ProductManager()
+
+/* router.get('/', async(req,res)=>{
     try {
-        const result = await productManager.getProduct()
+    const result = await productManager.getProduct()
     res.send(result)
     } catch (error) {
     console.error('Error obteniendo el producto:', error);
     res.status(500).json({ error: 'Internal server error' })
     }
     
-})
+}) 
 
-
+//fromulario crea
 router.post('/', async(req,res)=>{
     try {
     const data = req.body
@@ -27,6 +29,7 @@ router.post('/', async(req,res)=>{
     }
     
 })
+
 
 router.get('/:pid', async(req,res)=>{
     try {
@@ -56,7 +59,6 @@ router.put('/:pid', async(req,res)=>{
 })
 
 
-
 router.delete('/:pid', async(req,res)=>{
     try {
     const pid = parseInt(req.params.pid)
@@ -67,7 +69,36 @@ router.delete('/:pid', async(req,res)=>{
     res.status(500).json({ error: 'Internal server error' })
     }
   
+})*/
+
+
+//funcion mongoose list
+router.get('/', async(req,res)=>{
+    try {
+        const productsList = await productModel.find().lean().exec()
+        res.render('home', {productsList})
+
+    } catch (error) {
+        console.error('Error obteniendo producto:', error)
+        res.status(500).json({error: 'Internal server error'})
+    }
 })
 
+//funcion mongoose crear
+router.post('/create', async(req,res)=>{
+    try {
+        const newProduct = req.body
+        console.log ('params from form:', {newProduct})
+  
+        const newProductGenerated = new productModel(newProduct)
+        await newProductGenerated.save()
+
+        console.log ('new product from mongoose:', {newProductGenerated})
+        res.redirect('/home')
+    } catch (error) {
+        console.error('Error al enviar producto:', error)
+        res.status(500).json({error: 'Internal server error'})
+    }
+}) 
 
 export default router

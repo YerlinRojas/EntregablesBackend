@@ -2,17 +2,34 @@
 
 <hr>
 <h3>Formulario Ingreso de productos</h3>
-<form id="addProductForm">
-Title:<input type="text" id="title" placeholder="title" required>
-Description:<input type="text" id="description" placeholder="Description" required>
-Price:<input type="number" id="price" placeholder="Price" required>
-Category:<input type="text" id="categeory" placeholder="category" required>
-Thumbnail:<input type="text" id="thumbnail" placeholder="thumbnail" required>
-Code:<input type="number" id="code" placeholder="code" required>
-Stock:<input type="number" id="stock" placeholder="Stock" required>
+<form id="addProductForm" action="/api/products/create" method="POST">
+Id:<input name="id" type="number" id="id" placeholder="id" required>
+Title:<input name="title" type="text" id="title" placeholder="title" required>
+Description:<input name="description" type="text" id="description" placeholder="Description" required>
+Price:<input name="price" type="number" id="price" placeholder="Price" required>
+Category:<input name="category" type="text" id="categeory" placeholder="category" required>
+Thumbnail:<input name="thumbnail" type="text" id="thumbnail" placeholder="thumbnail" required>
+Code:<input name="code" type="number" id="code" placeholder="code" required>
+Stock:<input name="stock" type="number" id="stock" placeholder="Stock" required>
   <input type="submit" value="Agregar producto">
 </form> 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{!-- 
 <hr>
 <h3>Eliminar Producto</h3>
 ID:<input type="text" id="id" placeholder="Ingresar ID product">
@@ -39,8 +56,7 @@ ID:<input type="text" id="id" placeholder="Ingresar ID product">
     <td>{{this.thumbnail}}</td>
     <td>{{this.code}}</td>
     <td>{{this.stock}}</td>
-
-</tr>
+    </tr>
   {{/each}}
 
 </table>
@@ -48,64 +64,64 @@ ID:<input type="text" id="id" placeholder="Ingresar ID product">
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
-  const socket = io();
+  const //socket = io();
 
 // Evento para enviar el formulario y agregar un nuevo producto
-document.getElementById('addProductForm').addEventListener('submit', (event) => {
-event.preventDefault() // Evitar el envío del formulario por defecto
+//document.getElementById('addProductForm').addEventListener('submit', (event) => {
+//event.preventDefault() // Evitar el envío del formulario por defecto
 
-    const title = document.getElementById('title').value.trim()
-    const description = document.getElementById('description').value.trim()
-    const price = document.getElementById('price').value.trim()
-    const categeory = document.getElementById('categeory').value.trim()
-    const thumbnail = document.getElementById('thumbnail').value.trim()
-    const code = document.getElementById('code').value.trim()
-    const stock = document.getElementById('stock').value.trim()
+  //  const title = document.getElementById('title').value.trim()
+    //const description = document.getElementById('description').value.trim()
+ //   const price = document.getElementById('price').value.trim()
+   // const categeory = document.getElementById('categeory').value.trim()
+    //const thumbnail = document.getElementById('thumbnail').value.trim()
+   // const code = document.getElementById('code').value.trim()
+   // const stock = document.getElementById('stock').value.trim()
 
 
  if (title !== ''){ 
 
-  socket.emit('addProduct',{title,description,price,categeory,thumbnail,code,stock})
+  //socket.emit('addProduct',{title,description,price,categeory,thumbnail,code,stock})
 
       // Limpiar los campos del formulario
-      document.getElementById('title').value = '';
-      document.getElementById('description').value = '';
-      document.getElementById('price').value = '';
-      document.getElementById('categeory').value = '';
-      document.getElementById('thumbnail').value = '';
-      document.getElementById('code').value = '';
-      document.getElementById('stock').value = '';
+    //  document.getElementById('title').value = '';
+     // document.getElementById('description').value = '';
+      //document.getElementById('price').value = '';
+      //document.getElementById('categeory').value = '';
+      //document.getElementById('thumbnail').value = '';
+     // document.getElementById('code').value = '';
+   //   document.getElementById('stock').value = '';
     }
   })
 
   // Evento para eliminar un producto
-  document.getElementById('delete').addEventListener('click', (event) => {
-    event.preventDefault() 
+ // document.getElementById('delete').addEventListener('click', (event) => {
+   // event.preventDefault() 
 
-    const id = document.getElementById('id').value.trim();
+   // const id = document.getElementById('id').value.trim();
 
-    if (id !== '') {
+    if (//id !== '') {
       // Enviar el ID del producto a eliminar al servidor
-      socket.emit('deleteProduct', id)
-      document.getElementById('id').value = '';
+      //socket.emit('deleteProduct', id)
+      //document.getElementById('id').value = '';
     }
   })
 
  // Evento para recibir la lista de productos actualizada
-  socket.on('productAdded', async(products)=>{
+  //socket.on('productAdded', async(products)=>{
     await updateProductList(products)
 })
 
 // Evento después de eliminar un producto
-  socket.on('productDeleted', async(products) => {
-    await updateProductList(products);
+  //socket.on('productDeleted', async(products) => {
+    await updateProductList(products)
   })
 
 
  // Función para actualizar la lista de productos en la vista
-  function updateProductList(products) {
-    const productList = document.getElementById('table');
-    productList.innerHTML = `
+  function // updateProductList(products) {
+    const //productList = document.getElementById('table');
+    //productList.innerHTML = `
       <tr>
         <th>ID:</th>
         <th>Title:</th>
@@ -119,7 +135,7 @@ event.preventDefault() // Evitar el envío del formulario por defecto
     `
 
     products.forEach((product) => {
-      productList.innerHTML += `
+      //productList.innerHTML += `
         <tr>
           <td>${product.id}</td>
           <td>${product.title}</td>
@@ -133,4 +149,4 @@ event.preventDefault() // Evitar el envío del formulario por defecto
       `
     })
   }
-</script>
+</script> --}}
