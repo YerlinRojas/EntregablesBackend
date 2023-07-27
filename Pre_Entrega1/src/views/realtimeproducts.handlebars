@@ -2,8 +2,9 @@
 
 <hr>
 <h3>Formulario Ingreso de productos</h3>
-<form id="addProductForm" action="/products/create" method="POST">
-Id:<input name="id" type="number" id="id" placeholder="id" required>
+
+<form id="addProductForm" action="/api/products/create" method="POST">
+<div class="containerform">
 Title:<input name="title" type="text" id="title" placeholder="title" required>
 Description:<input name="description" type="text" id="description" placeholder="Description" required>
 Price:<input name="price" type="number" id="price" placeholder="Price" required>
@@ -12,6 +13,7 @@ Thumbnail:<input name="thumbnail" type="text" id="thumbnail" placeholder="thumbn
 Code:<input name="code" type="number" id="code" placeholder="code" required>
 Stock:<input name="stock" type="number" id="stock" placeholder="Stock" required>
   <input type="submit" value="Agregar producto">
+</div>
 </form> 
 
 

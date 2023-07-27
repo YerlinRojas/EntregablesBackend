@@ -1,38 +1,29 @@
-<h1>Lista de productos</h1>
+  <title>Lista de Productos</title>
 
-<table class="default" border="1px">
+  <h1>Lista de Productos</h1>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Título</th>
+      <th>Descripción</th>
+      <th>Precio</th>
+      <th>Categoría</th>
+      <th>Thumbnail</th>
+      <th>Código</th>
+      <th>Stock</th>
+      <th>Eliminar</th>
+    </tr>
     {{#each productsList}}
     <tr>
-    <th>ID:</th>
-    <td>{{this._id}}</td> 
+      <td>{{this._id}}</td>
+      <td>{{this.title}}</td>
+      <td>{{this.description}}</td>
+      <td>{{this.price}}</td>
+      <td>{{this.category}}</td>
+      <td><img src="{{this.thumbnail}}" alt="Thumbnail" width="50"></td>
+      <td>{{this.code}}</td>
+      <td>{{this.stock}}</td>
+      <td><a href="/api/products/delete/{{this._id}}">🗑</a></td>
     </tr>
-    <tr>
-    <th>Title:</th>
-    <td>{{this.title}}</td>
-    </tr>
-    <tr>
-    <th>Description:</th>
-    <td>{{this.description}}</td>
-    </tr>
-    <tr>
-    <th>Price:</th>
-    <td>{{this.price}}</td>
-    </tr>
-    <tr>
-    <th>Category:</th>
-    <td>{{this.category}}</td> 
-    </tr>
-    <tr>
-    <th>Thumbnail:</th>
-    <td>{{this.thumbnail}}</td>
-    </tr>
-    <tr>
-    <th>Code:</th>
-    <td>{{this.code}}</td>
-    </tr>
-    <tr>
-    <th>Stock:</th>
-    <td>{{this.stock}}</td>
-    </tr>
-  {{/each}}
-</table>
+    {{/each}}
+  </table>

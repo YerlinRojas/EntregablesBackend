@@ -1,0 +1,78 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  h1 {
+    text-align: center;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  td a {
+    color: #ff0000;
+    text-decoration: none;
+  }
+  td a:hover {
+    text-decoration: underline;
+  }
+
+.chat-box {
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: rgb(154, 225, 241);
+  border-radius: 5px;
+}
+.message {
+  margin-bottom: 10px;
+  padding: 5px;
+  
+}
+
+.formChat {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="submit"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button[type="submit"] {
+  background-color: #4e6161;
+  color: white;
+  cursor: pointer;
+}
+
+h5 {
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.containerform{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 25px;
+}

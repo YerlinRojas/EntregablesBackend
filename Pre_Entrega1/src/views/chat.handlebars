@@ -1,0 +1,24 @@
+
+  <h1>Chat</h1>
+
+  <div class="chat-box">
+
+    {{#each username}}
+    <div id="logs" class="message">
+      <strong>{{this.user}}</strong>: {{this.message}}
+    </div>
+    {{/each}}
+  </div>
+
+  
+  <form class="formChat" action="/chat/message" method="post">
+    <label for="message">Mensaje:</label>
+    <input type="text" name="message" id="message" required>
+    <button type="submit">Enviar mensaje</button>
+  </form>
+
+  <form class="formChat" id="userName" action="/chat/username" method="POST">
+    Username: <input name="user" type="text" id="username" placeholder="username" required>
+    <button type="submit">Guardar nombre de usuario</button>
+  </form>
+

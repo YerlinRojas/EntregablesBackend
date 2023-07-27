@@ -3,6 +3,7 @@ import productRouter from './routes/product.route.js'
 import cartRouter from './routes/cart.route.js'
 import viewsRouter from './routes/views.route.js'
 import ProductManager from './dao/manager/product.manager.js'
+import chatRouter from './routes/chat.route.js'
 
 import handlebars from 'express-handlebars'
 import { Server } from 'socket.io'
@@ -15,10 +16,14 @@ app.use(express.json())
 //cuando pasamos info por la url
 app.use(express.urlencoded({extended:true}))
 
-//routes
+
+//routes filemanager
 app.use('/', viewsRouter)
-app.use('/products', productRouter)
-app.use('/carts', cartRouter)
+app.use('/home', viewsRouter)
+app.use('/realtimeproducts', viewsRouter)
+app.use('/api/products', productRouter)
+app.use('/api/carts', cartRouter)
+app.use('/chat', chatRouter)
 
 //config handlebars
 app.engine('handlebars', handlebars.engine())
@@ -40,37 +45,19 @@ mongoose.connect(URL,{
       // Corremos el server
       const server = app.listen(8080, () => console.log('Listening...'))
       server.on('error', e => console.error(e))
-  })
-  .catch(e => {
-      console.log("Can't connect to DB")
-  })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-//congi socket io
-/* 
-const PORT = process.env.PORT || 8080
-const httpServer = app.listen(PORT, () => console.log("Listening...")) */
-/* const io = new Server(httpServer) */
-/* 
-const productManager = new ProductManager()
-
-io.on('connection', (socket) => {
-    console.log('New client connected')
+      const productManager = new ProductManager()
+      //configuracion socket io
+      const io = new Server(httpServer)
+      const messages = []
+      io.on('connection', socket => {
+      socket.on('new', user => console.log(`${user} se acaba de conectar`))
+    
+      //chat
+      socket.on('message', data => {
+        messages.push(data)
+        io.emit('logs', messages)
+    })
 
     //Agrega porducto por el productManager import
     socket.on('addProduct', async(data) => {
@@ -91,7 +78,23 @@ io.on('connection', (socket) => {
       console.log('Client disconnected')
     })
 
-  }); */
+  })
+
+  })
+  .catch((e) => {
+      console.log("Can't connect to DB")
+  })
+
+
+
+
+
+
+
+
+
+
+
 
 
 
