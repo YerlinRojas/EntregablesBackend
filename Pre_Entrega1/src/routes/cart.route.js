@@ -64,12 +64,12 @@ router.post('/:cid/product/:pid', async (req, res) => {
     await cart.product.push({id: pid, quantity})
     const result = await cart.save()
     res.send(result)
+
+     const populatedCart = await cartModel.findById(cid).populate('product.id')
+
+    console.log(JSON.stringify(populatedCart, null, '\t'))
     
-    if (result) {
-        res.status(200).json(result);
-    } else {
-        res.status(404).json({ error: 'Cart no encontrado' })
-    }
+   
     } catch (error) {
     console.error('Error agregando producto :', error);
     res.status(500).json({ error: 'Internal server error' })

@@ -81,7 +81,7 @@ export default router
 
 
 //const productManager = new ProductManager()
-
+/* 
  router.get('/', async(req,res)=>{
     try {
     
@@ -147,3 +147,4 @@ router.delete('/:pid', async(req,res)=>{
     }
   
 })
+ */
