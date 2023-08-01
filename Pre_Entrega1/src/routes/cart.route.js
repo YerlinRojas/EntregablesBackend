@@ -24,14 +24,15 @@ router.post('/',async(req,res)=>{
 //CART POR ID   
 router.get('/:cid',async(req,res)=>{
     try {
-    const cid = req.params.cid
-    const result = await cartModel.findById(cid)
-    res.send(result)
-    if (result) {
-        res.status(200).json(result);
-    } else {
-        res.status(404).json({ error: 'Cart no encontrado' })
-    }    
+        const cid = req.params.cid;
+        const result = await cartModel.find({ _id: cid }).explain('executionStats');
+        //index para performance
+        res.send(result)
+
+        const populatedCart = await cartModel.findById(cid).populate('product.id')
+        //tambien lo puedo generar dentro del schema
+        console.log(JSON.stringify(populatedCart, null, '\t'))
+    
     } catch (error) {
         console.error('Error al obtener producto por id:', error);
         res.status(500).json({ error: 'Internal server error' })
@@ -43,7 +44,7 @@ router.get('/',async(req,res)=>{
     try {
     
     const cartList = await cartModel.find()
-    console.log({cartList}) 
+    /* console.log({cartList})  */
     res.status(200).json(cartList);
     
     } catch (error) {
@@ -65,11 +66,6 @@ router.post('/:cid/product/:pid', async (req, res) => {
     const result = await cart.save()
     res.send(result)
 
-     const populatedCart = await cartModel.findById(cid).populate('product.id')
-
-    console.log(JSON.stringify(populatedCart, null, '\t'))
-    
-   
     } catch (error) {
     console.error('Error agregando producto :', error);
     res.status(500).json({ error: 'Internal server error' })

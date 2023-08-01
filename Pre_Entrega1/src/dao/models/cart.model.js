@@ -5,10 +5,13 @@ const cartCollection = 'cart'
 
 const cartSchema = new mongoose.Schema({
     product: {
+
         type:[{
             id: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'product' 
+                ref: 'product' ,
+                index: true
+
             },
             quantity: Number
         }]

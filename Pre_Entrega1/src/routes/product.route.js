@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { Router, query } from 'express'
 import ProductManager from '../dao/manager/product.manager.js'
 import productModel from '../dao/models/product.model.js'
 
@@ -10,7 +10,7 @@ const router = Router()
 router.get('/', async(req,res)=>{
     try {
         const productsList = await productModel.find()
-        console.log({productsList})
+        console.log('Desde el back:',{productsList})
         res.send(productsList)
         
     } catch (error) {
