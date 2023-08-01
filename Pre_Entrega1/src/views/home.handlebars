@@ -1,5 +1,12 @@
   <title>Lista de Productos</title>
+  <div>
+  
+    <a href="/home?sort=asc">Ascendente</a>
+ 
+    <a href="/home?sort=desc">Descendente</a>
 
+    
+  </div>
   <h1>Lista de Productos</h1>
   <table>
     <tr>
@@ -13,7 +20,7 @@
       <th>Stock</th>
       <th>Eliminar</th>
     </tr>
-    {{#each result}}
+    {{#each docs}}
     <tr>
     <td>{{this._id}}</td>
     <td>{{this.title}}</td>
@@ -29,11 +36,9 @@
   </table>
 
   <div>
-    {{#if hasPrevPage}}
-    <a href="{{prevLink}}">Anteriror</a>
-    {{/if}}
     {{#if hasNextPage}}
-  <a href="{{nextLink}}">Siguiente</a>
+    <a href="{{prevLink}}">Anteriror</a>
+    <a href="{{nextLink}}">Siguiente</a>
   {{/if}}
     
     
