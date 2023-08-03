@@ -12,6 +12,21 @@ router.get("/", (req, res) => {
     res.render("index", {});
 });
 
+//productos dentro del carts
+router.get('/carts/:cid',async(req,res)=>{
+    try {
+        const result = await cartModel.find({ _id: cid })
+        result.cid = cid
+        res.send(result)
+        res.render('/carts', {result})
+    
+    } catch (error) {
+        console.error('Error al obtener producto por id:', error);
+        res.status(500).json({ error: 'Internal server error' })
+    }
+}) 
+
+
 //esta ruta renderiza products en cards
 router.get("/products", async (req, res) => {
     try {

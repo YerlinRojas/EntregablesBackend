@@ -13,11 +13,8 @@ router.post('/',async(req,res)=>{
 
     const cartList = new cartModel()
     await cartList.save()
-
-    
     console.log({cartList})
 
-    res.status(200).json({ cartId: cartList._id });
     res.send(cartList)
 
 
@@ -33,11 +30,13 @@ router.get('/:cid',async(req,res)=>{
         const cid = req.params.cid;
         const result = await cartModel.find({ _id: cid }).explain('executionStats');
         //index para performance
-        res.send(result)
+        //res.send(result)
 
         const populatedCart = await cartModel.findById(cid).populate('product.id')
         //tambien lo puedo generar dentro del schema
         console.log(JSON.stringify(populatedCart, null, '\t'))
+
+        res.render('carts', {result})
     
     } catch (error) {
         console.error('Error al obtener producto por id:', error);
@@ -163,6 +162,8 @@ router.get('/delete/:cid', async(req,res)=>{
         res.status(500).json({error: 'Internal server error'})
     }
 })
+
+
 
 export default router
 
