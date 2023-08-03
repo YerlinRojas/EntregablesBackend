@@ -12,19 +12,6 @@ router.get("/", (req, res) => {
     res.render("index", {});
 });
 
-//productos dentro del carts
-router.get('/carts/:cid',async(req,res)=>{
-    try {
-        const result = await cartModel.find({ _id: cid })
-        result.cid = cid
-        res.send(result)
-        res.render('/carts', {result})
-    
-    } catch (error) {
-        console.error('Error al obtener producto por id:', error);
-        res.status(500).json({ error: 'Internal server error' })
-    }
-}) 
 
 
 //esta ruta renderiza products en cards
@@ -131,5 +118,25 @@ router.get("/realtimeproducts", async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
+// Vista del carrito específico
+router.get('/carts/:cartId', async (req, res) => {
+    try {
+        const cartId = req.params.cartId;
+        const cart = await cartModel.findById(cartId).lean().exec();
+
+        if (!cart) {
+           
+            return res.status(404).json({ error: 'Cart not found' });
+        }
+
+
+        res.render('carts', { cart });
+    } catch (error) {
+        console.error('Error obteniendo el carrito por id:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 
 export default router;

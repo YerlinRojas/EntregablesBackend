@@ -30,13 +30,11 @@ router.get('/:cid',async(req,res)=>{
         const cid = req.params.cid;
         const result = await cartModel.find({ _id: cid }).explain('executionStats');
         //index para performance
-        //res.send(result)
-
+        res.send(result)
         const populatedCart = await cartModel.findById(cid).populate('product.id')
-        //tambien lo puedo generar dentro del schema
         console.log(JSON.stringify(populatedCart, null, '\t'))
 
-        res.render('carts', {result})
+        
     
     } catch (error) {
         console.error('Error al obtener producto por id:', error);
