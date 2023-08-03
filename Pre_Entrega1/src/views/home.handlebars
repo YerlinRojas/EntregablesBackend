@@ -1,14 +1,28 @@
   <title>Lista de Productos</title>
-  <div>
-  
-    <a href="/home?sort=asc">Ascendente</a>
- 
-    <a href="/home?sort=desc">Descendente</a>
-
-    
+  <div class="containerFiltro">
+    <h6>Filtro por Precio</h6>
+    <a href="/home?sort=asc">De Menor a Mayor</a>
+    <a href="/home?sort=desc">De Mayor a Menor</a>
   </div>
+
+  <div>
+    <form action="/home" method="get">
+  <label for="query">Filtrar por:</label>
+  <select name="field" id="query">
+    <option value="title">Título</option>
+    <option value="description">Descripción</option>
+    <option value="price">Precio</option>
+    <option value="category">Categoría</option>
+    <option value="stock">Stock</option>
+    <option value="code">Codigo</option>
+  </select>
+  <input type="text" name="value" placeholder="Valor" />
+  <button type="submit">Filtrar</button>
+</form>
+  </div>
+
   <h1>Lista de Productos</h1>
-  <table>
+  <table class="containerTable">
     <tr>
       <th>ID</th>
       <th>Título</th>
@@ -35,11 +49,9 @@
     {{/each}}
   </table>
 
-  <div>
+  <div class="containerPag">
     {{#if hasNextPage}}
     <a href="{{prevLink}}">Anteriror</a>
     <a href="{{nextLink}}">Siguiente</a>
   {{/if}}
-    
-    
   </div>

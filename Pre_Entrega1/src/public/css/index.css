@@ -1,5 +1,6 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #fafaf7;
   }
   h1 {
     text-align: center;
@@ -75,4 +76,29 @@ h5 {
   flex-direction: column;
   width: 300px;
   margin: 25px;
+}
+
+.containerFiltro{
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.containerPag{
+  margin-left: 50%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.row{
+  margin: 15px;
+}
+
+.card{
+  margin: 15px;
+  
+}
+
+.containerTable{
+  background-color: white;
 }

@@ -1,0 +1,55 @@
+
+  
+  <title>Productos</title>
+
+  <div class="containerFiltro">
+    <h6>Filtro por Precio</h6>
+    <a href="/products?sort=asc">De Menor a Mayor</a>
+    <a href="/products?sort=desc">De Mayor a Menor</a>
+  </div>
+
+
+  <div>
+    <form action="/products" method="get">
+  <label for="query">Filtrar por:</label>
+  <select name="field" id="query">
+    <option value="title">Título</option>
+    <option value="description">Descripción</option>
+    <option value="price">Precio</option>
+    <option value="category">Categoría</option>
+    <option value="stock">Stock</option>
+    <option value="code">Codigo</option>
+  </select>
+  <input type="text" name="value" placeholder="Valor" />
+  <button type="submit">Filtrar</button>
+</form>
+  </div>
+
+<div class="row">
+{{#each docs}}
+<div class="card" style="width: 18rem;">
+  <img src="{{this.thumbail}}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{this.title}}</h5>
+    <h6 class="card-title">Codigo : {{this.code}}</h6>
+    <h6 class="card-title">categoria : {{this.title}}</h6>
+    <p class="card-text">{{this.description}}</p>
+    <h5 class="card-title">Precio : {{this.price}}</h5>
+    <h6 class="card-title">Stock : {{this.stock}}</h6>
+    
+    <form action="/cart/{{cartId}}/product/{{this._id}}" method="post">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit" class="btn btn-primary">Agregar al Carrito</button>
+    </form>
+    
+  </div>
+</div>
+{{/each}}
+</div>
+
+  <div class="containerPag">
+    {{#if hasNextPage}}
+    <a href="{{prevLink}}">Anteriror</a>
+    <a href="{{nextLink}}">Siguiente</a>
+  {{/if}}
+  </div>

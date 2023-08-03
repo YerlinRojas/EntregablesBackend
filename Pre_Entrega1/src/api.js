@@ -20,6 +20,7 @@ app.use(express.urlencoded({extended:true}))
 //routes filemanager
 app.use('/', viewsRouter) //Index
 app.use('/home', viewsRouter) //Lista de products
+app.use('/products', viewsRouter)//Prodcutos en cards
 app.use('/realtimeproducts', viewsRouter) //formulario para incluir product
 app.use('/api/products', productRouter)
 app.use('/api/carts', cartRouter)

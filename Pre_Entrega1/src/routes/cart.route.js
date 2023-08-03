@@ -10,11 +10,17 @@ const router = Router()
 //crear carrito
 router.post('/',async(req,res)=>{
     try {
+
     const cartList = new cartModel()
     await cartList.save()
-    console.log({cartList})
-    res.status(200).json(cartList);
+
     
+    console.log({cartList})
+
+    res.status(200).json({ cartId: cartList._id });
+    res.send(cartList)
+
+
     } catch (error) {
         console.error('Error al enviar el producto:', error);
         res.status(500).json({ error: 'Internal server error' })
