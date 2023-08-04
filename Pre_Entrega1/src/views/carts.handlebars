@@ -1,14 +1,14 @@
   <h1>Productos dentro del carrito</h1>
   <table class="containerTable">
     <tr>
-      <th>Title</th>
-      <th>quantity</th>
+      <th>ID</th>
+      <th>Quantity</th>
       <th>Eliminar</th>
     </tr>
     {{#each cart.product}}
     <tr>
-    <td>{{this.product._id}}</td>
-    <td>{{this.product.quantity}}</td>
+    <td>{{this._id}}</td>
+    <td>{{this.quantity}}</td>
     <td><a href="">🗑</a></td>
     </tr>
     {{/each}}

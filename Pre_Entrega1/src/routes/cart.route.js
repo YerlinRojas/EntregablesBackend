@@ -64,10 +64,12 @@ router.post('/:cid/product/:pid', async (req, res) => {
     const pid = req.params.pid
     const quantity = req.query.quantity || 1
 
+        console.log(cid)
     const cart = await cartModel.findById(cid)
     await cart.product.push({id: pid, quantity})
     const result = await cart.save()
-    res.send(result)
+    
+    res.redirect('/products')
 
     } catch (error) {
     console.error('Error agregando producto :', error);

@@ -15,13 +15,9 @@ router.get("/", (req, res) => {
 
 
 //esta ruta renderiza products en cards
-router.get("/products", async (req, res) => {
+router.get('/products', async (req, res) => {
     try {
 
-        //crea el carrito     
-        const cartList = new cartModel()
-        const cart = await cartList.save()
-        console.log({cartList})
         //----------------------------------------------------------------
         //opciones de filtrado
         const limit = parseInt(req.query?.limit || 10);
@@ -48,17 +44,25 @@ router.get("/products", async (req, res) => {
             sort,
         });
 
-        productsList.prevLink = productsList.hasPrevPage
-            ? `/products?page=${productsList.prevPage}&limit=${limit}`
-            : "";
-        productsList.nextLink = productsList.hasNextPage
-            ? `/products?page=${productsList.nextPage}&limit=${limit}`
-            : "";
+        productsList.prevLink = productsList.hasPrevPage? `/products?page=${productsList.prevPage}&limit=${limit}`: "";
+        productsList.nextLink = productsList.hasNextPage? `/products?page=${productsList.nextPage}&limit=${limit}`: "";
         //-------------------------------------------------------------
-        res.render("products", { docs: productsList, cartId: cart._id });
+        const cartListAll = await cartModel.find()
+        let cartId
+
+        if(cartListAll.length > 0){
+            cartId = cartListAll[0]._id
+        }else{
+        const cartList = new cartModel();
+        const cart = await cartList.save();
+        cartId = cart._id;
+        console.log(cartId) 
+        }
+
+        res.render("products", { products: productsList, cartId })
         
 
-
+    
 
     } catch (error) {
         console.error("Error obteniendo el producto:", error);
@@ -120,14 +124,14 @@ router.get("/realtimeproducts", async (req, res) => {
 });
 
 // Vista del carrito específico
-router.get('/carts/:cartId', async (req, res) => {
+router.get('/:cartId', async (req, res) => {
     try {
         const cartId = req.params.cartId;
         const cart = await cartModel.findById(cartId).lean().exec();
 
         if (!cart) {
            
-            return res.status(404).json({ error: 'Cart not found' });
+            return res.status(404).json({ error: 'Cart no encontrado' });
         }
 
 
