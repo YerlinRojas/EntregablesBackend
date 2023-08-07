@@ -13,6 +13,24 @@ router.get("/", (req, res) => {
 });
 
 
+//rutas para users 
+//login
+router.get('/login', (req, res) => {
+    if(req.session?.user) {
+        res.redirect('/register')
+    }
+    res.render('login', {})
+})
+
+//registrase
+router.get('/register', (req, res) => {
+
+    res.render('register', {})
+})
+
+
+
+
 
 //esta ruta renderiza products en cards
 router.get('/products', async (req, res) => {
@@ -130,7 +148,6 @@ router.get('/:cartId', async (req, res) => {
         const cart = await cartModel.findById(cartId).lean().exec();
 
         if (!cart) {
-           
             return res.status(404).json({ error: 'Cart no encontrado' });
         }
 
