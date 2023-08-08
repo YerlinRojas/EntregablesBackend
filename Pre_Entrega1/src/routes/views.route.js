@@ -4,37 +4,50 @@ import { Router } from "express";
 import ProductManager from "../dao/manager/product.manager.js";
 import productModel from "../dao/models/product.model.js";
 import cartModel from "../dao/models/cart.model.js";
+import userModel from "../dao/models/user.model.js";
 
 const router = Router();
 const productManager = new ProductManager();
 
-router.get("/", (req, res) => {
+router.get("/index", (req, res) => {
     res.render("index", {});
 });
 
 
 //rutas para users 
 //login
-router.get('/login', (req, res) => {
+router.get('/', (req, res) => {
+    //si esta logeado entra al los products
     if(req.session?.user) {
-        res.redirect('/register')
+        res.redirect('/products')
     }
     res.render('login', {})
 })
 
+
 //registrase
 router.get('/register', (req, res) => {
+    if(req.session?.user) {
+        res.redirect('/products')
+    }
 
     res.render('register', {})
 })
 
-
-
+//esta autorizacion es para saber si el user esta
+//logeado pasa
+//sino esta registrado manda al login
+function auth(req, res, next) {
+    if(req.session?.user) return next()
+    res.redirect('/')
+}
 
 
 //esta ruta renderiza products en cards
-router.get('/products', async (req, res) => {
+router.get('/products',auth, async (req, res) => {
     try {
+        //parametros de user
+        const user = req.session.user
 
         //----------------------------------------------------------------
         //opciones de filtrado
@@ -77,7 +90,7 @@ router.get('/products', async (req, res) => {
         console.log(cartId) 
         }
 
-        res.render("products", { products: productsList, cartId })
+        res.render("products", { products: productsList, cartId, user })
         
 
     

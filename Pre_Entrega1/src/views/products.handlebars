@@ -1,6 +1,12 @@
 
   
+  <h1>Bienvenido {{first_name}}</h1>
   <title>Productos</title>
+
+    <form class="containerFiltro" action="api/session/logout" method="get"> 
+        <input type="hidden" name="loguot" value="1">
+        <button type="submit" class="btn btn-primary">Loguot</button>
+    </form>
 
     <form class="containerFiltro" action="carts/{{cartId}}" method="get"> 
         <input type="hidden" name="quantity" value="1">

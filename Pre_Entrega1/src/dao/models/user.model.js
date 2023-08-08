@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const userCollection = 'users'
 
 const userSchema = new mongoose.Schema({
@@ -7,7 +8,8 @@ const userSchema = new mongoose.Schema({
     last_name : String,
     age: Number,
     email : String,
-    password: String
+    password: String,
+    role: { type: String, default: 'user' }
 })
 
 const userModel = new mongoose.model(userCollection, userSchema)
