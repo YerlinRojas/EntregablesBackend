@@ -26,7 +26,6 @@ router.post('/create', async(req,res)=>{
     try {
         const newProduct = req.body
         console.log ('params from form:', {newProduct})
-  
         const newProductGenerated = new productModel(newProduct)
         await newProductGenerated.save()
 

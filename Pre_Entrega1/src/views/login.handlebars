@@ -1,19 +1,12 @@
 <h1>Login</h1>
 
-<h1>
-    Si no estás registrado, regístrate.
-</h1>
-<br>
-<h2>Si estás registrado, ingresa tu Login</h2>
-
-{{!-- link al registro --}}
-
-
 {{!-- Formulario de inicio de sesión --}}
-<form id="login" action="/api/session/login" method="POST">
+<form id="login" action="api/session/login" method="post">
     <div class="containerform">
         Email:<input name="email" type="text" id="email" placeholder="email" required>
         Password:<input name="password" type="password" id="password" placeholder="password" required>
         <input type="submit" value="Login">
     </div>
 </form>
+{{!-- link al registro --}}
+<a href="/register">Registrate</a>

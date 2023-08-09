@@ -16,7 +16,7 @@ router.get("/index", (req, res) => {
 
 //rutas para users 
 //login
-router.get('/', (req, res) => {
+router.get('/login', (req, res) => {
     //si esta logeado entra al los products
     if(req.session?.user) {
         res.redirect('/products')
@@ -38,10 +38,12 @@ router.get('/register', (req, res) => {
 //logeado pasa
 //sino esta registrado manda al login
 function auth(req, res, next) {
-    if(req.session?.user) return next()
-    res.redirect('/')
+    if (req.session?.user) {
+        return next()
+    } else {
+        return res.redirect('/login')
+    }
 }
-
 
 //esta ruta renderiza products en cards
 router.get('/products',auth, async (req, res) => {
@@ -90,7 +92,7 @@ router.get('/products',auth, async (req, res) => {
         console.log(cartId) 
         }
 
-        res.render("products", { products: productsList, cartId, user })
+        res.render('products', { products: productsList, cartId, user })
         
 
     
@@ -101,7 +103,7 @@ router.get('/products',auth, async (req, res) => {
     }
 });
 
-//esta ruta renderiza
+//esta ruta renderiza lista de productos
 router.get("/home", async (req, res) => {
     try {
         const limit = parseInt(req.query?.limit || 10);

@@ -8,7 +8,7 @@ router.post('/login', async (req, res) => {
 try {
     const { email, password } = req.body
     const user = await userModel.findOne({ email, password })
-/* 
+
     if (!user) {
         return res.redirect('/register')
     }
@@ -18,8 +18,8 @@ try {
         user.role = 'admin'
     } else {
         user.role = 'user'
-    }
- */
+    } 
+ 
     // Asigna el usuario antes de guardarlo en la sesión
     req.session.user = user
 
@@ -27,7 +27,7 @@ try {
 
 } catch (error) {
     console.error('error al enviar login', error)
-    return res.redirect('/')
+    return res.redirect('/login')
 }
 
     
@@ -55,7 +55,7 @@ router.get('/logout', (req, res) => {
         }
 
 
-        res.redirect('/')
+        res.redirect('/login')
     })
 })
 
