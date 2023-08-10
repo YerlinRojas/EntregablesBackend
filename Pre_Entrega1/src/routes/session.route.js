@@ -13,12 +13,6 @@ try {
         return res.redirect('/register')
     }
 
-    // Valida el admin
-    if (user.email === 'adminCoder@coder.com' && user.password === 'adminCod3r123') {
-        user.role = 'admin'
-    } else {
-        user.role = 'user'
-    } 
  
     // Asigna el usuario antes de guardarlo en la sesión
     req.session.user = user

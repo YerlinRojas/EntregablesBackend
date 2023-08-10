@@ -9,7 +9,7 @@ import userModel from "../dao/models/user.model.js";
 const router = Router();
 const productManager = new ProductManager();
 
-router.get("/index", (req, res) => {
+router.get(('/'), (req, res) => {
     res.render("index", {});
 });
 

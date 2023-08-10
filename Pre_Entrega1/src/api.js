@@ -51,7 +51,7 @@ app.use(session({
 }))
 
 //routes 
-app.use('/index', viewsRouter) //Index
+app.use('/', viewsRouter) //Index
 app.use('/home', viewsRouter) //Lista de products
 app.use('/products', viewsRouter)//Prodcutos en cards
 app.use('/realtimeproducts', viewsRouter) //formulario para incluir product
@@ -116,16 +116,6 @@ mongoose.connect(URL, {dbName:dbName})
   .catch((e) => {
       console.log("Can't connect to DB", e)
   })
-
-
-
-
-
-
-
-
-
-
 
 
 
