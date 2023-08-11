@@ -2,7 +2,7 @@ import { Router } from "express";
 import userModel from "../dao/models/user.model.js";
 
 const router = Router ()
-
+//---------------------------------------------------
 //LOGIN
 router.post('/login', async (req, res) => {
 try {
@@ -13,20 +13,23 @@ try {
         return res.redirect('/register')
     }
 
- 
     // Asigna el usuario antes de guardarlo en la sesión
     req.session.user = user
+    const userName = await userModel.find(user)
+    console.log('este es el usuario',userName)
+  
 
-    return res.redirect('/products')
+    return res.send('/products', {user})
+    //aca envio el USER--------------------
 
 } catch (error) {
     console.error('error al enviar login', error)
     return res.redirect('/login')
 }
-
     
 })
 
+//---------------------------------------------------
 //REGISTRO
 router.post('/register', async (req, res) => {
     const user = req.body

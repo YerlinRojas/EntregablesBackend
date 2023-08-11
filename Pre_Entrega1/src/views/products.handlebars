@@ -1,10 +1,13 @@
 
-  
-  <h1>Bienvenido {{first_name}}</h1>
-  <title>Productos</title>
+
+
+
+  <h1>Bienvenido {{user.firts_name}}</h1>
+
+{{!-- parametro user NO renderiza  --}}
 
     <form class="containerFiltro" action="api/session/logout" method="get"> 
-        <input type="hidden" name="loguot" value="1">
+        <input type="hidden" name="logout" value="1">
         <button type="submit" class="btn btn-primary">Loguot</button>
     </form>
 

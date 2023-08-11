@@ -91,8 +91,8 @@ router.get('/products',auth, async (req, res) => {
         cartId = cart._id;
         console.log(cartId) 
         }
-
-        res.render('products', { products: productsList, cartId, user })
+        //-----------------------------------------------------------
+        res.render('products', { products: productsList, cartId, user})
         
 
     
