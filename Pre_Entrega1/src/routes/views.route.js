@@ -5,14 +5,36 @@ import ProductManager from "../dao/manager/product.manager.js";
 import productModel from "../dao/models/product.model.js";
 import cartModel from "../dao/models/cart.model.js";
 import userModel from "../dao/models/user.model.js";
+import passport from "passport";
+
 
 const router = Router();
 const productManager = new ProductManager();
 
-router.get(('/'), (req, res) => {
+router.get('/', (req, res) => {
     res.render("index", {});
 });
 
+router.get('/login-github', 
+
+    passport.authenticate('github', { scope: ['user:email'] }),
+    async (req, res) => { })
+
+router.get('/githubcallback',
+    passport.authenticate('github', { failureRedirect: '/' }),
+    async (req, res) => {
+        try {
+            console.log('CALLBACK GITHUB', req.user)
+            req.session.user = req.user
+            console.log(req.session)
+            res.redirect('/products')
+
+        } catch (error) {
+            console.error('error git call back', error)
+        }
+
+    }
+)
 
 //rutas para users 
 //login

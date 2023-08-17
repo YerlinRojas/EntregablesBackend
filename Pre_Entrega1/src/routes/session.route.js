@@ -61,7 +61,7 @@ router.get('/githubcallback',
             console.log('callback', req.user)
             req.session.user = req.user
             console.log(req.session)
-            res.redirect('/products')
+            res.redirect('/')
 
         } catch (error) {
             console.error('error git call back', error)
