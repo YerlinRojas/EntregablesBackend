@@ -7,6 +7,8 @@ import chatRouter from './routes/chat.route.js'
 import sessionRouter from './routes/session.route.js'
 import http from 'http'
 
+import passport from 'passport'
+import initializePassport from './config/passport.config.js'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import handlebars from 'express-handlebars'
@@ -63,8 +65,13 @@ app.use('/api/products', productRouter)
 app.use('/api/carts', cartRouter)
 app.use('/chat', chatRouter)
 
+// Passport
+initializePassport()
+app.use(passport.initialize())
+app.use(passport.session())
 
 
+//connect mongo DB
 mongoose.connect(URL, {dbName:dbName})
   .then(() => {
       console.log('DB connected!!')
