@@ -1,28 +1,20 @@
 import passport from "passport";
 import local from 'passport-local'
+import GitHubStrategy from 'passport-github2'
 import UserModel from "../dao/models/user.model.js"
 import { createHash, isValidPassword } from "../utils.js";
-import GitHubStrategy from 'passport-github2'
 import userModel from "../dao/models/user.model.js";
 
-/* 
-App ID: 377000
-
-Client ID: Iv1.043eb05662c99216
-
-51941ba5e5b1533512ff627c4c1568a06fcb38b9
-*/
-       
 
 const LocalStrategy = local.Strategy
 
-const initializePassport = () => {
+const initializePassport = () => { 
     // GitHub login
     passport.use('github', new GitHubStrategy(
         {
             clientID: 'Iv1.043eb05662c99216',
-            secret : '446690ec2587f4f2b0d608b634e17056eee8844b',
-            callbackURL: 'http://localhost:8080/githubcallback'
+            secret : '4053b445c53e5870baca83eb22eb129a279d04ff',
+            callbackURL: 'http://127.0.0.1:8080/api/session/githubcallback'
         },
         async (accessToken, refreshToken, profile, done) => {
             console.log('GitHub Profile:', profile); 

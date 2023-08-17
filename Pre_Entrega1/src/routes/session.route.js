@@ -5,41 +5,41 @@ import passport from "passport";
 
 
 
-const router = Router ()
+const router = Router()
 //---------------------------------------------------
 //LOGIN
 
 router.post(
-'/login', 
-passport.authenticate('login','/products'),
-async(req , res)=>{
-    try {
+    '/login',
+    passport.authenticate('login', '/products'),
+    async (req, res) => {
+        try {
 
-    if (!req.user) return res.status(400)
-    req.session.user = req.user
-    return res.redirect('/products')
+            if (!req.user) return res.status(400)
+            req.session.user = req.user
+            return res.redirect('/products')
 
-    } catch (error) {
-        console.error('error al enviar login', error)
-        return res.redirect('/login')
+        } catch (error) {
+            console.error('error al enviar login', error)
+            return res.redirect('/login')
+        }
     }
-}
 )
 
 //REGISTER
-router.post('/register', passport.authenticate('register', {failureRedirect: '/register'}),
-async(req,res)=>{
-try {
-    res.redirect('/login')
-} catch (error) {
-    console.error('error al registrar', error)
-        return res.redirect('/register')
-}
-})
+router.post('/register', passport.authenticate('register', { failureRedirect: '/register' }),
+    async (req, res) => {
+        try {
+            res.redirect('/login')
+        } catch (error) {
+            console.error('error al registrar', error)
+            return res.redirect('/register')
+        }
+    })
 
 //LOGOUT
 router.get('/logout', (req, res) => {
-    
+
     req.session.destroy((err) => {
         if (err) {
             console.error('Error destroying session:', err)
@@ -48,25 +48,30 @@ router.get('/logout', (req, res) => {
     })
 })
 
-//GITHUB
-router.get('/login-github',
+//GITHUB---------------------------------------------------------------
+router.get('/login-github', 
 
-passport.authenticate('github', {scope: ['user:email']}),
-async(req, res)=>{
-}
-)
+    passport.authenticate('github', { scope: ['user:email'] }),
+    async (req, res) => { })
 
 router.get('/githubcallback',
-passport.authenticate('github', {failureRedirect: '/'}),
-async(req,res)=>{
-    console.log('callback', req.user)
-    req.session.user = req.user
-    console.log(req.session)
-    res.redirect('/products')
-}
+    passport.authenticate('github', { failureRedirect: '/' }),
+    async (req, res) => {
+        try {
+            console.log('callback', req.user)
+            req.session.user = req.user
+            console.log(req.session)
+            res.redirect('/products')
+
+        } catch (error) {
+            console.error('error git call back', error)
+        }
+
+    }
 )
 
 export default router
+
 
 
 
@@ -91,7 +96,7 @@ try {
     req.session.user = user
     const userName = await userModel.find(user)
     console.log('este es el usuario',userName)
-  
+
 
     return res.send('/products', {user})
     //aca envio el USER--------------------
@@ -100,7 +105,7 @@ try {
     console.error('error al enviar login', error)
     return res.redirect('/login')
 }
-    
+
 }) */
 
 

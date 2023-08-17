@@ -52,23 +52,18 @@ app.use(session({
   saveUninitialized: true,
 }))
 
-//routes 
-app.use('/', viewsRouter) //Index
-app.use('/home', viewsRouter) //Lista de products
-app.use('/products', viewsRouter)//Prodcutos en cards
-app.use('/realtimeproducts', viewsRouter) //formulario para incluir product
-app.use('/carts', viewsRouter)//cart 
-app.use('/', viewsRouter)// login 
-
-app.use('/api/session', sessionRouter)
-app.use('/api/products', productRouter)
-app.use('/api/carts', cartRouter)
-app.use('/chat', chatRouter)
 
 // Passport
 initializePassport()
 app.use(passport.initialize())
 app.use(passport.session())
+//routes 
+app.use('/api/session', sessionRouter) 
+app.use('/', viewsRouter) //Index
+
+app.use('/api/products', productRouter)
+app.use('/api/carts', cartRouter)
+app.use('/chat', chatRouter)
 
 
 //connect mongo DB
