@@ -4,10 +4,48 @@ import GitHubStrategy from "passport-github";
 import UserModel from "../dao/models/user.model.js";
 import { createHash, isValidPassword } from "../utils.js";
 import userModel from "../dao/models/user.model.js";
+import passportGoogle from 'passport-google-oauth20'
 
 const LocalStrategy = local.Strategy;
+var GoogleStrategy = passportGoogle.Strategy;
+
+const GOOGLE_CLIENT_ID = '734120610990-ku3motded52vltvaaufu3h17qvcboptj.apps.googleusercontent.com'
+const GOOGLE_CLIENT_SECRET ='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'
 
 const initializePassport = () => {
+
+    passport.use('google', new GoogleStrategy({
+        clientID: GOOGLE_CLIENT_ID,
+        clientSecret: GOOGLE_CLIENT_SECRET,
+        callbackURL: "http://127.0.0.1:8080/callback-google"
+    },
+        async (accessToken, refreshToken, profile, done) => {
+            try {
+                    console.log(profile)
+
+            const email = profile.emails[0].value
+            const name = profile.displayName
+
+            const user = await userModel.findOne({ email })
+            if(user) {
+                console.log("Existing User:", user);
+                return done(null, user)
+            }            
+
+            const result = await userModel.create({ email, name, password: '' });
+
+            return done(null, result)
+            } catch (error) {
+                console.error("Error in Google Authentication:", error);
+                return done("error google auth", error);
+            }
+        
+        }
+    ));
+
+
+
+
     passport.use('github',
         new GitHubStrategy(
             {
