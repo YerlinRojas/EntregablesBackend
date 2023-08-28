@@ -7,6 +7,7 @@ import chatRouter from './routes/chat.route.js'
 import sessionRouter from './routes/session.route.js'
 import http from 'http'
 
+import cookieParser from 'cookie-parser'
 import passport from 'passport'
 import initializePassport from './config/passport.config.js'
 import session from 'express-session'
@@ -35,6 +36,8 @@ mongoose.set('strictQuery', false)
 const URL = 'mongodb+srv://yerlinrocha:Skabiosis2@cluster0.scftdt5.mongodb.net/?retryWrites=true&w=majority'
 const dbName ='ecommerce'
 
+//cookie parser
+app.use(cookieParser())
 
 // Configuración de express-session
 app.use(session({
@@ -57,10 +60,10 @@ app.use(session({
 initializePassport()
 app.use(passport.initialize())
 app.use(passport.session())
+
 //routes 
 app.use('/api/session', sessionRouter) 
 app.use('/', viewsRouter) //Index
-
 app.use('/api/products', productRouter)
 app.use('/api/carts', cartRouter)
 app.use('/chat', chatRouter)

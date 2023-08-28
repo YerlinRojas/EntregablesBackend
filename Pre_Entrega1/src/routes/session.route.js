@@ -1,14 +1,21 @@
 import { Router } from "express";
 import userModel from "../dao/models/user.model.js";
-import { createHash, isValidPassword } from "../utils.js";
+import { generateToken, passportCall, createHash, isValidPassword } from "../utils.js";
 import passport from "passport";
 
 
 
 const router = Router()
 //---------------------------------------------------
-//LOGIN
 
+router.get('/current', passportCall('jwt'), (req, res) => {
+    console.log('Path /current')
+    res.send({ status: 'success', payload: req.user })
+})
+
+
+//LOGIN
+/* 
 router.post(
     '/login',
     passport.authenticate('login', '/products'),
@@ -24,10 +31,32 @@ router.post(
             return res.redirect('/login')
         }
     }
-)
+) */
+
+//LOGIN JWT------------------------------
+router.post(
+    '/login',
+    passport.authenticate('login', { failureRedirect: '/login' }),
+    async (req, res) => {
+        try {
+            const access_token = generateToken(req.user);
+
+            res.cookie('coderCookie', access_token, {
+                maxAge: 60 * 60 * 1000,
+                httpOnly: true
+            });
+
+            res.redirect('/products');
+        } catch (error) {
+            console.error('error al registrar', error);
+            return res.redirect('/register');
+        }
+    }
+    );
+
 
 //REGISTER
-router.post('/register', passport.authenticate('register', { failureRedirect: '/register' }),
+/* router.post('/register', passport.authenticate('register', { failureRedirect: '/register' }),
     async (req, res) => {
         try {
             res.redirect('/login')
@@ -36,9 +65,31 @@ router.post('/register', passport.authenticate('register', { failureRedirect: '/
             return res.redirect('/register')
         }
     })
+ */
 
+    
+// REGISTER JWT------------
+router.post(
+    '/register',
+    passport.authenticate('register', { failureRedirect: '/register' }),
+    async (req, res) => {
+        try {
+            const access_token = generateToken(req.user);
+
+            res.cookie('coderCookie', access_token, {
+                maxAge: 60 * 60 * 1000,
+                httpOnly: true
+            });
+
+            res.redirect('/login');
+        } catch (error) {
+            console.error('error al registrar', error);
+            return res.redirect('/register');
+        }
+    }
+);
 //LOGOUT
-router.get('/logout', (req, res) => {
+/* router.get('/logout', (req, res) => {
 
     req.session.destroy((err) => {
         if (err) {
@@ -46,29 +97,19 @@ router.get('/logout', (req, res) => {
         }
         res.redirect('/login')
     })
-})
+}) */
 
-//GITHUB---------------------------------------------------------------
-router.get('/login-github', 
-
-    passport.authenticate('github', { scope: ['user:email'] }),
-    async (req, res) => { })
-
-router.get('/githubcallback',
-    passport.authenticate('github', { failureRedirect: '/' }),
-    async (req, res) => {
-        try {
-            console.log('callback', req.user)
-            req.session.user = req.user
-            console.log(req.session)
-            res.redirect('/')
-
-        } catch (error) {
-            console.error('error git call back', error)
+router.get('/logout', (req, res) => {
+    res.clearCookie('coderCookie'); 
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
         }
+        res.redirect('/login');
+    });
+});
 
-    }
-)
+
 
 export default router
 

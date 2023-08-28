@@ -4,7 +4,7 @@
 
   <h1>Bienvenido {{user.firts_name}}</h1>
 
-{{!-- parametro user NO renderiza  --}}
+  <button class="btn btn-primary"><a href="/api/session/current">CurrentUser</a></button>
 
     <form class="containerFiltro" action="api/session/logout" method="get"> 
         <input type="hidden" name="logout" value="1">

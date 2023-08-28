@@ -2,51 +2,71 @@ import passport from "passport";
 import local from "passport-local";
 import GitHubStrategy from "passport-github";
 import UserModel from "../dao/models/user.model.js";
-import { createHash, isValidPassword } from "../utils.js";
+import {cookieExtractor, generateToken , createHash, isValidPassword } from "../utils.js";
 import userModel from "../dao/models/user.model.js";
-import passportGoogle from 'passport-google-oauth20'
+import passportGoogle from "passport-google-oauth20";
+import passportJWT from 'passport-jwt'
 
+
+
+const JWTStrategy = passportJWT.Strategy
+const ExtractJWT = passportJWT.ExtractJwt
 const LocalStrategy = local.Strategy;
 var GoogleStrategy = passportGoogle.Strategy;
 
-const GOOGLE_CLIENT_ID = '734120610990-ku3motded52vltvaaufu3h17qvcboptj.apps.googleusercontent.com'
-const GOOGLE_CLIENT_SECRET ='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'
+const GOOGLE_CLIENT_ID =
+    "734120610990-ku3motded52vltvaaufu3h17qvcboptj.apps.googleusercontent.com";
+const GOOGLE_CLIENT_SECRET = "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";
 
 const initializePassport = () => {
 
-    passport.use('google', new GoogleStrategy({
-        clientID: GOOGLE_CLIENT_ID,
-        clientSecret: GOOGLE_CLIENT_SECRET,
-        callbackURL: "http://127.0.0.1:8080/callback-google"
-    },
-        async (accessToken, refreshToken, profile, done) => {
-            try {
-                    console.log(profile)
+    passport.use(
+        'jwt',
+        new JWTStrategy(
+            {
+                jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
+                secretOrKey: 'coderTokenForJWT'
+            },
+            async (jwt_payload, done) => {
 
-            const email = profile.emails[0].value
-            const name = profile.displayName
+                try {
+                    return done(null, jwt_payload)
+                } catch (e) {
+                    return done(e)
+                }
+            })
+    )
 
-            const user = await userModel.findOne({ email })
-            if(user) {
-                console.log("Existing User:", user);
-                return done(null, user)
-            }            
-
-            const result = await userModel.create({ email, name, password: '' });
-
-            return done(null, result)
-            } catch (error) {
-                console.error("Error in Google Authentication:", error);
-                return done("error google auth", error);
+    passport.use(
+        "google",
+        new GoogleStrategy(
+            {
+                clientID: GOOGLE_CLIENT_ID,
+                clientSecret: GOOGLE_CLIENT_SECRET,
+                callbackURL: "http://127.0.0.1:8080/callback-google",
+            },
+            async (accessToken, refreshToken, profile, done) => {
+                try {
+                    console.log("PROFILE", profile);
+                    const email = profile.emails[0].value;
+                    const name = profile.displayName;
+                    const user = await userModel.findOne({ email });
+                    if (user) {
+                        console.log("Existing User:", user);
+                        return done(null, user);
+                    }
+                    const result = await userModel.create({ email, name, password: "" });
+                    return done(null, result);
+                } catch (error) {
+                    console.error("Error in Google Authentication:", error);
+                    return done("error google auth", error);
+                }
             }
-        
-        }
-    ));
+        )
+    );
 
-
-
-
-    passport.use('github',
+    passport.use(
+        "github",
         new GitHubStrategy(
             {
                 clientID: "Iv1.043eb05662c99216",
@@ -55,19 +75,26 @@ const initializePassport = () => {
             },
             async (accessToken, refreshToken, profile, done) => {
                 try {
-                    console.log('PROFILE',profile)
+                    console.log("PROFILE", profile);
                     const user = await userModel.findOne({ email: profile._json.email });
                     if (user) {
                         console.log("Existing User:", user);
                         return done(null, user);
-                    }
-                    const newUser = {
+                    }else{
+                        console.log('User doesnt exits')
+                        const newUser = {
                         first_name: profile._json.name,
                         email: profile._json.email,
                         password: "",
-                    };
+                        rol:'user'
+                    }
                     const result = await userModel.create(newUser);
                     console.log("New User Created:", result);
+                }
+                    
+                    const token = generateToken(user)
+                    user.token = token
+                    
                     return done(null, result);
                 } catch (error) {
                     console.error("Error in GitHub Authentication:", error);
@@ -100,11 +127,12 @@ const initializePassport = () => {
                         age,
                         email,
                         password: createHash(password),
+                        
                     };
                     const result = await UserModel.create(newUser);
                     return done(null, result);
                 } catch (e) {
-                    done("Error to register " + error);
+                    done("Error to register " + e);
                 }
             }
         )
@@ -138,13 +166,13 @@ const initializePassport = () => {
     );
 
     passport.serializeUser((user, done) => {
-        done(null, user._id)
-    })
+        done(null, user._id);
+    });
 
     passport.deserializeUser(async (id, done) => {
-        const user = await UserModel.findById(id)
-        done(null, user)
-    })
+        const user = await UserModel.findById(id);
+        done(null, user);
+    });
 };
 
 export default initializePassport;

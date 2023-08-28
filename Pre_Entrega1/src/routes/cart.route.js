@@ -37,7 +37,7 @@ router.get('/:cid',async(req,res)=>{
         
     
     } catch (error) {
-        console.error('Error al obtener producto por id:', error);
+        //console.error('Error al obtener producto por id:', error);
         res.status(500).json({ error: 'Internal server error' })
     }
 }) 
