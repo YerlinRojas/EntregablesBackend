@@ -1,6 +1,7 @@
 import { Router } from "express";
 import cartManager from "../dao/manager/cart.manager.js";
 import cartModel from '../dao/models/cart.model.js'
+import userModel from "../dao/models/user.model.js";
 
 
 const router = Router()
@@ -60,22 +61,31 @@ router.get('/',async(req,res)=>{
 //agrega productos a la lista de carritos
 router.post('/:cid/product/:pid', async (req, res) => {
     try {
-    const cid = req.params.cid
-    const pid = req.params.pid
-    const quantity = req.query.quantity || 1
+        const cid = req.params.cid; 
+        const pid = req.params.pid;
+        const quantity = req.body.quantity || 1; 
 
-        console.log(cid)
-    const cart = await cartModel.findById(cid)
-    await cart.product.push({id: pid, quantity})
-    const result = await cart.save()
-    
-    res.redirect('/products')
+        console.log("PARAMETROS CID,PID, QUANTITY", cid,pid,quantity)
+
+        const updatedCart = await cartModel.updateOne(
+            { _id: cid },
+            { $addToSet: { products: { id: pid, quantity } } }
+        );
+
+
+        const cart = await cartModel.findOne({_id : cid})
+        const cartsave = await cart.save(updatedCart)
+
+        console.log("CARRITO POR ID", cartsave)
+        console.log("ACTUALIZACION DEL CART POR FUNC updatedCart", updatedCart)
+        res.redirect('/products');
 
     } catch (error) {
-    console.error('Error agregando producto :', error);
-    res.status(500).json({ error: 'Internal server error' })
+        console.error('Error agregando producto:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
-})
+});
+
 
 
 //Eliminar producto del carrito
@@ -127,7 +137,7 @@ router.put('/:cid/product/:pid', async(req,res)=>{
     const {quantity} = req.body
 
 
-    const cart = await cartModel.findById(cid)
+    const cart = await userModel.findById(cid)
     const productIndex = cart.product.findIndex((product) => product.id.toString() === pid)
 
     cart.product[productIndex].quantity = quantity

@@ -2,10 +2,11 @@ import passport from "passport";
 import local from "passport-local";
 import GitHubStrategy from "passport-github";
 import UserModel from "../dao/models/user.model.js";
-import {cookieExtractor, generateToken , createHash, isValidPassword } from "../utils.js";
+import { cookieExtractor, generateToken, createHash, isValidPassword } from "../utils.js";
 import userModel from "../dao/models/user.model.js";
 import passportGoogle from "passport-google-oauth20";
 import passportJWT from 'passport-jwt'
+import cartModel from "../dao/models/cart.model.js";
 
 
 
@@ -30,7 +31,8 @@ const initializePassport = () => {
             async (jwt_payload, done) => {
 
                 try {
-                    return done(null, jwt_payload)
+                   
+                    return done(null, jwt_payload,jwt_payload.user, jwt_payload.cartId)
                 } catch (e) {
                     return done(e)
                 }
@@ -80,21 +82,21 @@ const initializePassport = () => {
                     if (user) {
                         console.log("Existing User:", user);
                         return done(null, user);
-                    }else{
+                    } else {
                         console.log('User doesnt exits')
                         const newUser = {
-                        first_name: profile._json.name,
-                        email: profile._json.email,
-                        password: "",
-                        rol:'user'
+                            first_name: profile._json.name,
+                            email: profile._json.email,
+                            password: "",
+                            rol: 'user'
+                        }
+                        const result = await userModel.create(newUser);
+                        console.log("New User Created:", result);
                     }
-                    const result = await userModel.create(newUser);
-                    console.log("New User Created:", result);
-                }
-                    
+
                     const token = generateToken(user)
                     user.token = token
-                    
+
                     return done(null, result);
                 } catch (error) {
                     console.error("Error in GitHub Authentication:", error);
@@ -120,17 +122,25 @@ const initializePassport = () => {
                         console.log("User already exits");
                         return done(null, false);
                     }
-
+                    let cartId = new cartModel()
+                    const cart = await cartId.save()
+                    cartId = cart._id
+                    console.log('CART ID DESDE PASSPORT : ', cartId)
                     const newUser = {
                         firts_name,
                         last_name,
                         age,
                         email,
                         password: createHash(password),
-                        
+                        cartId: cartId,
+
                     };
                     const result = await UserModel.create(newUser);
-                    return done(null, result);
+                    const tokenPayload = { user: result, cartId: cartId };
+                    const token = generateToken(tokenPayload);
+
+                    return done(null, result, { token });
+                    
                 } catch (e) {
                     done("Error to register " + e);
                 }

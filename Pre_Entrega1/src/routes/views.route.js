@@ -94,9 +94,15 @@ function auth(req, res, next) {
 router.get('/products',
 passportCall('jwt'), 
 async (req, res) => {
-  try {
+  try { 
+
+    const user = req.user
+    console.log("DEDES GET PRODUCTS user",user)
+     //cart Id desde el passport register
+     const cartId = user.user.cartId;
+     console.log('cartID DEDES GET PRODUCTS', cartId);
     //parametros de user
-    const user = req.session.user;
+   
 
     //----------------------------------------------------------------
     //opciones de filtrado
@@ -131,18 +137,9 @@ async (req, res) => {
     productsList.nextLink = productsList.hasNextPage
       ? `/products?page=${productsList.nextPage}&limit=${limit}`
       : "";
-    //-------------------------------------------------------------
-    const cartListAll = await cartModel.find();
-    let cartId;
 
-    if (cartListAll.length > 0) {
-      cartId = cartListAll[0]._id;
-    } else {
-      const cartList = new cartModel();
-      const cart = await cartList.save();
-      cartId = cart._id;
-      console.log(cartId);
-    }
+
+
     //-----------------------------------------------------------
     res.render("products", { products: productsList, cartId, user });
   } catch (error) {
@@ -207,7 +204,7 @@ async (req, res) => {
 });
 
 // Vista del carrito específico
-router.get("/:cartId", async (req, res) => {
+/* router.get("/:cartId", async (req, res) => {
   try {
     const cartId = req.params.cartId;
     const cart = await cartModel.findById(cartId).lean().exec();
@@ -218,9 +215,9 @@ router.get("/:cartId", async (req, res) => {
 
     res.render("carts", { cart });
   } catch (error) {
-    console.error("Error obteniendo el carrito por id:", error);
+    console.error("Error obteniendo el carrito por id DESDE GET CARTID:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-});
+}); */
 
 export default router;
