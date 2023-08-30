@@ -2,9 +2,10 @@
 
 
 
-  <h1>Bienvenido {{user.firts_name}}</h1>
-
-  <button class="btn btn-primary"><a href="/api/session/current">CurrentUser</a></button>
+  <h1>Bienvenido {{user.user.firts_name}}</h1>
+<div class="containerFiltro"><button class="btn btn-secondary">
+  <a href="/api/session/current">PROFILE</a></button></div>
+  
 
     <form class="containerFiltro" action="api/session/logout" method="get"> 
         <input type="hidden" name="logout" value="1">
@@ -18,8 +19,8 @@
 
   <div class="containerFiltro">
     <h6>Filtro por Precio</h6>
-    <a href="/products?sort=asc">De Menor a Mayor</a>
-    <a href="/products?sort=desc">De Mayor a Menor</a>
+    <a class = "text-b" href="/products?sort=asc">De Menor a Mayor</a>
+    <a class = "text-b" href="/products?sort=desc">De Mayor a Menor</a>
   </div>
 
 

@@ -67,17 +67,21 @@ router.post('/:cid/product/:pid', async (req, res) => {
 
         console.log("PARAMETROS CID,PID, QUANTITY", cid,pid,quantity)
 
+        
         const updatedCart = await cartModel.updateOne(
             { _id: cid },
-            { $addToSet: { products: { id: pid, quantity } } }
+            { $set: { products: { id: pid, quantity } } }
         );
 
+const cart = await cartModel.findById(cid)
+        console.log("ESTE ES EL CART----", cart)
 
-        const cart = await cartModel.findOne({_id : cid})
+
         const cartsave = await cart.save(updatedCart)
 
         console.log("CARRITO POR ID", cartsave)
         console.log("ACTUALIZACION DEL CART POR FUNC updatedCart", updatedCart)
+
         res.redirect('/products');
 
     } catch (error) {

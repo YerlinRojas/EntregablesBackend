@@ -9,8 +9,9 @@ const router = Router()
 //---------------------------------------------------
 
 router.get('/current', passportCall('jwt'), (req, res) => {
-    console.log('Path /current')
-    res.send({ status: 'success', payload: req.user })
+    console.log(req.user)
+    res.render('profile', req.user)
+    
 })
 
 
