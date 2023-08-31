@@ -31,7 +31,7 @@ const initializePassport = () => {
             async (jwt_payload, done) => {
 
                 try {
-                   
+                    
                     return done(null, jwt_payload,jwt_payload.user, jwt_payload.cartId)
                 } catch (e) {
                     return done(e)
@@ -85,22 +85,28 @@ const initializePassport = () => {
                     if (user) {
                         console.log("Existing User:", user);
                         return done(null, user);
-                    } else {
-                        console.log('User doesnt exits')
+                    } 
+                        let cartId = new cartModel()
+                        const cart = await cartId.save()
+                        cartId = cart._id
+                        
                         const newUser = {
-                            first_name: profile._json.name,
+                            first_name: profile._json.displayName,
+                            last_name:profile._json.name,
+                            age:"",
                             email: profile._json.email,
                             password: "",
-                            rol: 'user'
+                            rol: 'user',
+                            cartId: cartId,
                         }
                         const result = await userModel.create(newUser);
-                        console.log("New User Created:", result);
-                    }
+                        console.log("New User Created GITHUB:", result);
+                        //const tokenPayload = { user: result, cartId: cartId };
+                        
+                        const token = generateToken(user);
+                        user.token= token
 
-                    const token = generateToken(user)
-                    user.token = token
-
-                    return done(null, result);
+                    return done(null, user);
                 } catch (error) {
                     console.error("Error in GitHub Authentication:", error);
                     return done("error github auth", error);

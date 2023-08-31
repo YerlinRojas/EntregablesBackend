@@ -51,6 +51,7 @@ router.get(
       console.log("CALLBACK GITHUB: ", req.user);
       
       res.cookie('coderCookie', req.user.token).redirect("/products");
+      console.log("CALLBACK GITHUB TOKEN: ", req.user.token);
     } catch (error) {
       console.error("error git call back", error);
     }
@@ -92,10 +93,10 @@ function auth(req, res, next) {
 
 //PRODUCTS EN CARDS SOLO AUTORIZA EVERYONE
 router.get('/products',
-passportCall('jwt'), 
+passportCall('jwt'),
 async (req, res) => {
   try { 
-
+    console.log("User after authentication: ", req.user);
     const user = req.user
     console.log("DEDES GET PRODUCTS user",user)
      //cart Id desde el passport register
@@ -204,7 +205,7 @@ async (req, res) => {
 });
 
 // Vista del carrito específico
-/* router.get("/:cartId", async (req, res) => {
+ router.get("/:cartId", async (req, res) => {
   try {
     const cartId = req.params.cartId;
     const cart = await cartModel.findById(cartId).lean().exec();
@@ -218,6 +219,6 @@ async (req, res) => {
     console.error("Error obteniendo el carrito por id DESDE GET CARTID:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-}); */
+}); 
 
 export default router;

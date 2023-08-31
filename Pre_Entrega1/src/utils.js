@@ -20,7 +20,8 @@ export const isValidPassword = (user, password) => {
 // JWT Generamos el token
 export const generateToken = (user) => {
     const token = jwt.sign( {user}, PRIVATE_KEY, {expiresIn: '24h'})
-
+    console.log("privateKEY", PRIVATE_KEY)
+    console.log("user", user)
     return token
 }
 
