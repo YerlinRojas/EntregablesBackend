@@ -101,12 +101,16 @@ const initializePassport = () => {
                         }
                         const result = await userModel.create(newUser);
                         console.log("New User Created GITHUB:", result);
-                        //const tokenPayload = { user: result, cartId: cartId };
-                        
-                        const token = generateToken(user);
-                        user.token= token
 
-                    return done(null, user);
+                        
+                        const tokenPayload = { user: result, cartId: cartId };
+                        const token = generateToken(tokenPayload);
+                        user.token= token
+                        return done(null, result, { token });
+                        
+                        
+
+                    
                 } catch (error) {
                     console.error("Error in GitHub Authentication:", error);
                     return done("error github auth", error);

@@ -6,6 +6,8 @@ import productModel from "../dao/models/product.model.js";
 import cartModel from "../dao/models/cart.model.js";
 import passport from "passport";
 import { generateToken, authToken, passportCall, authorization } from "../utils.js";
+import mongoose from "mongoose";
+
 
 const router = Router();
 const productManager = new ProductManager();
@@ -50,7 +52,15 @@ router.get(
     try {
       console.log("CALLBACK GITHUB: ", req.user);
       
-      res.cookie('coderCookie', req.user.token).redirect("/products");
+      const access_token = generateToken(req.user);
+
+            res.cookie('coderCookie', access_token, {
+                maxAge: 60 * 60 * 1000,
+                httpOnly: true
+            });
+
+            res.redirect('/products');
+      
       console.log("CALLBACK GITHUB TOKEN: ", req.user.token);
     } catch (error) {
       console.error("error git call back", error);
@@ -98,13 +108,9 @@ async (req, res) => {
   try { 
     console.log("User after authentication: ", req.user);
     const user = req.user
-    console.log("DEDES GET PRODUCTS user",user)
+    
      //cart Id desde el passport register
-     const cartId = user.user.cartId;
-     console.log('cartID DEDES GET PRODUCTS', cartId);
-    //parametros de user
-   
-
+    const cartId = user.user.cartId;
     //----------------------------------------------------------------
     //opciones de filtrado
     const limit = parseInt(req.query?.limit || 10);
@@ -208,13 +214,23 @@ async (req, res) => {
  router.get("/:cartId", async (req, res) => {
   try {
     const cartId = req.params.cartId;
+
+    //valida el cartId asi no trae error 
+    if (!mongoose.Types.ObjectId.isValid(cartId)) {
+      return res.status(400).json({ error: "ID de carrito no válido" });
+    }
+
     const cart = await cartModel.findById(cartId).lean().exec();
 
     if (!cart) {
       return res.status(404).json({ error: "Cart no encontrado" });
     }
 
+    const populatedCart = await cartModel.findById(cartId).populate("product.id");
+    console.log("ESTE ES EL CART POPULATE:", JSON.stringify(populatedCart, null, "\t"))
+    
     res.render("carts", { cart });
+    
   } catch (error) {
     console.error("Error obteniendo el carrito por id DESDE GET CARTID:", error);
     res.status(500).json({ error: "Internal server error" });
