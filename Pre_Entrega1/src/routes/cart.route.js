@@ -1,4 +1,5 @@
 import { Router } from "express";
+import porductManager from '../dao/manager/product.manager.js'
 import cartManager from "../dao/manager/cart.manager.js";
 import cartModel from "../dao/models/cart.model.js";
 import userModel from "../dao/models/user.model.js";
@@ -82,15 +83,17 @@ router.get("/:cid/product/:pid", async (req, res) => {
     const cid = req.params.cid;
     const pid = req.params.pid;
 
-      const cart = await cartModel.findByIdAndUpdate(
-        cid,
-        { $pull: { product: { id: pid } } },
+     const cart = await cartModel.findByIdAndUpdate(
+        { _id: cid },
+        { $pull: { product: { id: pid} } },
+        //{ $pull: { id: { $eq: pid } } },
         { new: true },
         
-      )
+      ) 
+     cart.id= cid 
 
-    
-    res.json(cart);
+    console.log({cart})
+    res.redirect(`/${cid}`);
     
   } catch (error) {
     console.error("Error al borrar productos", error);

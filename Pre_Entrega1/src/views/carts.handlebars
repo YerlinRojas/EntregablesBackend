@@ -10,7 +10,7 @@ c  <h1>Productos dentro del carrito</h1>
     <td>{{this._id}}</td>
     <td>{{this.quantity}}</td>
 
-    <td><form class="containerFiltro" action="/api/cart/{{../cart._id}}/product/{{this.id}}" method="get"> 
+    <td><form class="containerFiltro" action="/api/carts/{{../cart._id}}/product/{{this.id}}" method="get"> 
       <input type="hidden" name="eliminar" value="1">
       <button type="submit" class="btn btn-primary">🗑</button>
     </form></td>

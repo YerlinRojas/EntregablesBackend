@@ -4,8 +4,11 @@ import cartRouter from './routes/cart.route.js'
 import viewsRouter from './routes/views.route.js'
 import ProductManager from './dao/manager/product.manager.js'
 import chatRouter from './routes/chat.route.js'
+import {config} from 'dotenv'
+config({ path: 'env'})
 import sessionRouter from './routes/session.route.js'
 import http from 'http'
+
 
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
@@ -16,6 +19,7 @@ import handlebars from 'express-handlebars'
 import { Server } from 'socket.io'
 import __dirname from './utils.js'
 import mongoose from 'mongoose'
+
 
 //config express
 const app = express ()
@@ -33,8 +37,9 @@ app.use('/public', express.static(__dirname + '/public'))
 
 //conexion mongoose
 mongoose.set('strictQuery', false)
-const URL = 'mongodb+srv://yerlinrocha:Skabiosis2@cluster0.scftdt5.mongodb.net/?retryWrites=true&w=majority'
-const dbName ='ecommerce'
+const PORT = process.env.PORT
+const URL = process.env.URL
+const dbName =process.env.dbName
 
 //cookie parser
 app.use(cookieParser())
@@ -42,13 +47,13 @@ app.use(cookieParser())
 // Configuración de express-session
 app.use(session({
   store: MongoStore.create({
-      mongoUrl: URL,
+      mongoUrl:URL,
       dbName: dbName,
       mongoOptions: {
           useNewUrlParser: true,
           useUnifiedTopology: true,
       },
-      ttl: 100,
+      ttl: process.env.ttl,
   }),
   secret: 'secret',
   resave: true,
@@ -75,7 +80,7 @@ mongoose.connect(URL, {dbName:dbName})
       console.log('DB connected!!')
     // Corremos el server
 
-      const server = app.listen(8080, () => console.log('Listening...'))
+      const server = app.listen(PORT, () => console.log('Listening...'))
       server.on('error', e => console.error(e))
       const productManager = new ProductManager()
 

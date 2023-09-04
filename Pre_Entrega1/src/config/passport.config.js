@@ -8,6 +8,8 @@ import passportGoogle from "passport-google-oauth20";
 import passportJWT from 'passport-jwt'
 import cartModel from "../dao/models/cart.model.js";
 
+import {config} from 'dotenv'
+config()
 
 
 const JWTStrategy = passportJWT.Strategy
@@ -15,9 +17,7 @@ const ExtractJWT = passportJWT.ExtractJwt
 const LocalStrategy = local.Strategy;
 var GoogleStrategy = passportGoogle.Strategy;
 
-const GOOGLE_CLIENT_ID =
-    "734120610990-ku3motded52vltvaaufu3h17qvcboptj.apps.googleusercontent.com";
-const GOOGLE_CLIENT_SECRET = "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";
+
 
 const initializePassport = () => {
 
@@ -26,7 +26,7 @@ const initializePassport = () => {
         new JWTStrategy(
             {
                 jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-                secretOrKey: 'coderTokenForJWT'
+                secretOrKey: process.env.PRIVATE_KEY
             },
             async (jwt_payload, done) => {
 
@@ -46,9 +46,9 @@ const initializePassport = () => {
         "google",
         new GoogleStrategy(
             {
-                clientID: GOOGLE_CLIENT_ID,
-                clientSecret: GOOGLE_CLIENT_SECRET,
-                callbackURL: "http://127.0.0.1:8080/callback-google",
+                clientID: process.env.GOOGLE_CLIENT_ID,
+                clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+                callbackURL : process.env.GOOGLE_callbackURL,
             },
             async (accessToken, refreshToken, profile, done) => {
                 try {
@@ -60,8 +60,28 @@ const initializePassport = () => {
                         console.log("Existing User:", user);
                         return done(null, user);
                     }
-                    const result = await userModel.create({ email, name, password: "" });
-                    return done(null, result);
+                    let cartId = new cartModel()
+                        const cart = await cartId.save()
+                        cartId = cart._id
+                        
+                        const newUser = {
+                            first_name: profile._json.displayName,
+                            last_name:profile._json.name,
+                            age:"",
+                            email: profile._json.email,
+                            password: "",
+                            rol: 'user',
+                            cartId: cartId,
+                        }
+                        const result = await userModel.create(newUser);
+                        console.log("New User Created GITHUB:", result);
+
+                        
+                        const tokenPayload = { user: result, cartId: cartId };
+                        const token = generateToken(tokenPayload);
+                        user.token= token
+
+                        return done(null, result, { token });
                 } catch (error) {
                     console.error("Error in Google Authentication:", error);
                     return done("error google auth", error);
@@ -74,9 +94,9 @@ const initializePassport = () => {
         "github",
         new GitHubStrategy(
             {
-                clientID: "Iv1.043eb05662c99216",
-                clientSecret: "4053b445c53e5870baca83eb22eb129a279d04ff",
-                callbackURL: "http://127.0.0.1:8080/githubcallback",
+                clientID: process.env.GITHUB_CLIENT_ID,
+                clientSecret: process.env.GITHUB_CLIENT_SECRET,
+                callbackURL: process.env.GITHUB_callbackurl,
             },
             async (accessToken, refreshToken, profile, done) => {
                 try {

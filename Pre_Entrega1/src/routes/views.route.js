@@ -28,9 +28,13 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/" }),
   async (req, res) => {
     try {
-      console.log("CALLBACK GOOGLE: ", req.user);
-      req.session.user = req.user;
-      console.log(req.session);
+      const access_token = generateToken(req.user);
+
+      res.cookie('coderCookie', access_token, {
+          maxAge: 60 * 60 * 1000,
+          httpOnly: true
+      });
+
       res.redirect("/products");
     } catch (error) {
       console.error("error google call back", error);
@@ -50,8 +54,7 @@ router.get(
   passport.authenticate("github", { failureRedirect: "/" }),
   async (req, res) => {
     try {
-      console.log("CALLBACK GITHUB: ", req.user);
-      
+          
       const access_token = generateToken(req.user);
 
             res.cookie('coderCookie', access_token, {

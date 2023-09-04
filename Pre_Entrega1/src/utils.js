@@ -5,9 +5,11 @@ const __dirname = dirname(__filename)
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import passport from 'passport'
+import {config} from 'dotenv'
+config()
 
-
-const PRIVATE_KEY = 'coderTokenForJWT'
+const PRIVATE_KEY = process.env.PRIVATE_KEY
+const COOKIE_KEY = process.env.COOKIE_KEY
 
 export const createHash = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
@@ -27,7 +29,7 @@ export const generateToken = (user) => {
 
 //extraer cookies
 export const cookieExtractor = req => {
-    const token = (req?.cookies) ? req.cookies['coderCookie'] : null
+    const token = (req?.cookies) ? req.cookies[COOKIE_KEY] : null
 
     console.log('COOKIE EXTRACTOR: ', token)
     return token
@@ -40,7 +42,7 @@ export const authToken = (req, res, next) => {
     // Buscamos el token en el header o en la cookie
     let authHeader = req.headers.auth
     if(!authHeader) {
-      authHeader = req.cookies['coderToken'] 
+      authHeader = req.cookies[COOKIE_KEY] 
       if(!authHeader) {
         return res.status(401).send({
             error: 'Not auth'

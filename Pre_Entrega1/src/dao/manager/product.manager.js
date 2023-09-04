@@ -86,11 +86,19 @@ export default class ProductManager {
     const listProduct = await this.getProduct()
     const productIndex = listProduct.findIndex(product => product.id === parseInt(id))
 
-    if(productIndex >= 0) {
+
+    if (productIndex){
+        return this.set(
+          products.filter((element) => element.id != productIndex.id)
+        );
+    /* if(productIndex >= 0) {
     listProduct.splice(productIndex, 1)
-    await fs.promises.writeFile(this.path, JSON.stringify(listProduct))
-    console.log("id producto eliminado:", productIndex +1) 
+    await fs.promises.writeFile(this.path, JSON.stringify(listProduct)) 
     return true
+    console.log("id producto eliminado:", productIndex +1) 
+    */
+    
+    
      
 }else{
   console.log("no se encontro el producto a eliminar")
