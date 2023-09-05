@@ -7,6 +7,7 @@ import userModel from "../dao/models/user.model.js";
 import passportGoogle from "passport-google-oauth20";
 import passportJWT from 'passport-jwt'
 import cartModel from "../dao/models/cart.model.js";
+import chatModel from "../dao/models/chat.model.js";
 
 import {config} from 'dotenv'
 config()
@@ -54,30 +55,35 @@ const initializePassport = () => {
                 try {
                     console.log("PROFILE", profile);
                     const email = profile.emails[0].value;
-                    const name = profile.displayName;
+                    const first_name = profile.displayName;
                     const user = await userModel.findOne({ email });
                     if (user) {
-                        console.log("Existing User:", user);
-                        return done(null, user);
-                    }
-                    let cartId = new cartModel()
+                        
+                        console.log("User already exits ");
+                        const token = generateToken(user);
+                        user.token = token;
+                        return done(null, user)
+
+                    }                        
+                        let cartId = new cartModel()
                         const cart = await cartId.save()
                         cartId = cart._id
-                        
+
                         const newUser = {
-                            first_name: profile._json.displayName,
+                            first_name: first_name,
                             last_name:profile._json.name,
                             age:"",
                             email: profile._json.email,
                             password: "",
                             rol: 'user',
                             cartId: cartId,
+
                         }
                         const result = await userModel.create(newUser);
-                        console.log("New User Created GITHUB:", result);
+                        console.log("New User Created GOOGLE:", result);
 
                         
-                        const tokenPayload = { user: result, cartId: cartId };
+                        const tokenPayload = { user: result, cartId: cartId};
                         const token = generateToken(tokenPayload);
                         user.token= token
 
@@ -109,7 +115,8 @@ const initializePassport = () => {
                         let cartId = new cartModel()
                         const cart = await cartId.save()
                         cartId = cart._id
-                        
+
+
                         const newUser = {
                             first_name: profile._json.displayName,
                             last_name:profile._json.name,
@@ -118,6 +125,7 @@ const initializePassport = () => {
                             password: "",
                             rol: 'user',
                             cartId: cartId,
+  
                         }
                         const result = await userModel.create(newUser);
                         console.log("New User Created GITHUB:", result);

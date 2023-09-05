@@ -1,10 +1,9 @@
 import { Router } from "express";
-import userModel from "../dao/models/user.model.js";
 import { generateToken, passportCall, createHash, isValidPassword } from "../utils.js";
 import passport from "passport";
 
 
-
+const COOKIE_KEY = process.env.COOKIE_KEY
 const router = Router()
 //---------------------------------------------------
 
@@ -14,7 +13,84 @@ router.get('/current', passportCall('jwt'), (req, res) => {
     
 })
 
+//LOGIN JWT------------------------------
+router.post(
+    '/login',
+    passport.authenticate('login', { failureRedirect: '/login' }),
+    async (req, res) => {
+        try {
+            const access_token = generateToken(req.user);
 
+            res.cookie(COOKIE_KEY, access_token, {
+                maxAge: 60 * 60 * 1000,
+                httpOnly: true
+            });
+
+            if (req.user && req.user.role === 'admin') {
+                // Si el usuario es administrador, redirigir a /home
+                return res.redirect('/home');
+            } else {
+                // Si el usuario no es administrador, redirigir a /products
+                return res.redirect('/products');
+            }
+        } catch (error) {
+            console.error('error al registrar', error);
+            return res.redirect('/register');
+        }
+    }
+    );
+
+// REGISTER JWT------------
+router.post(
+    '/register',
+    passport.authenticate('register', { failureRedirect: '/register' }),
+    async (req, res) => {
+        try {
+            const access_token = generateToken(req.user);
+
+            res.cookie(COOKIE_KEY, access_token, {
+                maxAge: 60 * 60 * 1000,
+                httpOnly: true
+            });
+
+            res.redirect('/login');
+        } catch (error) {
+            console.error('error al registrar', error);
+            return res.redirect('/register');
+        }
+    }
+);
+
+
+router.get('/logout', (req, res) => {
+    res.clearCookie(COOKIE_KEY); 
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
+        }
+        res.redirect('/login');
+    });
+});
+
+
+
+export default router
+
+
+
+
+//SESSION_--------------
+//REGISTER
+/* router.post('/register', passport.authenticate('register', { failureRedirect: '/register' }),
+    async (req, res) => {
+        try {
+            res.redirect('/login')
+        } catch (error) {
+            console.error('error al registrar', error)
+            return res.redirect('/register')
+        }
+    })
+ */
 //LOGIN
 /* 
 router.post(
@@ -33,62 +109,6 @@ router.post(
         }
     }
 ) */
-
-//LOGIN JWT------------------------------
-router.post(
-    '/login',
-    passport.authenticate('login', { failureRedirect: '/login' }),
-    async (req, res) => {
-        try {
-            const access_token = generateToken(req.user);
-
-            res.cookie('coderCookie', access_token, {
-                maxAge: 60 * 60 * 1000,
-                httpOnly: true
-            });
-
-            res.redirect('/products');
-        } catch (error) {
-            console.error('error al registrar', error);
-            return res.redirect('/register');
-        }
-    }
-    );
-
-
-//REGISTER
-/* router.post('/register', passport.authenticate('register', { failureRedirect: '/register' }),
-    async (req, res) => {
-        try {
-            res.redirect('/login')
-        } catch (error) {
-            console.error('error al registrar', error)
-            return res.redirect('/register')
-        }
-    })
- */
-
-    
-// REGISTER JWT------------
-router.post(
-    '/register',
-    passport.authenticate('register', { failureRedirect: '/register' }),
-    async (req, res) => {
-        try {
-            const access_token = generateToken(req.user);
-
-            res.cookie('coderCookie', access_token, {
-                maxAge: 60 * 60 * 1000,
-                httpOnly: true
-            });
-
-            res.redirect('/login');
-        } catch (error) {
-            console.error('error al registrar', error);
-            return res.redirect('/register');
-        }
-    }
-);
 //LOGOUT
 /* router.get('/logout', (req, res) => {
 
@@ -100,24 +120,7 @@ router.post(
     })
 }) */
 
-router.get('/logout', (req, res) => {
-    res.clearCookie('coderCookie'); 
-    req.session.destroy((err) => {
-        if (err) {
-            console.error('Error destroying session:', err);
-        }
-        res.redirect('/login');
-    });
-});
-
-
-
-export default router
-
-
-
-
-//login sin passport
+//LOGIN POR RUTAS_------------------
 /* router.post('/login', async (req, res) => {
 try {
 

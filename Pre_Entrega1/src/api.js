@@ -71,7 +71,7 @@ app.use('/api/session', sessionRouter)
 app.use('/', viewsRouter) //Index
 app.use('/api/products', productRouter)
 app.use('/api/carts', cartRouter)
-app.use('/chat', chatRouter)
+app.use('/api/chat', chatRouter)
 
 
 //connect mongo DB
