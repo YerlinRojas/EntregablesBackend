@@ -120,11 +120,18 @@ export const viewCartById = async (req, res) => {
     if (!cart) {
       return res.status(404).json({ error: "Cart no encontrado" });
     }
-    const populatedCart = await cartModel.findById(cartId).populate("product.id");
+    const populatedCart = await cartModel.findById(cart).populate("product.id");
     console.log("ESTE ES EL CART POPULATE:", JSON.stringify(populatedCart, null, "\t"))
     
-    const products = populatedCart.product
-    res.render("carts", { cart, products});
+    const products = await populatedCart.product.map(subdoc => subdoc.id);
+    console.log("productos desde el POPULATE .MAP",products)
+  
+  
+    
+  
+    //const products = populatedCart.product
+    //console.log("PRODUCTOS DESDE POPULATE",products)
+    res.render("carts", { cart,products});
     
   } catch (error) {
     console.error("Error obteniendo el carrito por id DESDE GET CARTID:", error);

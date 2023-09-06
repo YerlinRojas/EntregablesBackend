@@ -3,15 +3,26 @@
     <tr>
       <th>ID</th>
       <th>Quantity</th>
-      <th>precio</th>
+      <th>Precio</th>
       <th>Eliminar</th>
     </tr>
-   {{#each products}}
+   {{#each cart.product}}
   <tr>
-    <td>{{this._id}}</td>
-    <td>{{this.quantity}}</td>
-    <td>{{this.id.price}}</td>
+    <td>{{this.id_id}}</td>
+    {{!-- Este _Id que intento acceder es del 
+    obj de products no me muestra ninguna propiedad 
+    que esta adentro --}}
+
+
+    <td>{{this.quantity}}</td> 
+    {{!-- Este esta afuera del obj Products 
+    por eso se puede ver --}}
+
+
+    <td>{{this.price}}</td>
+
     <td>
+      {{!-- ELIMINAR PRODUCTO --}}
       <form class="containerFiltro" action="/api/carts/{{../cart._id}}/product/{{this.id}}" method="get"> 
       <input type="hidden" name="eliminar" value="1">
       <button type="submit" class="btn btn-primary">🗑</button>
@@ -20,3 +31,27 @@
 {{/each}}
   </table>
 
+
+
+{{!-- BOTON PARA ENVIAR A OTRA PAGINA RESUMEN DE COMPRA --}}
+
+<button type="submit" class="btn btn-primary" id="resumenCompra">COMPRAR</button>
+
+
+
+    <script>
+
+        document.querySelector('#resumenCompra').onclick = () => {
+            fetch('http://127.0.0.1:8080/', { method: 'POST' })
+                .then(result => result.json())
+                .then(json => {
+                    console.log(json)
+                    
+                })
+                .catch(e => {
+                    console.error('Error ')
+                    console.error(e)
+                })
+        }
+
+    </script>
