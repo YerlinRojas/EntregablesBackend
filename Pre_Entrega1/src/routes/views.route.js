@@ -73,9 +73,18 @@ router.get(
                 httpOnly: true
             });
 
-            res.redirect('/products');
+            if (req.user && req.user.role === 'admin') {
+              // Si el usuario es administrador, redirigir a /home
+              return res.redirect('/home');
+          } else {
+              // Si el usuario no es administrador, redirigir a /products
+              console.log("CALLBACK GITHUB TOKEN: ", req.user.token);
+              return res.redirect('/products');
+              
+          }
+
+            
       
-      console.log("CALLBACK GITHUB TOKEN: ", req.user.token);
     } catch (error) {
       console.error("error git call back", error);
     }
@@ -104,7 +113,8 @@ router.get("/register", (req, res) => {
 
 //PRODUCTS EN CARDS SOLO AUTORIZA -user-
 router.get('/products',
-passportCall('jwt'),authorization('user'), productByCard);
+passportCall('jwt'),authorization('user'),
+productByCard);
 
 //LISTADO DE PRODUCTS AUTORIZA -admin-
 router.get('/home', passportCall('jwt'), authorization('admin'), 

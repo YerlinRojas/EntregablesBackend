@@ -120,6 +120,7 @@ export const viewCartById = async (req, res) => {
     if (!cart) {
       return res.status(404).json({ error: "Cart no encontrado" });
     }
+    
     const populatedCart = await cartModel.findById(cart).populate("product.id");
     console.log("ESTE ES EL CART POPULATE:", JSON.stringify(populatedCart, null, "\t"))
     

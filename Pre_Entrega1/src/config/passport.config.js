@@ -7,7 +7,7 @@ import userModel from "../dao/models/user.model.js";
 import passportGoogle from "passport-google-oauth20";
 import passportJWT from 'passport-jwt'
 import cartModel from "../dao/models/cart.model.js";
-import chatModel from "../dao/models/chat.model.js";
+
 
 import {config} from 'dotenv'
 config()
@@ -85,7 +85,7 @@ const initializePassport = () => {
                         
                         const tokenPayload = { user: result, cartId: cartId};
                         const token = generateToken(tokenPayload);
-                        user.token= token
+                        result.token= token
 
                         return done(null, result, { token });
                 } catch (error) {
@@ -133,7 +133,7 @@ const initializePassport = () => {
                         
                         const tokenPayload = { user: result, cartId: cartId };
                         const token = generateToken(tokenPayload);
-                        user.token= token
+                        result.token= token
                         return done(null, result, { token });
                         
                         
