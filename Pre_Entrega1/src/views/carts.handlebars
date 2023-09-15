@@ -6,30 +6,21 @@
       <th>Precio</th>
       <th>Eliminar</th>
     </tr>
-   {{#each cart.product}}
-  <tr>
-    <td>{{this.id_id}}</td>
-    {{!-- Este _Id que intento acceder es del 
-    obj de products no me muestra ninguna propiedad 
-    que esta adentro --}}
-
-
+   {{#each populatedCart.product}}
+    <tr>
+    <td>{{this.id._id}}</td>
     <td>{{this.quantity}}</td> 
-    {{!-- Este esta afuera del obj Products 
-    por eso se puede ver --}}
-
-
-    <td>{{this.price}}</td>
-
+    <td>{{this.id.price}}</td>
     <td>
       {{!-- ELIMINAR PRODUCTO --}}
-      <form class="containerFiltro" action="/api/carts/{{../cart._id}}/product/{{this.id}}" method="get"> 
+      <form class="containerFiltro" action="/api/carts/{{../cart._id}}/product/{{this._id}}" method="get"> 
       <input type="hidden" name="eliminar" value="1">
       <button type="submit" class="btn btn-primary">🗑</button>
     </form></td>
   </tr>
 {{/each}}
   </table>
+
 
 
 

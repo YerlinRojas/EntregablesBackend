@@ -1,137 +1,112 @@
-import cartModel from "../dao/models/cart.model.js";
+import {cartService}  from '../services/index.js'
 
 export const createCart = async (req, res) => {
   try {
-    const cartList = new cartModel();
-    await cartList.save();
-    console.log({ cartList });
+    const cart = await cartService.createCart()
 
-    res.send(cartList);
+    console.log("Cart from createCart: ", { cart });
+    res.send(cart);
   } catch (error) {
-    console.error("Error al enviar el producto:", error);
+    console.error("Error to create cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
 export const cartById = async (req, res) => {
   try {
-    const cid = req.params.cid;
-    const result = await cartModel.find({ _id: cid }).explain("executionStats");
-
-    //index para performance
-    res.send(result);
+    const { cid } = req.params.cid;
+    const result = await cartService.cartById(cid).explain("executionStats");
     const populatedCart = await cartModel.findById(cid).populate("product.id");
-    console.log(JSON.stringify(populatedCart, null, "\t"));
+
+    console.log("Populate from cartById: ", JSON.stringify(populatedCart, null, "\t"));
+    res.send(result);
   } catch (error) {
-    //console.error('Error al obtener producto por id:', error);
+    console.error("Error to get cartId:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
 export const cartList = async (req, res) => {
   try {
-    const cartList = await cartModel.find();
-    /* console.log({cartList})  */
+    const cartList = await cartService.cartList();
+    console.log("cartList from CartList: ", { cartList })
     res.status(200).json(cartList);
   } catch (error) {
-    console.error("Error al obtener productos:", error);
+    console.error("Error to get cartList:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
 export const addProductByCart = async (req, res) => {
   try {
-    const cid = req.params.cid;
-    const pid = req.params.pid;
-    const quantity = req.body.quantity || 1;
+    const { cid } = req.params.cid;
+    const { pid } = req.params.pid;
+    const { quantity } = req.body.quantity || 1;
 
-    const updatedCart = await cartModel.updateOne(
-      { _id: cid },
-      { $push: { product: { id: pid, quantity } } }
-    );
-    const cart = await cartModel.findById(cid);
-
-    const cartsave = await cart.save(updatedCart);
-
-    console.log("CARRITO POR ID", cartsave);
+    const addProductByCart = await cartService.addProductByCart(cid, pid, quantity)
+    console.log("AddPorductByCart :", addProductByCart);
 
     res.redirect("/products");
   } catch (error) {
-    console.error("Error agregando producto:", error);
+    console.error("Error to add product at cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
 export const deleteProductByCart = async (req, res) => {
   try {
-    const cid = req.params.cid;
-    const pid = req.params.pid;
+    const { cid } = req.params.cid;
+    const { pid } = req.params.pid;
 
-    const cart = await cartModel.findByIdAndUpdate(
-      { _id: cid },
-      { $pull: { product: { id: pid } } },
-      { new: true }
-    );
+    const cart = await cartService.deleteProductByCart(cid, pid)
     cart.id = cid;
 
-    console.log({ cart });
+    console.log("delete Product by Cart :", { cart });
     res.redirect(`/${cid}`);
   } catch (error) {
-    console.error("Error al borrar productos", error);
+    console.error("Error to delete products at cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
 export const updatedCart = async (req, res) => {
   try {
-    const cid = req.params.cid;
+    const { cid } = req.params.cid;
     const updatedFields = req.body;
 
-    console.log(cid);
-    console.log(updatedFields);
-
-    const result = await cartModel.updateOne(cid, updatedFields);
-
+    const result = await cartService.updatedCart(cid, updatedFields);
+    console.log("update Cart:", result)
     res.send(result);
   } catch (error) {
-    console.error("Error al actualizar producto:", error);
+    console.error("Error to update cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
 
 export const quantityProductByCart = async (req, res) => {
   try {
-    const cid = req.params.cid;
-    const pid = req.params.pid;
+    const { cid } = req.params.cid;
+    const { pid } = req.params.pid;
     const { quantity } = req.body;
 
-    const cart = await cartModel.findById(cid);
-    const productIndex = cart.product.findIndex(
-      (product) => product.id.toString() === pid
-    );
-
-    cart.product[productIndex].quantity = quantity;
-
-    await cart.save();
-
-    res.send(cart);
+    const cart = await cartService.quantityProductByCart(cid, pid, quantity)
+    console.log("Quantity products by cart:", cart)
   } catch (error) {
-    console.error("Error al actualizar producto:", error);
+    console.error("Error to quantityProducts at cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
+//utiliza el find cart
 export const deleteAllProductsByCart = async (req, res) => {
   try {
     const cid = req.params.cid;
 
-    const cart = await cartModel.findById(cid);
-    cart.product = [];
-    await cart.save();
+    const cart = await cartService.deleteAllProductsByCart(cid)
+    console.log("delete all products by cart:", { cart })
 
     res.send(cart);
   } catch (error) {
-    console.error("Error al borrar productos", error);
+    console.error("Error to delete all products at cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };

@@ -1,7 +1,6 @@
+import {productService,cartService} from '../services/index.js'
 
-import productModel from "../dao/models/product.model.js";
-import cartModel from "../dao/models/cart.model.js";
-import mongoose from "mongoose";
+
 
 
 export const productByCard = async (req, res) => {
@@ -31,7 +30,7 @@ export const productByCard = async (req, res) => {
         }
       }
   
-      const productsList = await productModel.paginate(query, {
+      const productsList = await cartService.cartList().paginate(query, {
         limit,
         page,
         lean: true,
@@ -55,6 +54,7 @@ export const productByCard = async (req, res) => {
     }
   }
 
+
 export const listProduct = async (req, res) => {
     try {
       const limit = parseInt(req.query?.limit || 10);
@@ -75,7 +75,7 @@ export const listProduct = async (req, res) => {
         }
       }
   
-      const productsList = await productModel.paginate(query, {
+      const productsList = await cartService.cartList().paginate(query, {
         limit,
         page,
         lean: true,
@@ -96,9 +96,10 @@ export const listProduct = async (req, res) => {
     }
   }
 
+
 export const createProduct = async (req, res) => {
     try {
-      const products = await productManager.getProduct();
+      const products = await productService.createProduct();
       res.render("realtimeproducts", { products });
     } catch (error) {
       console.error("Error obteniendo el producto:", error);
@@ -110,29 +111,14 @@ export const viewCartById = async (req, res) => {
   try {
     const cartId = req.params.cartId;
 
-    //valida el cartId asi no trae error 
-    if (!mongoose.Types.ObjectId.isValid(cartId)) {
-      return res.status(400).json({ error: "ID de carrito no válido" });
-    }
+    const populatedCart = await cartService.findById(cartId).populate("product.id").lean().exec();
+    console.log("ESTE ES EL CART POPULATE:", JSON.stringify(populatedCart, null, "\t"))
 
-    const cart = await cartModel.findById(cartId).lean().exec();
-
-    if (!cart) {
+    if (!populatedCart) {
       return res.status(404).json({ error: "Cart no encontrado" });
     }
-    
-    const populatedCart = await cartModel.findById(cart).populate("product.id");
-    console.log("ESTE ES EL CART POPULATE:", JSON.stringify(populatedCart, null, "\t"))
-    
-    const products = await populatedCart.product.map(subdoc => subdoc.id);
-    console.log("productos desde el POPULATE .MAP",products)
-  
-  
-    
-  
-    //const products = populatedCart.product
-    //console.log("PRODUCTOS DESDE POPULATE",products)
-    res.render("carts", { cart,products});
+
+    res.render("carts", {populatedCart});
     
   } catch (error) {
     console.error("Error obteniendo el carrito por id DESDE GET CARTID:", error);

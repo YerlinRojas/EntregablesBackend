@@ -1,15 +1,15 @@
 import passport from "passport";
 import local from "passport-local";
 import GitHubStrategy from "passport-github";
-import UserModel from "../dao/models/user.model.js";
+
+
 import { cookieExtractor, generateToken, createHash, isValidPassword } from "../utils.js";
-import userModel from "../dao/models/user.model.js";
 import passportGoogle from "passport-google-oauth20";
 import passportJWT from 'passport-jwt'
-import cartModel from "../dao/models/cart.model.js";
 
 
 import {config} from 'dotenv'
+import { cartService, userService } from "../services/index.js";
 config()
 
 
@@ -21,6 +21,7 @@ var GoogleStrategy = passportGoogle.Strategy;
 
 
 const initializePassport = () => {
+
 
     passport.use(
         'jwt',
@@ -56,7 +57,8 @@ const initializePassport = () => {
                     console.log("PROFILE", profile);
                     const email = profile.emails[0].value;
                     const first_name = profile.displayName;
-                    const user = await userModel.findOne({ email });
+
+                    const user = await userService.getUser({ email });
                     if (user) {
                         
                         console.log("User already exits ");
@@ -65,9 +67,9 @@ const initializePassport = () => {
                         return done(null, user)
 
                     }                        
-                        let cartId = new cartModel()
-                        const cart = await cartId.save()
-                        cartId = cart._id
+                        let cart = new cartService.createCart()
+                        const newCart = await cartService.saveCart(cart)
+                        cart = newCart._id
 
                         const newUser = {
                             first_name: first_name,
@@ -76,14 +78,14 @@ const initializePassport = () => {
                             email: profile._json.email,
                             password: "",
                             rol: 'user',
-                            cartId: cartId,
+                            cartId: cart,
 
                         }
-                        const result = await userModel.create(newUser);
+                        const result = await userService.createUser(newUser);
                         console.log("New User Created GOOGLE:", result);
 
                         
-                        const tokenPayload = { user: result, cartId: cartId};
+                        const tokenPayload = { user: result, cartId: cart};
                         const token = generateToken(tokenPayload);
                         result.token= token
 
@@ -107,15 +109,14 @@ const initializePassport = () => {
             async (accessToken, refreshToken, profile, done) => {
                 try {
                     console.log("PROFILE", profile);
-                    const user = await userModel.findOne({ email: profile._json.email });
+                    const user = await userService.getUser({ email: profile._json.email });
                     if (user) {
                         console.log("Existing User:", user);
                         return done(null, user);
                     } 
-                        let cartId = new cartModel()
-                        const cart = await cartId.save()
-                        cartId = cart._id
-
+                    let cart = new cartService.createCart()
+                    const newCart = await cartService.saveCart(cart)
+                    cart = newCart._id
 
                         const newUser = {
                             first_name: profile._json.displayName,
@@ -124,14 +125,14 @@ const initializePassport = () => {
                             email: profile._json.email,
                             password: "",
                             rol: 'user',
-                            cartId: cartId,
+                            cartId: cart,
   
                         }
-                        const result = await userModel.create(newUser);
+                        const result = await userService.createUser(newUser);
                         console.log("New User Created GITHUB:", result);
 
                         
-                        const tokenPayload = { user: result, cartId: cartId };
+                        const tokenPayload = { user: result, cartId: cart };
                         const token = generateToken(tokenPayload);
                         result.token= token
                         return done(null, result, { token });
@@ -158,14 +159,15 @@ const initializePassport = () => {
             async (req, username, password, done) => {
                 const { firts_name, last_name, age, email } = req.body;
                 try {
-                    const user = await UserModel.findOne({ email: username });
+                    const user = await userService.getUser({ email: username });
                     if (user) {
                         console.log("User already exits");
                         return done(null, false);
                     }
-                    let cartId = new cartModel()
-                    const cart = await cartId.save()
-                    cartId = cart._id
+                    let cart = new cartService.createCart()
+                        const newCart = await cartService.saveCart(cart)
+                        cart = newCart._id
+
                     console.log('CART ID DESDE PASSPORT : ', cartId)
                     const newUser = {
                         firts_name,
@@ -173,11 +175,11 @@ const initializePassport = () => {
                         age,
                         email,
                         password: createHash(password),
-                        cartId: cartId,
+                        cartId: cart,
 
                     };
-                    const result = await UserModel.create(newUser);
-                    const tokenPayload = { user: result, cartId: cartId };
+                    const result = await userService.createUser(newUser);
+                    const tokenPayload = { user: result, cartId: cart };
                     const token = generateToken(tokenPayload);
 
                     return done(null, result, { token });
@@ -195,7 +197,7 @@ const initializePassport = () => {
             { usernameField: "email" },
             async (username, password, done) => {
                 try {
-                    const user = await UserModel.findOne({ email: username })
+                    const user = await userService.getUser({ email: username })
                         .lean()
                         .exec();
                     if (!user) {
@@ -221,7 +223,7 @@ const initializePassport = () => {
     });
 
     passport.deserializeUser(async (id, done) => {
-        const user = await UserModel.findById(id);
+        const user = await userService.userById(id);
         done(null, user);
     });
 };

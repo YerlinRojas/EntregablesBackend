@@ -1,10 +1,9 @@
+import { chatService } from "../services/index.js" 
 
-import chatModel from "../dao/models/chat.model.js";
-
-export const viewChat = async (req,res)=>{
+export const getChat = async (req,res)=>{
     try {
         
-        const username = await chatModel.find().lean().exec()
+        const username = await chatService.getChat.lean().exec()
         
         res.render('chat',{username})
     } catch (error) {
@@ -13,11 +12,11 @@ export const viewChat = async (req,res)=>{
     }
 }
 
-export const userNameChat = async(req,res)=>{
+export const createUserNameChat = async(req,res)=>{
     try {
         const username = req.body
-        const newUsername = new chatModel(username)
-        await newUsername.save()
+        const newUsername = await chatService.createChat(username)
+        await chatService.saveChat(newUsername)
 
         res.redirect('/chat')
     } catch (error) {
@@ -29,8 +28,8 @@ export const userNameChat = async(req,res)=>{
 export const message = async(req,res)=>{
     try {
         const newMessage = req.body
-        const newMessageGenerated = new chatModel(newMessage)
-        await newMessageGenerated.save()
+        const newMessageGenerated = await chatService.createChat(newMessage)
+        await chatService.saveChat(newMessageGenerated)
         
         res.redirect('/api/chat')
         
