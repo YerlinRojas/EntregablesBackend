@@ -2,16 +2,11 @@ import express from 'express'
 import productRouter from './routes/product.route.js'
 import cartRouter from './routes/cart.route.js'
 import viewsRouter from './routes/views.route.js'
-
 import chatRouter from './routes/chat.route.js'
-import {config} from 'dotenv'
-config({ path: 'env'})
 
-import configMongo from './config/mongo.config.js'
+import config from './config/config.js'
 
 import sessionRouter from './routes/session.route.js'
-
-
 import cookieParser from 'cookie-parser'
 import passport from 'passport'
 import initializePassport from './config/passport.config.js'
@@ -48,13 +43,13 @@ app.use(cookieParser())
 //se cambian url y dbname importada de dotevn
 app.use(session({
   store: MongoStore.create({
-      mongoUrl:process.env.URL,
-      dbName: process.env.dbName,
+      mongoUrl:config.URL,
+      dbName: config.dbName,
       mongoOptions: {
           useNewUrlParser: true,
           useUnifiedTopology: true,
       },
-      ttl: process.env.ttl,
+      ttl: config.ttl,
   }),
   secret: 'secret',
   resave: true,
@@ -76,7 +71,7 @@ app.use('/api/chat', chatRouter)
 
 
 //PORT se importa desde configMongo.js
-app.listen(configMongo.PORT, () => console.log('Listening...'))
+app.listen(config.PORT, () => console.log('Listening...'))
 
 
 

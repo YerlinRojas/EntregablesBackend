@@ -1,10 +1,10 @@
-import productModel from '../dao/mongo/models/product.model.js'
 
+import { productService } from "../services/index.js" 
 
 export const getList=  async(req,res)=>{
     try {
         //se importa por user services
-        const productsList = await productModel.find()
+        const productsList = await productService.getList()
         console.log('Desde el back:',{productsList})
         res.send(productsList)
         
@@ -20,8 +20,8 @@ export const createProduct =  async(req,res)=>{
         console.log ('params from form:', {newProduct})
 
 //se importa por user services
-        const newProductGenerated = new productModel(newProduct)
-        await newProductGenerated.save()
+        const newProductGenerated = await productService.createProduct(newProduct)
+        
 
         console.log ('new product from mongoose:', {newProductGenerated})
         res.redirect('/home')
@@ -33,11 +33,11 @@ export const createProduct =  async(req,res)=>{
 
 export const deleteProduct =  async(req,res)=>{
     try {
-        const id = req.params.id
+        const {pid} = req.params.id
         console.log("DELETE PRODUCT id:", id);
 
         //se importa por user services
-        await productModel.deleteOne({_id:id})
+        const deleteProduct = await productService.deleteProduct(pid)
         res.redirect('/home')
     } catch (error) {
         console.error('Error al borrar productos', error)
@@ -47,14 +47,14 @@ export const deleteProduct =  async(req,res)=>{
 
 export const updateProduct = async(req,res)=>{
     try {
-    const pid = req.params.pid
-    const updatedFields = req.body
+    const {pid} = req.params.pid
+    const {updatedFields} = req.body
 
     console.log("UPDATE PRODUCT PID:",pid)
     console.log("UPDATE PRODUCT FIELDS:",updatedFields)
 
     //se importa por user services
-    const result = await productModel.updateOne(pid,updatedFields)
+    const result = await productService.updateProduct(pid,updatedFields)
     
     res.send(result)
     } catch (error) {

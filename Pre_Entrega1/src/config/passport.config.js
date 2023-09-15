@@ -1,16 +1,14 @@
 import passport from "passport";
 import local from "passport-local";
 import GitHubStrategy from "passport-github";
-
+import config from "../config/config.js";
 
 import { cookieExtractor, generateToken, createHash, isValidPassword } from "../utils.js";
 import passportGoogle from "passport-google-oauth20";
 import passportJWT from 'passport-jwt'
 
 
-import {config} from 'dotenv'
 import { cartService, userService } from "../services/index.js";
-config()
 
 
 const JWTStrategy = passportJWT.Strategy
@@ -18,7 +16,7 @@ const ExtractJWT = passportJWT.ExtractJwt
 const LocalStrategy = local.Strategy;
 var GoogleStrategy = passportGoogle.Strategy;
 
-
+console.log("PASSPORT CONFIG : ", config.PERSISTENCE);
 
 const initializePassport = () => {
 
@@ -28,7 +26,7 @@ const initializePassport = () => {
         new JWTStrategy(
             {
                 jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-                secretOrKey: process.env.PRIVATE_KEY
+                secretOrKey: config.PRIVATE_KEY
             },
             async (jwt_payload, done) => {
 
@@ -48,9 +46,9 @@ const initializePassport = () => {
         "google",
         new GoogleStrategy(
             {
-                clientID: process.env.GOOGLE_CLIENT_ID,
-                clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-                callbackURL : process.env.GOOGLE_callbackURL,
+                clientID: config.GOOGLE_CLIENT_ID,
+                clientSecret: config.GOOGLE_CLIENT_SECRET,
+                callbackURL : config.GOOGLE_callbackURL,
             },
             async (accessToken, refreshToken, profile, done) => {
                 try {
@@ -102,9 +100,9 @@ const initializePassport = () => {
         "github",
         new GitHubStrategy(
             {
-                clientID: process.env.GITHUB_CLIENT_ID,
-                clientSecret: process.env.GITHUB_CLIENT_SECRET,
-                callbackURL: process.env.GITHUB_callbackurl,
+                clientID: config.GITHUB_CLIENT_ID,
+                clientSecret: config.GITHUB_CLIENT_SECRET,
+                callbackURL: config.GITHUB_callbackurl,
             },
             async (accessToken, refreshToken, profile, done) => {
                 try {
@@ -168,7 +166,7 @@ const initializePassport = () => {
                         const newCart = await cartService.saveCart(cart)
                         cart = newCart._id
 
-                    console.log('CART ID DESDE PASSPORT : ', cartId)
+                    console.log('CART ID DESDE PASSPORT : ', cart)
                     const newUser = {
                         firts_name,
                         last_name,
