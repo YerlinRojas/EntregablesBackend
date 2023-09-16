@@ -4,10 +4,9 @@ import { Router } from "express";
 import passport from "passport";
 import { generateToken, passportCall, authorization } from "../utils.js";
 import { createProduct, listProduct, productByCard, viewCartById } from "../controller/views.controller.js";
-import {config} from 'dotenv'
-config()
+import config from "../config/config.js";
 
-const COOKIE_KEY = process.env.COOKIE_KEY
+const COOKIE_KEY = config.COOKIE_KEY
 const router = Router();
 
 //Funcion de autorizacion por  SESSION

@@ -1,4 +1,4 @@
-import ChatModel from './models/chat.model'
+import ChatModel from '../mongo/models/chat.model.js'
 
 export default class Chat {
     getChat = async () => {

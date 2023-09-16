@@ -1,4 +1,4 @@
-import CartModel from '../dao/mongo/models/cart.model.js'
+import CartModel from '../mongo/models/cart.model.js'
 
 export default class Cart{
     cartList= async()=>{

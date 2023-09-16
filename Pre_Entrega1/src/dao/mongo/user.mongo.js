@@ -1,4 +1,4 @@
-import UserModel from '../dao/mongo/models/product.model.js'
+import UserModel from '../mongo/models/product.model.js'
 
 export default class User {
     getUser = async () => { 
