@@ -10,6 +10,8 @@ export const productByCard = async (req, res) => {
       
        //cart Id desde el passport register
       const cid = user.user.cartId;
+      console.log("Este es el cid primero",cid)
+      //esta ok lo reconoce y lo trae desde el payload inicio de sesion
       //----------------------------------------------------------------
       //opciones de filtrado
       const limit = parseInt(req.query?.limit || 10);
@@ -50,7 +52,7 @@ export const productByCard = async (req, res) => {
       res.render("products", { products: productsList, cid,  user });
     } catch (error) {
       //console.error("Error obteniendo el producto:", error);
-      res.status(500).json({ error: "Internal server error" });
+      res.status(500).json({ error: "Error en Products view Internal server error" });
     }
   }
 

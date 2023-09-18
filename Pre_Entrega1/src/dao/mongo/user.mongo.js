@@ -1,10 +1,10 @@
 import UserModel from '../mongo/models/user.model.js'
 
 export default class User {
-    getUser = async (email) => {
+    getUser = async (query = {}) => {
         try {
-          const user = await UserModel.findOne({email});
-          return user;
+          const user = await UserModel.findOne(query).lean().exec();
+          return user; 
         } catch (error) {
           throw error;
         }

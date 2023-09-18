@@ -199,7 +199,9 @@ const initializePassport = () => {
         new LocalStrategy(
             { usernameField: "email" },
             async (username, password, done) => {
+                
                 try {
+                   
                     const user = await userService.getUser({ email: username })
                         //.lean()
                         //.exec();

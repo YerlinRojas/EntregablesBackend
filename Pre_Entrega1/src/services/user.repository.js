@@ -5,9 +5,9 @@ export default class UserRepository {
         this.dao = dao
     }
 
-    getUser = async () => { 
-        return await this.dao.getUser() }
-
+    getUser = async (query = {}) => { 
+        return await this.dao.getUser(query) } 
+    
     createUser = async(newUser) => {
         const userInsert = new UserDTO(newUser)
         return await this.dao.createUser(userInsert)

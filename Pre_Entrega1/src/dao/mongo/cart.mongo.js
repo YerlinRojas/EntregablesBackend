@@ -10,12 +10,12 @@ export default class Cart {
   }
 
   cartById = async (cid, res) => {
-    console.log(cid);
+    console.log(cid)
     try {
       console.log("entrando al primer if");
       if (!mongoose.Types.ObjectId.isValid(cid)) {
         return res.status(400).json({ error: "ID de carrito no válido" });
-      }
+      } 
 
       console.log("primer if funciono, entrando a la const cart")
       const cart = await CartModel.findOne({ _id: cid });
