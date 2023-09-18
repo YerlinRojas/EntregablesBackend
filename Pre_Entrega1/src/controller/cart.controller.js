@@ -15,7 +15,7 @@ export const createCart = async (req, res) => {
 export const cartById = async (req, res) => {
   try {
     const cid  = req.params.cid;
-    const result = await cartService.cartById(cid).explain("executionStats");
+    const result = await cartService.cartById(cid);
     const populatedCart = await cartModel.findById(cid).populate("product.id");
 
     console.log("Populate from cartById: ", JSON.stringify(populatedCart, null, "\t"));

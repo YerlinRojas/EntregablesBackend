@@ -121,7 +121,7 @@ const initializePassport = () => {
                             last_name:profile._json.name,
                             age:"",
                             email: profile._json.email,
-                            password: "",
+                            password: createHash(password),
                             rol: 'user',
                             cartId: cart,
   
@@ -156,15 +156,20 @@ const initializePassport = () => {
             },
             async (req, username, password, done) => {
                 const { firts_name, last_name, age, email } = req.body;
+                if (!req) {
+                    return done("Invalid request object");
+                }
+                if (!req.body) {
+                    return done("Request body is empty");
+                }
+
                 try {
                     const user = await userService.getUser({ email: username });
                     if (user) {
                         console.log("User already exits");
                         return done(null, false);
                     }
-                    let cart = new cartService.createCart()
-                        const newCart = await cartService.saveCart(cart)
-                        cart = newCart._id
+                    const cart = await cartService.createCart();
 
                     console.log('CART ID DESDE PASSPORT : ', cart)
                     const newUser = {
@@ -172,12 +177,12 @@ const initializePassport = () => {
                         last_name,
                         age,
                         email,
-                        password: createHash(password),
-                        cartId: cart,
+                        password: "",
+                        cartId: cart._id,
 
                     };
                     const result = await userService.createUser(newUser);
-                    const tokenPayload = { user: result, cartId: cart };
+                    const tokenPayload = { user: result, cartId: cart._id };
                     const token = generateToken(tokenPayload);
 
                     return done(null, result, { token });
