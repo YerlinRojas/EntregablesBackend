@@ -126,7 +126,7 @@ createProduct
 );
 
 // CARRITO POR ID VIEW -user-
- router.get("/:cartId", viewCartById); 
+ router.get("/:cid", viewCartById); 
 
 
 

@@ -33,12 +33,13 @@ export const createProduct =  async(req,res)=>{
 
 export const deleteProduct =  async(req,res)=>{
     try {
-        const {pid} = req.params.id
-        console.log("DELETE PRODUCT id:", id);
+        const pid = req.params.id
+        console.log("DELETE PRODUCT id:", pid);
 
         //se importa por user services
         const deleteProduct = await productService.deleteProduct(pid)
         res.redirect('/home')
+        
     } catch (error) {
         console.error('Error al borrar productos', error)
         res.status(500).json({error: 'Internal server error'})
@@ -47,8 +48,8 @@ export const deleteProduct =  async(req,res)=>{
 
 export const updateProduct = async(req,res)=>{
     try {
-    const {pid} = req.params.pid
-    const {updatedFields} = req.body
+    const pid = req.params.pid
+    const updatedFields = req.body
 
     console.log("UPDATE PRODUCT PID:",pid)
     console.log("UPDATE PRODUCT FIELDS:",updatedFields)

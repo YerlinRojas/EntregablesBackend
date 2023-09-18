@@ -1,4 +1,5 @@
 import CartModel from '../mongo/models/cart.model.js'
+import mongoose from 'mongoose'
 
 export default class Cart{
     cartList= async()=>{
@@ -7,13 +8,26 @@ export default class Cart{
     createCart = async()=>{
         return await CartModel.create({})
     }
-    cartById= async(cid)=>{
-   
-    if (!mongoose.Types.ObjectId.isValid(cid)) {
-        return res.status(400).json({ error: "ID de carrito no válido" });
-      }
-        return await CartModel.findOne({_id:cid})
-    }
+     cartById = async (cid, res) => {
+        try {
+            
+          if (!mongoose.Types.ObjectId.isValid(cid)) {
+            return res.status(400).json({ error: "ID de carrito no válido" });
+          } 
+      
+          const cart = await CartModel.findOne({ _id: cid });
+           if (!cart) {
+            return res.status(404).json({ error: "Cart no encontrado" });
+          }
+       
+          return cart;
+        } catch (error) {
+
+          console.error("Error obteniendo el carrito por id:", error);
+          throw error; 
+        }
+      };
+    
     saveCart= async(cart)=>{
         return await cart.save()
     }

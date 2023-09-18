@@ -1,9 +1,14 @@
-import UserModel from '../mongo/models/product.model.js'
+import UserModel from '../mongo/models/user.model.js'
 
 export default class User {
-    getUser = async () => { 
-        return await UserModel.find() }
-
+    getUser = async (email) => {
+        try {
+          const user = await UserModel.findOne({email});
+          return user;
+        } catch (error) {
+          throw error;
+        }
+      };
     createUser = async(newUser) => {
         return await UserModel.create(newUser)
     }

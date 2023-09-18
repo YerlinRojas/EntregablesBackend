@@ -19,8 +19,8 @@ export default class ProductRepository{
         return await  this.dao.saveProduct()
     }
 
-    deleteProduct= async (id) => {
-        return await this.dao.deleteProduct(id)
+    deleteProduct= async (pid) => {
+        return await this.dao.deleteProduct(pid)
     }
 
     updateProduct = async (pid,updatedFields ) => {

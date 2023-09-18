@@ -88,9 +88,9 @@ const initializePassport = () => {
                         result.token= token
 
                         return done(null, result, { token });
-                } catch (error) {
+                } catch (e) {
                     console.error("Error in Google Authentication:", error);
-                    return done("error google auth", error);
+                    return done("error google auth", e);
                 }
             }
         )
@@ -138,9 +138,9 @@ const initializePassport = () => {
                         
 
                     
-                } catch (error) {
+                } catch (e) {
                     console.error("Error in GitHub Authentication:", error);
-                    return done("error github auth", error);
+                    return done("error github auth", e);
                 }
             }
         )
@@ -196,8 +196,9 @@ const initializePassport = () => {
             async (username, password, done) => {
                 try {
                     const user = await userService.getUser({ email: username })
-                        .lean()
-                        .exec();
+                        //.lean()
+                        //.exec();
+                        console.log('user desde login passport ' ,user);
                     if (!user) {
                         console.error("User doesnt exist");
                         return done(null, false);
@@ -210,7 +211,7 @@ const initializePassport = () => {
 
                     return done(null, user);
                 } catch (e) {
-                    return done("Error login " + error);
+                    return done("Error login " + e);
                 }
             }
         )

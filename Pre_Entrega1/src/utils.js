@@ -5,11 +5,11 @@ const __dirname = dirname(__filename)
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import passport from 'passport'
-import {config} from 'dotenv'
-config()
 
-const PRIVATE_KEY = process.env.PRIVATE_KEY
-const COOKIE_KEY = process.env.COOKIE_KEY
+import config from './config/config.js'
+
+const PRIVATE_KEY = config.PRIVATE_KEY
+const COOKIE_KEY = config.COOKIE_KEY
 
 export const createHash = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10))

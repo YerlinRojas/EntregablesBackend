@@ -109,15 +109,16 @@ export const createProduct = async (req, res) => {
 
 export const viewCartById = async (req, res) => {
   try {
-    const cartId = req.params.cartId;
+    const cid = req.params.cid;
+    const cart = await cartService.cartById(cid)
 
-    const populatedCart = await cartService.findById(cartId).populate("product.id").lean().exec();
+    const populatedCart = await cart.populate("product.id").lean().exec();
     console.log("ESTE ES EL CART POPULATE:", JSON.stringify(populatedCart, null, "\t"))
 
-    if (!populatedCart) {
+  if (!populatedCart) {
       return res.status(404).json({ error: "Cart no encontrado" });
     }
-
+ 
     res.render("carts", {populatedCart});
     
   } catch (error) {
@@ -125,4 +126,6 @@ export const viewCartById = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 }
+
+
 

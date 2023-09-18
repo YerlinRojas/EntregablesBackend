@@ -10,7 +10,7 @@ router.get('/',getList)
 router.post('/create', createProduct) 
 
 //DELETE PRODUCT
-router.get('/delete/:id', deleteProduct)
+router.get('/delete/:pid', deleteProduct)
 
 //UPDATE PRODUCT
 router.put('/:pid',updateProduct )

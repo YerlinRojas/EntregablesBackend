@@ -12,7 +12,7 @@
         <button type="submit" class="btn btn-primary">Loguot</button>
     </form>
 
-    <form class="containerFiltro" action="/{{cartId}}" method="get"> 
+    <form class="containerFiltro" action="/{{cid}}" method="get"> 
         <input type="hidden" name="quantity" value="1">
         <button type="submit" class="btn btn-primary">CARRITO</button>
     </form>
@@ -52,7 +52,7 @@
     <h5 class="card-title">Precio : {{this.price}}</h5>
     <h6 class="card-title">Stock : {{this.stock}}</h6>
 
-  <form action="/api/carts/{{../cartId}}/product/{{this.id}}" method="post">  
+  <form action="/api/carts/{{../cid}}/product/{{this.id}}" method="post">  
         <input type="hidden" name="quantity" value="1">
         <button type="submit" class="btn btn-primary">Agregar al Carrito</button>
     </form>

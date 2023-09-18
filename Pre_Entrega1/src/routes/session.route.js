@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { generateToken, passportCall, createHash, isValidPassword } from "../utils.js";
 import passport from "passport";
+import config from "../config/config.js";
 
-
-const COOKIE_KEY = process.env.COOKIE_KEY
+const COOKIE_KEY = config.COOKIE_KEY
 const router = Router()
 //---------------------------------------------------
 

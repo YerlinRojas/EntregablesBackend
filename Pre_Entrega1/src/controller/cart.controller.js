@@ -14,7 +14,7 @@ export const createCart = async (req, res) => {
 
 export const cartById = async (req, res) => {
   try {
-    const { cid } = req.params.cid;
+    const cid  = req.params.cid;
     const result = await cartService.cartById(cid).explain("executionStats");
     const populatedCart = await cartModel.findById(cid).populate("product.id");
 
@@ -39,9 +39,9 @@ export const cartList = async (req, res) => {
 
 export const addProductByCart = async (req, res) => {
   try {
-    const { cid } = req.params.cid;
-    const { pid } = req.params.pid;
-    const { quantity } = req.body.quantity || 1;
+    const cid  = req.params.cid;
+    const pid  = req.params.pid;
+    const quantity  = req.body.quantity || 1;
 
     const addProductByCart = await cartService.addProductByCart(cid, pid, quantity)
     console.log("AddPorductByCart :", addProductByCart);
@@ -55,8 +55,8 @@ export const addProductByCart = async (req, res) => {
 
 export const deleteProductByCart = async (req, res) => {
   try {
-    const { cid } = req.params.cid;
-    const { pid } = req.params.pid;
+    const  cid  = req.params.cid;
+    const  pid  = req.params.pid;
 
     const cart = await cartService.deleteProductByCart(cid, pid)
     cart.id = cid;
@@ -71,7 +71,7 @@ export const deleteProductByCart = async (req, res) => {
 
 export const updatedCart = async (req, res) => {
   try {
-    const { cid } = req.params.cid;
+    const cid  = req.params.cid;
     const updatedFields = req.body;
 
     const result = await cartService.updatedCart(cid, updatedFields);
@@ -85,9 +85,9 @@ export const updatedCart = async (req, res) => {
 
 export const quantityProductByCart = async (req, res) => {
   try {
-    const { cid } = req.params.cid;
-    const { pid } = req.params.pid;
-    const { quantity } = req.body;
+    const  cid = req.params.cid;
+    const  pid  = req.params.pid;
+    const quantity = req.body;
 
     const cart = await cartService.quantityProductByCart(cid, pid, quantity)
     console.log("Quantity products by cart:", cart)
