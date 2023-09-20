@@ -9,27 +9,30 @@ export default class Cart {
     return await CartModel.create({})
   }
 
-   cartById = async (cid, res) => {
-    console.log(cid)
+  cartById = async (cid, res) => {
+    console.log("CART BY ID: ",cid);
     try {
- 
       if (!mongoose.Types.ObjectId.isValid(cid)) {
         return res.status(400).json({ error: "ID de carrito no válido" });
-      } 
-
-      const cart = await CartModel.findOne({ _id: cid });
-      
-      if (!cart) {
-        return res.status(404).json({ error: "Cart no encontrado" });
       }
-
-      return cart;
+  
+      const populatedCart = await CartModel.findOne({ _id: cid })
+        .populate("product.id")
+        .lean()
+        .exec();
+  
+      console.log("ESTE ES EL CART POPULATE:", JSON.stringify(populatedCart, null, "\t"));
+  
+      
+  
+      return populatedCart;
     } catch (error) {
-
       console.error("Error obteniendo el carrito por id:", error);
       throw error;
     }
   };
+
+
 
   saveCart = async (cart) => {
     return await cart.save()

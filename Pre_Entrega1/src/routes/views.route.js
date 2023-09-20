@@ -3,7 +3,7 @@
 import { Router } from "express";
 import passport from "passport";
 import { generateToken, passportCall, authorization } from "../utils.js";
-import { addProductByCart, createProduct, listProduct, productByCard, /* viewCartById */ } from "../controller/views.controller.js";
+import { addProductByCart, createProduct, listProduct, productByCard,  viewCartById,deleteProductByCart  } from "../controller/views.controller.js";
 import config from "../config/config.js";
 
 const COOKIE_KEY = config.COOKIE_KEY
@@ -139,8 +139,8 @@ createProduct
 
 
 // CARRITO POR ID VIEW -user-
-// router.get("/:cid", viewCartById); 
+router.get("/:cid", viewCartById); 
 
-
+router.get("/:cid/product/:pid", deleteProductByCart)
 
 export default router;

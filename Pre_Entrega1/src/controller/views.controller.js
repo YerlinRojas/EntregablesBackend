@@ -125,25 +125,33 @@ export const createProduct = async (req, res) => {
 
 
 
-/* export const viewCartById = async (req, res) => {
+export const viewCartById = async (req, res) => {
   try {
     const cid = req.params.cid;
     const cart = await cartService.cartById(cid)
 
-    const populatedCart = await cart.populate("product.id").lean().exec();
-    console.log("ESTE ES EL CART POPULATE:", JSON.stringify(populatedCart, null, "\t"))
 
-  if (!populatedCart) {
-      return res.status(404).json({ error: "Cart no encontrado" });
-    }
- 
-    res.render("carts", {populatedCart});
+    res.render("carts", {cart});
     
   } catch (error) {
     console.error("Error obteniendo el carrito por id DESDE GET CARTID:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }
- */
 
 
+export const deleteProductByCart = async (req, res) => {
+  try {
+    const  cid  = req.params.cid;
+    const  pid  = req.params.pid;
+
+    const cart = await cartService.deleteProductByCart(cid, pid)
+    cart.id = cid;
+
+    console.log("delete Product by Cart :", { cart });
+    res.redirect(`/${cid}`);
+  } catch (error) {
+    console.error("Error to delete products at cart:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

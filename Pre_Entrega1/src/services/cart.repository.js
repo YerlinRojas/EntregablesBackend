@@ -46,6 +46,7 @@ export default class CartRepository {
         if (!cart) {
             throw new Error('Cart not Found');
         }
+        const pidString = pid.toString();
         const productIndex = cart.product.findIndex(product => product.id === pid);
         if (productIndex === -1) {
             throw new Error('Product not found in cart');

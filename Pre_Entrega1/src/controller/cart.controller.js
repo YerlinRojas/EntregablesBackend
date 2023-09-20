@@ -12,7 +12,7 @@ export const createCart = async (req, res) => {
   }
 };
 
-/* export const cartById = async (req, res) => {
+export const cartById = async (req, res) => {
   try {
     const cid  = req.params.cid;
     const result = await cartService.cartById(cid);
@@ -24,7 +24,7 @@ export const createCart = async (req, res) => {
     console.error("Error to get cartId:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-}; */
+}; 
 
 export const cartList = async (req, res) => {
   try {
@@ -62,7 +62,7 @@ export const deleteProductByCart = async (req, res) => {
     cart.id = cid;
 
     console.log("delete Product by Cart :", { cart });
-    res.redirect(`/${cid}`);
+    res.send(cart);
   } catch (error) {
     console.error("Error to delete products at cart:", error);
     res.status(500).json({ error: "Internal server error" });
