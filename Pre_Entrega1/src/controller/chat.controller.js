@@ -3,7 +3,7 @@ import { chatService } from "../services/index.js"
 export const getChat = async (req,res)=>{
     try {
         
-        const username = await chatService.getChat.lean().exec()
+        const username = await chatService.getChat()
         
         res.render('chat',{username})
     } catch (error) {

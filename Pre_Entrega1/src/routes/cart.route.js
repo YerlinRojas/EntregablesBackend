@@ -1,5 +1,5 @@
 import { Router } from "express";
-import{ deleteAllProductsByCart, addProductByCart, cartById, cartList, createCart, deleteProductByCart, quantityProductByCart, updatedCart, } from '../controller/cart.controller.js'
+import{ deleteAllProductsByCart, addProductByCart, /* cartById, */ cartList, createCart, deleteProductByCart, quantityProductByCart, updatedCart, } from '../controller/cart.controller.js'
 
 const router = Router();
 
@@ -7,7 +7,7 @@ const router = Router();
 router.post("/", createCart);
 
 //CART POR ID
-router.get("/:cid", cartById);
+//router.get("/:cid", cartById);
 
 //LISTADO cart
 router.get("/", cartList);

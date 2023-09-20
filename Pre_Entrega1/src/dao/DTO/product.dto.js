@@ -4,7 +4,7 @@ export default class ProductDTO {
         this.description = product.description || 'Descripción no disponible';
         this.price = product.price || 0;
         this.category = product.category || 'Categoría no especificada';
-        this.code = product.code || 'Codigo no disponible'
+        this.code = product.code || 0;
         this.stock = product.stock || 0;
     }
 }

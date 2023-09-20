@@ -3,7 +3,7 @@
 import { Router } from "express";
 import passport from "passport";
 import { generateToken, passportCall, authorization } from "../utils.js";
-import { createProduct, listProduct, productByCard, viewCartById } from "../controller/views.controller.js";
+import { addProductByCart, createProduct, listProduct, productByCard, /* viewCartById */ } from "../controller/views.controller.js";
 import config from "../config/config.js";
 
 const COOKIE_KEY = config.COOKIE_KEY
@@ -84,8 +84,9 @@ router.get(
 
             
       
-    } catch (error) {
-      console.error("error git call back", error);
+    } catch (e) {
+      console.error("error git call back", e);
+      
     }
   }
 );
@@ -115,6 +116,11 @@ router.get('/products',
 passportCall('jwt'),authorization('user'),
 productByCard);
 
+router.post("/:cid/product/:pid",passportCall('jwt'), authorization('user'),
+addProductByCart
+);
+
+
 //LISTADO DE PRODUCTS AUTORIZA -admin-
 router.get('/home', passportCall('jwt'), authorization('admin'), 
 listProduct
@@ -122,11 +128,18 @@ listProduct
 
 //CREA PRODUCTS AUTORIZA -admin-
 router.get("/realtimeproducts",passportCall('jwt'), authorization('admin'),
+(req,res)=>{
+  res.render("realtimeproducts",{})
+}
+);
+router.post("/realtimeproducts",passportCall('jwt'), authorization('admin'),
 createProduct
 );
 
+
+
 // CARRITO POR ID VIEW -user-
- router.get("/:cid", viewCartById); 
+// router.get("/:cid", viewCartById); 
 
 
 

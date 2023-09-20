@@ -65,9 +65,8 @@ const initializePassport = () => {
                         return done(null, user)
 
                     }                        
-                        let cart = new cartService.createCart()
-                        const newCart = await cartService.saveCart(cart)
-                        cart = newCart._id
+
+                        const cart = await cartService.createCart();
 
                         const newUser = {
                             first_name: first_name,
@@ -76,14 +75,14 @@ const initializePassport = () => {
                             email: profile._json.email,
                             password: "",
                             rol: 'user',
-                            cartId: cart,
+                            cartId: cart._id,
 
                         }
                         const result = await userService.createUser(newUser);
                         console.log("New User Created GOOGLE:", result);
 
                         
-                        const tokenPayload = { user: result, cartId: cart};
+                        const tokenPayload = { user: result, cartId: cart._id};
                         const token = generateToken(tokenPayload);
                         result.token= token
 
@@ -96,6 +95,8 @@ const initializePassport = () => {
         )
     );
 
+    //NO PUEDE AÑADIRLO A DB
+    //SI SE ENCUENTRA REGISTRADO EN LA DB POR GITHUB SI ENTRA
     passport.use(
         "github",
         new GitHubStrategy(
@@ -112,25 +113,25 @@ const initializePassport = () => {
                         console.log("Existing User:", user);
                         return done(null, user);
                     } 
-                    let cart = new cartService.createCart()
-                    const newCart = await cartService.saveCart(cart)
-                    cart = newCart._id
+
+
+                        const cart = await cartService.createCart();
 
                         const newUser = {
                             first_name: profile._json.displayName,
                             last_name:profile._json.name,
                             age:"",
                             email: profile._json.email,
-                            password: createHash(password),
+                            password: "",
                             rol: 'user',
-                            cartId: cart,
+                            cartId: cart._id,
   
                         }
                         const result = await userService.createUser(newUser);
                         console.log("New User Created GITHUB:", result);
 
                         
-                        const tokenPayload = { user: result, cartId: cart };
+                        const tokenPayload = { user: result, cartId: cart._id };
                         const token = generateToken(tokenPayload);
                         result.token= token
                         return done(null, result, { token });
@@ -139,14 +140,13 @@ const initializePassport = () => {
 
                     
                 } catch (e) {
-                    console.error("Error in GitHub Authentication:", error);
+                    console.error("Error in GitHub Authentication:", e);
                     return done("error github auth", e);
                 }
             }
         )
     );
-    //agregamos estrategias local
-    // para google face etc
+
     passport.use(
         "register",
         new LocalStrategy(
@@ -155,6 +155,10 @@ const initializePassport = () => {
                 usernameField: "email",
             },
             async (req, username, password, done) => {
+
+                
+                console.log("Request body:", req.body);
+                
                 const { firts_name, last_name, age, email } = req.body;
                 if (!req) {
                     return done("Invalid request object");
@@ -170,14 +174,15 @@ const initializePassport = () => {
                         return done(null, false);
                     }
                     const cart = await cartService.createCart();
+                    //console.log("new cart desde registre user",cart);
 
-                    console.log('CART ID DESDE PASSPORT : ', cart)
+                    //
                     const newUser = {
                         firts_name,
                         last_name,
                         age,
                         email,
-                        password: "",
+                        password: createHash(password), 
                         cartId: cart._id,
 
                     };
@@ -200,16 +205,21 @@ const initializePassport = () => {
             { usernameField: "email" },
             async (username, password, done) => {
                 
-                try {
+                try { 
                    
                     const user = await userService.getUser({ email: username })
-                        //.lean()
-                        //.exec();
-                        console.log('user desde login passport ' ,user);
+                    //console.log('user desde login passport ' ,user);
+                    
                     if (!user) {
                         console.error("User doesnt exist");
                         return done(null, false);
                     }
+
+                    console.log('Provided Password:', password);
+                    console.log('Stored Hashed Password:', user.password);
+
+                    const passwordIsValid = isValidPassword(user, password);
+                    console.log('Password Is Valid:', passwordIsValid);
 
                     if (!isValidPassword(user, password)) {
                         console.error("Password not valid");

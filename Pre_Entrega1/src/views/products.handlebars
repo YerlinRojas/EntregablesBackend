@@ -12,10 +12,10 @@
         <button type="submit" class="btn btn-primary">Loguot</button>
     </form>
 
-    <form class="containerFiltro" action="/{{cid}}" method="get"> 
+ {{!--    <form class="containerFiltro" action="/{{cid}}" method="get"> 
         <input type="hidden" name="quantity" value="1">
         <button type="submit" class="btn btn-primary">CARRITO</button>
-    </form>
+    </form> --}}
 
   <div class="containerFiltro">
     <h6>Filtro por Precio</h6>
@@ -41,7 +41,7 @@
   </div>
 
 <div class="row">
-{{#each products.docs}}
+{{#each products}}
 <div class="card" style="width: 18rem;">
   <img src="{{this.thumbnail}}" alt="Thumbnail" width="100">
   <div class="card-body">
@@ -51,9 +51,9 @@
     <p class="card-text">{{this.description}}</p>
     <h5 class="card-title">Precio : {{this.price}}</h5>
     <h6 class="card-title">Stock : {{this.stock}}</h6>
-
-  <form action="/api/carts/{{../cid}}/product/{{this.id}}" method="post">  
-        <input type="hidden" name="quantity" value="1">
+    <h6>id = {{this._id}}</h6>
+  <form action="/{{../cid}}/product/{{this._id}}" method="post">  
+        <input type="hidden" name="quantity" value="{{cid}}">
         <button type="submit" class="btn btn-primary">Agregar al Carrito</button>
     </form>
   </div>

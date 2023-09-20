@@ -2,96 +2,85 @@ import {productService,cartService} from '../services/index.js'
 
 
 
-
-export const productByCard = async (req, res) => {
-    try { 
+  export const productByCard = async (req, res) => {
+    try {
       console.log("User after authentication: ", req.user);
-      const user = req.user
-      
-       //cart Id desde el passport register
+      const user = req.user;
+  
+      //cart Id desde el passport register
       const cid = user.user.cartId;
-      console.log("Este es el cid primero",cid)
-      //esta ok lo reconoce y lo trae desde el payload inicio de sesion
-      //----------------------------------------------------------------
-      //opciones de filtrado
+      //console.log("Este es el cid DESDE ProductByCart views.controller", cid);
+  
+      
+      const allProducts = await productService.getList();
+  
+      // Pagination parameters
       const limit = parseInt(req.query?.limit || 10);
       const page = parseInt(req.query?.page || 1);
   
-      const sortOrder =
-        req.query.sort === "asc" ? 1 : req.query.sort === "desc" ? -1 : null;
-      const sort = { price: sortOrder };
+      // Calculate the start and end indexes for pagination
+      const startIndex = (page - 1) * limit;
+      const endIndex = page * limit;
   
-      const field = req.query.field || "";
-      const value = req.query.value || "";
-      const query = {};
-      if (field && value) {
-        if (!isNaN(parseInt(value))) {
-          query[field] = parseInt(value);
-        } else {
-          query[field] = value;
-        }
-      }
+      // Get the paginated subset of products
+      const paginatedProducts = allProducts.slice(startIndex, endIndex)
   
-      const productsList = await cartService.cartList().paginate(query, {
-        limit,
-        page,
-        lean: true,
-        sort,
-      });
+      // Calculate pagination links
+      const totalPages = Math.ceil(allProducts.length / limit);
+      const prevPage = page > 1 ? page - 1 : null;
+      const nextPage = page < totalPages ? page + 1 : null;
   
-      productsList.prevLink = productsList.hasPrevPage
-        ? `/products?page=${productsList.prevPage}&limit=${limit}`
-        : "";
-      productsList.nextLink = productsList.hasNextPage
-        ? `/products?page=${productsList.nextPage}&limit=${limit}`
-        : "";
-  
-  
-  
+      //console.log("productByCard, desde view.controller", paginatedProducts);
+      //console.log("user, desde view.controller", user);
       //-----------------------------------------------------------
-      res.render("products", { products: productsList, cid,  user });
+      res.render("products", {
+        products:
+        paginatedProducts,
+        prevPage,
+        nextPage,
+        user,
+        cid
+      });
     } catch (error) {
-      //console.error("Error obteniendo el producto:", error);
+      console.error("Error obteniendo el producto:", error);
       res.status(500).json({ error: "Error en Products view Internal server error" });
     }
-  }
+  };
+  
 
 
 export const listProduct = async (req, res) => {
     try {
+      const allProducts = await productService.getList();
+  
+      // Pagination parameters
       const limit = parseInt(req.query?.limit || 10);
       const page = parseInt(req.query?.page || 1);
   
-      const sortOrder =
-        req.query.sort === "asc" ? 1 : req.query.sort === "desc" ? -1 : null;
-      const sort = { price: sortOrder };
+      // Calculate the start and end indexes for pagination
+      const startIndex = (page - 1) * limit;
+      const endIndex = page * limit;
   
-      const field = req.query.field || "";
-      const value = req.query.value || "";
-      const query = {};
-      if (field && value) {
-        if (!isNaN(parseInt(value))) {
-          query[field] = parseInt(value);
-        } else {
-          query[field] = value;
-        }
-      }
+      // Get the paginated subset of products
+      const paginatedProducts = allProducts.slice(startIndex, endIndex)
   
-      const productsList = await cartService.cartList().paginate(query, {
-        limit,
-        page,
-        lean: true,
-        sort,
+      // Calculate pagination links
+      const totalPages = Math.ceil(allProducts.length / limit);
+      const prevPage = page > 1 ? page - 1 : null;
+      const nextPage = page < totalPages ? page + 1 : null;
+  
+      console.log("productList, desde view.controller", paginatedProducts);
+      
+
+      //-----------------------------------------------------------
+      res.render("home", {
+        products:
+        paginatedProducts,
+        prevPage,
+        nextPage,
+        
       });
-  
-      productsList.prevLink = productsList.hasPrevPage
-        ? `/home?page=${productsList.prevPage}&limit=${limit}`
-        : "";
-      productsList.nextLink = productsList.hasNextPage
-        ? `/home?page=${productsList.nextPage}&limit=${limit}`
-        : "";
-  
-      res.render("home", productsList);
+      
     } catch (error) {
       console.error("Error obteniendo el producto:", error);
       res.status(500).json({ error: "Internal server error" });
@@ -101,15 +90,42 @@ export const listProduct = async (req, res) => {
 
 export const createProduct = async (req, res) => {
     try {
-      const products = await productService.createProduct();
-      res.render("realtimeproducts", { products });
+      const newProduct = req.body
+      console.log ('params from REQ BODY:', {newProduct})
+
+      //se importa por user services
+      const newProductGenerated = await productService.createProduct(newProduct)
+
+      console.log ('new product from FRONT:', {newProductGenerated})
+      res.redirect('/home')
+
     } catch (error) {
       console.error("Error obteniendo el producto:", error);
       res.status(500).json({ error: "Internal server error" });
     }
   }
 
-export const viewCartById = async (req, res) => {
+  export const addProductByCart = async (req, res) => {
+    try {
+
+      const cid  = req.params.cid;
+      const pid  = req.params.pid;
+      const quantity  = req.body.quantity || 1;
+  
+      const addProductByCart = await cartService.addProductByCart(cid, pid, quantity)
+      console.log("AddPorductByCart :", addProductByCart);
+  
+      res.redirect("/products");
+    } catch (error) {
+      console.error("Error to add product at cart:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  };
+
+
+
+
+/* export const viewCartById = async (req, res) => {
   try {
     const cid = req.params.cid;
     const cart = await cartService.cartById(cid)
@@ -128,6 +144,6 @@ export const viewCartById = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 }
-
+ */
 
 

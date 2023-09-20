@@ -17,14 +17,13 @@ export const getList=  async(req,res)=>{
 export const createProduct =  async(req,res)=>{
     try {
         const newProduct = req.body
-        console.log ('params from form:', {newProduct})
+        console.log ('params from REQ BODY:', {newProduct})
 
 //se importa por user services
         const newProductGenerated = await productService.createProduct(newProduct)
-        
 
-        console.log ('new product from mongoose:', {newProductGenerated})
-        res.redirect('/home')
+        console.log ('new product from BACKEND:', {newProductGenerated})
+        res.send(newProductGenerated)
     } catch (error) {
         console.error('Error al enviar producto:', error)
         res.status(500).json({error: 'Internal server error'})

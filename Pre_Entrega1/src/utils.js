@@ -12,7 +12,7 @@ const PRIVATE_KEY = config.PRIVATE_KEY
 const COOKIE_KEY = config.COOKIE_KEY
 
 export const createHash = (password) => {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10)) 
 }
 
 export const isValidPassword = (user, password) => {
@@ -22,7 +22,7 @@ export const isValidPassword = (user, password) => {
 // JWT Generamos el token
 export const generateToken = (user) => {
     const token = jwt.sign( {user}, PRIVATE_KEY, {expiresIn: '24h'})
-    console.log("privateKEY", PRIVATE_KEY)
+    console.log("privateKEY from generateToken utils.js :", PRIVATE_KEY)
     console.log("user", user)
     return token
 }
