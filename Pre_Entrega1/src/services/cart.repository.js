@@ -36,7 +36,7 @@ export default class CartRepository {
             id: pid,
             quantity: quantity,
         });
-        await this.saveCart(cart);
+        await this.updatedCart(cid, cart);
         return cart;
     };
 

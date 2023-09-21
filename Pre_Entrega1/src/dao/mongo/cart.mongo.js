@@ -10,7 +10,7 @@ export default class Cart {
   }
 
   cartById = async (cid, res) => {
-    console.log("CART BY ID: ",cid);
+    
     try {
       if (!mongoose.Types.ObjectId.isValid(cid)) {
         return res.status(400).json({ error: "ID de carrito no válido" });
@@ -38,9 +38,21 @@ export default class Cart {
     return await cart.save()
   }
 
-  updatedCart = async (cid, updatedFields) => {
+  /* updatedCart = async (cid, updatedFields) => {
     return await CartModel.updateOne({ _id: cid }, updatedFields);
-  }
+  } */
+  updatedCart = async (cid, updates)=>{
+    await CartModel.updateOne(
+    { _id: cid },
+    {
+      $push: {
+        "product":
+          updates.product
+      },
+    }
+  );
+}
+  
 
   deleteCart = async (cid) => {
     return await CartModel.deleteOne({ _id: cid })
