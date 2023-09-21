@@ -13,12 +13,13 @@
     <td>{{this.id.price}}</td>
     <td>
       {{!-- ELIMINAR PRODUCTO --}}
-      <form class="containerFiltro" action="/{{../cart._id}}/product/{{this.id._id}}" method="get"> 
+      <form class="containerFiltro" action="/delete/{{../cart._id}}/product/{{this.id._id}}" method="get"> 
       <input type="hidden" name="eliminar" value="1">
       <button type="submit" class="btn btn-primary">🗑</button>
     </form></td> 
   </tr>
 {{/each}}
+<h1>TOTAL PRICE : {{this.totalPrice}}</h1>
   </table>
 
 

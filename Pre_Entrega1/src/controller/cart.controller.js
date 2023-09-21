@@ -43,10 +43,19 @@ export const addProductByCart = async (req, res) => {
     const pid  = req.params.pid;
     const quantity  = req.body.quantity || 1;
 
+    const cart = await cartService.cartById(cid);
+    if (!cart) {
+      throw new Error("Cart not found");
+    }
+
     const addProductByCart = await cartService.addProductByCart(cid, pid, quantity)
     console.log("AddPorductByCart :", addProductByCart);
 
+    
     res.send(addProductByCart);
+
+
+    
   } catch (error) {
     console.error("Error to add product at cart:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -110,3 +119,47 @@ export const deleteAllProductsByCart = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+
+
+export const purchaseCart = async(req,res)=>{
+  try {
+    
+
+    const cid = req.params.cid;
+    const cart = await cartService.cartById(cid);
+
+    if (!cart) {
+      return res.status(404).json({ error: 'Cart not found' });
+    }
+
+    // Verificar el stock de cada producto en el carrito
+    for (const cartItem of cart.product) {
+      const product = await ProductModel.findById(cartItem.id);
+
+      if (!product) {
+        return res.status(404).json({ error: `Product not found for ID ${cartItem.id}` });
+      }
+
+      if (cartItem.quantity > product.stock) {
+        // Si no hay suficiente stock, no agregar el producto al proceso de compra
+        return res.status(400).json({ error: `Not enough stock for product ID ${cartItem.id}` });
+      }
+
+      // Restar la cantidad comprada del stock del producto
+      product.stock -= cartItem.quantity;
+      await product.save();
+    }
+
+    // Finalizar el proceso de compra
+    // Aquí puedes agregar la lógica adicional, como crear un pedido, etc.
+
+    // Borrar el carrito una vez que se haya completado la compra (si es necesario)
+    await CartModel.findByIdAndDelete(cid);
+
+    res.status(200).json({ message: 'Purchase completed successfully' });
+  } catch (error) {
+    console.error('Error completing purchase:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}

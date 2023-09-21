@@ -1,5 +1,5 @@
 import { Router } from "express";
-import{ deleteAllProductsByCart, addProductByCart, cartById, cartList, createCart, deleteProductByCart, quantityProductByCart, updatedCart, } from '../controller/cart.controller.js'
+import{ deleteAllProductsByCart, addProductByCart, cartById, cartList, createCart, deleteProductByCart, quantityProductByCart, purchaseCart, updatedCart } from '../controller/cart.controller.js'
 
 const router = Router();
 
@@ -26,6 +26,9 @@ router.put("/:cid/product/:pid", quantityProductByCart);
 
 //Elimina todos los products del cart
 router.get("/delete/:cid",deleteAllProductsByCart );
+
+//Purchase 
+router.get("/:cid/purchase", purchaseCart)
 
 export default router;
 

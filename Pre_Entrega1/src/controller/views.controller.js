@@ -105,17 +105,20 @@ export const createProduct = async (req, res) => {
     }
   }
 
+
+
   export const addProductByCart = async (req, res) => {
     try {
 
       const cid  = req.params.cid;
       const pid  = req.params.pid;
-      const quantity  = req.body.quantity || 1;
-  
+      const quantity  = req.params.quantity || 1;
+      
+      
       const addProductByCart = await cartService.addProductByCart(cid, pid, quantity)
       console.log("AddPorductByCart :", addProductByCart);
   
-      res.redirect("/products");
+      res.redirect(`/${cid}`);
     } catch (error) {
       console.error("Error to add product at cart:", error);
       res.status(500).json({ error: "Internal server error" });
@@ -125,19 +128,45 @@ export const createProduct = async (req, res) => {
 
 
 
-export const viewCartById = async (req, res) => {
+/* export const viewCartById = async (req, res) => {
   try {
     const cid = req.params.cid;
     const cart = await cartService.cartById(cid)
 
+    const totalPrice = cartService.totalPrice(cart)
 
-    res.render("carts", {cart});
+    res.render("carts", {cart, totalPrice});
     
   } catch (error) {
     console.error("Error obteniendo el carrito por id DESDE GET CARTID:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-}
+} */
+
+export const viewCartById = async (req, res) => {
+  try {
+    const cid = req.params.cid;
+    const cart = await cartService.cartById(cid);
+
+    console.log("ESTE ES EL CART_",cart);
+    let totalPrice = 0;
+
+    for (const product of cart.product) {
+      // Asegúrate de que product.price y product.quantity sean números válidos
+      if (typeof product.id.price === 'number' && typeof product.quantity === 'number') {
+        totalPrice += product.id.price * product.quantity;
+      }
+    }
+    console.log("Este es el cart.product", cart.product);
+    console.log("total price", totalPrice);
+
+    res.render("carts", { cart, totalPrice });
+    
+  } catch (error) {
+    console.error("Error obteniendo el carrito por id DESDE GET CARTID:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
 
 
 export const deleteProductByCart = async (req, res) => {

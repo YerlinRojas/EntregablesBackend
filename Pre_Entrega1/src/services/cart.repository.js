@@ -19,27 +19,40 @@ export default class CartRepository {
         return await this.dao.saveCart(cart);
     };
 
-    updatedCart = async (cid, updatedFields) => {
-        return await this.dao.updatedCart(cid, updatedFields);
+    updatedCart = async (cid, update) => {
+        return await this.dao.updatedCart(cid, update);
     };
     deleteCart = async (cid) => {
         return await this.dao.deleteCart(cid);
     };
 
     //SERVICES
-    addProductByCart = async (cid, pid, quantity) => {
+addProductByCart = async (cid, pid, quantity) => {
+
         const cart = await this.cartById(cid);
         if (!cart) {
             throw new Error("Cart not found");
         }
-        cart.product.push({
-            id: pid,
-            quantity: quantity,
-        });
+        const existingProduct = cart.product.find((product) => product.id === pid);
+
+         if (existingProduct) {
+      // Si el producto ya está en el carrito, actualizar la cantidad
+          existingProduct.quantity += quantity;
+    }    else {
+          // Si el producto no está en el carrito, agregarlo
+          cart.product.push({
+        id: pid,
+        quantity: quantity,
+      });
+    }
+
         await this.updatedCart(cid, cart);
+        //await this.saveCart(cart)
+
         return cart;
     };
 
+    
 
     deleteProductByCart = async (cid, pid) => {
         const cart = await this.cartById(cid);
@@ -47,6 +60,8 @@ export default class CartRepository {
             throw new Error('Cart not Found');
         }
         const pidString = pid.toString();
+
+        console.log("esto es pid", pidString);
         const productIndex = cart.product.findIndex(product => product.id === pid);
         if (productIndex === -1) {
             throw new Error('Product not found in cart');

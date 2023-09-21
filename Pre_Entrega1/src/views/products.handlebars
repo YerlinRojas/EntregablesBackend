@@ -2,7 +2,7 @@
 
 
 
-  <h1>Bienvenido {{user.user.firts_name}}</h1>
+  <h1>Bienvenido {{user.user.last_name}}</h1>
 <div class="containerFiltro"><button class="btn btn-secondary">
   <a href="/api/session/current">PROFILE</a></button></div>
   
@@ -52,7 +52,7 @@
     <h5 class="card-title">Precio : {{this.price}}</h5>
     <h6 class="card-title">Stock : {{this.stock}}</h6>
     <h6>id = {{this._id}}</h6>
-  <form action="/{{../cid}}/product/{{this._id}}" method="post">  
+  <form action="/addProduct/{{../cid}}/product/{{this._id}}" method="post">  
         <input type="hidden" name="quantity" value="{{cid}}">
         <button type="submit" class="btn btn-primary">Agregar al Carrito</button>
     </form>

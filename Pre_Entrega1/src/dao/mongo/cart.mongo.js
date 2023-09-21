@@ -35,22 +35,20 @@ export default class Cart {
 
 
   saveCart = async (cart) => {
-    return await cart.save()
+    return await cart.save(cart)
   }
 
-  /* updatedCart = async (cid, updatedFields) => {
-    return await CartModel.updateOne({ _id: cid }, updatedFields);
-  } */
+
   updatedCart = async (cid, updates)=>{
-    await CartModel.updateOne(
-    { _id: cid },
-    {
-      $push: {
-        "product":
-          updates.product
+    await CartModel.findOneAndUpdate(
+      { _id: cid },
+      {
+        $push: {
+          "product": updates.product
+        },
       },
-    }
-  );
+      { new: true } 
+    );
 }
   
 

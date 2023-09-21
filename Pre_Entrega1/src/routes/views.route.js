@@ -116,9 +116,16 @@ router.get('/products',
 passportCall('jwt'),authorization('user'),
 productByCard);
 
-router.post("/:cid/product/:pid",passportCall('jwt'), authorization('user'),
+router.post("/addProduct/:cid/product/:pid",passportCall('jwt'), authorization('user'),
 addProductByCart
 );
+
+
+// VISTA DEL CARRITO -user-
+router.get("/:cid", viewCartById); 
+
+router.get("/delete/:cid/product/:pid", deleteProductByCart)
+
 
 
 //LISTADO DE PRODUCTS AUTORIZA -admin-
@@ -138,9 +145,5 @@ createProduct
 
 
 
-// CARRITO POR ID VIEW -user-
-router.get("/:cid", viewCartById); 
-
-router.get("/:cid/product/:pid", deleteProductByCart)
 
 export default router;
