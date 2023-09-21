@@ -24,6 +24,9 @@ export default {
 
     PRIVATE_KEY: process.env.PRIVATE_KEY,
     COOKIE_KEY: process.env.COOKIE_KEY,
+
+    NODEMAILER_USER: process.env.NODEMAILER_USER,
+    NODEMAILER_PASS: process.env.NODEMAILER_PASS
 }
 
 

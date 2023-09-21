@@ -27,23 +27,8 @@
 
 {{!-- BOTON PARA ENVIAR A OTRA PAGINA RESUMEN DE COMPRA --}}
 
-<button type="submit" class="btn btn-primary" id="resumenCompra">COMPRAR</button>
+    <form class="containerFiltro" action="/api/carts/{{cart._id}}/purchase" method="post"> 
+      <input type="hidden" name="purchase" value="{{cart._id}}">
+      <button type="submit" class="btn btn-primary">COMPRAR</button>
+    </form>
 
-
-
-    <script>
-
-        document.querySelector('#resumenCompra').onclick = () => {
-            fetch('http://127.0.0.1:8080/', { method: 'POST' })
-                .then(result => result.json())
-                .then(json => {
-                    console.log(json)
-                    
-                })
-                .catch(e => {
-                    console.error('Error ')
-                    console.error(e)
-                })
-        }
-
-    </script>

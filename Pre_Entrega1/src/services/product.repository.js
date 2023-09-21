@@ -13,7 +13,7 @@ export default class ProductRepository{
         return await this.dao.createProduct(productInsert)
     }
     productById= async(pid)=>{
-        return await this.dao.productInsert(pid)
+        return await this.dao.productById(pid)
     }
     saveProduct = async () =>{
         return await  this.dao.saveProduct()

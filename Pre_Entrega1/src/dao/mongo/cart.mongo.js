@@ -53,7 +53,7 @@ export default class Cart {
   
 
   deleteCart = async (cid) => {
-    return await CartModel.deleteOne({ _id: cid })
+    return await CartModel.findByIdAndDelete({ _id: cid })
   }
 
 

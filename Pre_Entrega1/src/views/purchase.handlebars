@@ -1,0 +1,18 @@
+<h1>Compraste los siguientes articulos</h1>
+
+
+
+ <table class="containerTable">
+    <tr>
+      <th>title</th>
+      <th>Quantity</th>
+    </tr>
+   {{#each cart.product}}
+    <tr>
+    <td>{{this.id.title}}</td>
+    <td>{{this.quantity}}</td> 
+    </tr>
+{{/each}}
+  </table>
+
+  

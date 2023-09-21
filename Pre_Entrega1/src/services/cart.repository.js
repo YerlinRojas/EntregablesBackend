@@ -48,7 +48,7 @@ addProductByCart = async (cid, pid, quantity) => {
 
         await this.updatedCart(cid, cart);
         //await this.saveCart(cart)
-
+        //aca no puedo salvar el actual carrito con los productos adentro
         return cart;
     };
 
@@ -90,13 +90,8 @@ addProductByCart = async (cid, pid, quantity) => {
     }
 
     deleteAllProductsByCart = async (cid) => {
-        const cart = await this.cartById(cid)
-        if (!cart) {
-            throw new Error('Cart not Found');
-        }
-        cart.product = [];
-        await cart.save();
-        return cart
+       const cart = await this.deleteCart (cid)
+       return cart
 
-    }
+    } 
 }
