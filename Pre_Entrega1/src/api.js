@@ -32,15 +32,11 @@ app.set('view engine', 'handlebars')
 //config public static
 app.use('/public', express.static(__dirname + '/public'))
 
-//conexion mongoose seteo
-//esto se fue a config mongo
-
 
 //cookie parser
 app.use(cookieParser())
 
 // Configuración de express-session
-//se cambian url y dbname importada de dotevn
 app.use(session({
   store: MongoStore.create({
       mongoUrl:config.URL,
@@ -72,11 +68,6 @@ app.use('/api/chat', chatRouter)
 
 //PORT se importa desde configMongo.js
 app.listen(config.PORT, () => console.log('Listening...'))
-
-
-
-//connect mongo DB por factory.js
-
 
 
 

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import{ deleteAllProductsByCart, addProductByCart, cartById, cartList, createCart, deleteProductByCart, quantityProductByCart, purchaseCart, updatedCart } from '../controller/cart.controller.js'
-
+import { passportCall } from "../utils.js";
 const router = Router();
 
 //crear carrito
@@ -28,7 +28,7 @@ router.put("/:cid/product/:pid", quantityProductByCart);
 router.get("/delete/:cid",deleteAllProductsByCart );
 
 //Purchase 
-router.post("/:cid/purchase", purchaseCart)
+router.post("/:cid/purchase",passportCall('jwt') ,purchaseCart)
 
 export default router;
 

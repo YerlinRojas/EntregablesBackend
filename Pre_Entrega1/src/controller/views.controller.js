@@ -1,5 +1,5 @@
 import { productService, cartService, userService } from '../services/index.js'
-import { transport } from '../config/nodemailer.config.js'
+
 import nodemailer from 'nodemailer'
 import config from '../config/config.js';
 import __dirname from '../utils.js';
@@ -9,8 +9,9 @@ export const productByCard = async (req, res) => {
     console.log("User after authentication: ", req.user);
     const user = req.user;
 
+
     //cart Id desde el passport register
-    const cid = user.user.cartId;
+    const cid = user.user.cartId; 
     //console.log("Este es el cid DESDE ProductByCart views.controller", cid);
 
 
@@ -112,7 +113,7 @@ export const createProduct = async (req, res) => {
 export const addProductByCart = async (req, res) => {
   try {
 
-    const cid = req.params.cid;
+   const cid = req.params.cid;
     const pid = req.params.pid;
     const quantity = req.params.quantity || 1;
 
@@ -122,14 +123,15 @@ export const addProductByCart = async (req, res) => {
 
     //ERROR
     //duplica pq no guarda el nuevo cart para agregar nuevos prod
-    res.redirect(`/${cid}`);
+    res.redirect(`/cart/${cid}`); 
+   
+    // Guarda el carrito actualizado en la base de datos
+    //await cart.save();
   } catch (error) {
     console.error("Error to add product at cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
-
-
 
 
 
@@ -163,12 +165,31 @@ export const deleteProductByCart = async (req, res) => {
   try {
     const cid = req.params.cid;
     const pid = req.params.pid;
+    console.log("-----------cid, pid for delete", cid, pid);
 
-    const cart = await cartService.deleteProductByCart(cid, pid)
-    cart.id = cid;
+    const cart = await cartService.cartById(cid, res)
 
-    console.log("delete Product by Cart :", { cart });
-    res.redirect(`/${cid}`);
+     // Check if the cart exists
+     if (!cart) {
+      return res.status(404).json({ error: "Cart not found" });
+    }
+
+    // Encuentra el índice del producto en el carrito
+    const productIndex = cart.product.findIndex((product) => product.id === pid);
+
+    console.log("product.id?", product.id)
+    // Si el producto no se encuentra en el carrito, devuelve un error
+    if (productIndex === -1) {
+      return res.status(404).json({ error: "Producto no encontrado en el carrito" });
+    }
+
+    // Elimina el producto del carrito
+    cart.product.splice(productIndex, 1);
+
+    console.log("Producto eliminado con cid:", cid, "y pid:", pid);
+
+
+     res.redirect(`/${cid}`);
   } catch (error) {
     console.error("Error to delete products at cart:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -177,32 +198,53 @@ export const deleteProductByCart = async (req, res) => {
 
 
 
+
+const transport = nodemailer.createTransport({
+  service: 'gmail',
+  port: 587,
+  auth: {
+    user: config.NODEMAILER_USER,
+    pass: config.NODEMAILER_PASS
+  }
+})
+
 //se puede adjuntar los datos del tikect??????????
+//o desde purchase Cart... 
+//en purchase cart Tengo los productos resultado del stok 
+
 export const mailer = async (req, res) => {
-  const email = req.body.email
 
-  const getUser = userService.getUser({ email })
+  try {
+    //INTENTE OBTENER LOS DATOS DEL USUARIO DESDE EL JWT 
+    //const user = req.user
+    //console.log("user mailer",user);
+    // const getUser = await userService.getUser({ user.email })
+    // console.log("ESTE ES EL EMAIL DEL USER PARA Mailer",getUser.email)
 
-  //probar esta logica..-..
-  const result = await transport.sendMail({
-    from: config.NODEMAILER_USER,
-    to: getUser.email,
-    subject: 'Gracias por tu compra!!',
-    html: `
-        <div>
-            Gracias por tu compra
+    //probar esta logica..-..
+    const result = await transport.sendMail({
+      from: config.NODEMAILER_USER,
+      to: 'yerlinrojas808@gmail.com',
+      subject: 'Gracias por tu compra!!',
+      html: `
+          <div>
+              Gracias por tu compra
+  
+              <img src="cid:logoCorp" />
+          </div>
+      `, attachments: [
+        {
+          filename: 'logo.jpg',
+          path: `${__dirname}/public/logo.jpg`,
+          cid: 'logoCorp'
+        }
+      ]
 
-            <img src="cid:logoCorp" />
-        </div>
-    `, attachments: [
-      {
-        filename: 'logo.jpg',
-        path: `${__dirname}/public/logo.jpg`,
-        cid: 'logoCorp'
-      }
-    ]
-
-  })
-  console.log(result)
-  res.send('Email sent')
+    })
+    console.log(result)
+    res.send('Email sent')
+  } catch (error) {
+    console.error('error sending mailer', error)
+    res.status(500).json({ error: 'Internal server error' })
+  }
 }

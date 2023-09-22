@@ -1,4 +1,7 @@
-import { cartService, productService } from '../services/index.js'
+import { cartService, productService, ticketService } from '../services/index.js'
+import { v4 as uuidv4 } from 'uuid'
+
+
 
 export const createCart = async (req, res) => {
   try {
@@ -53,7 +56,6 @@ export const addProductByCart = async (req, res) => {
 
 
     res.send(addProductByCart);
-
 
 
   } catch (error) {
@@ -122,10 +124,19 @@ export const deleteAllProductsByCart = async (req, res) => {
 
 
 
+
+
+
+
+
+
 export const purchaseCart = async (req, res) => {
   try {
     const cid = req.params.cid;
     const cart = await cartService.cartById(cid);
+    const user = req.user.user;
+    //esta ok el user.email
+    console.log("purchased" , user.email);
 
     if (!cart) {
       return res.status(404).json({ error: 'Cart not found' });
@@ -135,7 +146,7 @@ export const purchaseCart = async (req, res) => {
     const purchasedProducts = [];
     const outOfStockProducts = [];
 
-
+    let amount = 0;
     // Verificar el stock de cada producto en el carrito
     for (const cartItem of cart.product) {
       const product = await productService.productById(cartItem.id._id);
@@ -149,7 +160,7 @@ export const purchaseCart = async (req, res) => {
 
       if (!product) {
         return res.status(404).json({ error: `Product not found for ID ${cartItem.id}` });
-      }//si no consigue el id product
+      }//si no consigue el id product OK
 
       if (cartItem.quantity < product.stock) {
 
@@ -159,17 +170,22 @@ export const purchaseCart = async (req, res) => {
         });
         //resta de products OK
         product.stock -= cartItem.quantity;
+        amount += product.price * cartItem.quantity; 
         //depuracion 
         console.log("----------------Updated stock for product:", product.stock);
 
         await product.save();
+
+         // Crea un ticket de compra
+       
       } else {
-        // Si no hay suficiente stock, agregar el producto a la lista de fuera de stock
+        // Si no hay suficiente stock, agregar el producto a la lista de fuera de stock OK
         outOfStockProducts.push({
           product: product,
           requestedQuantity: cartItem.quantity,
           availableQuantity: product.stock,
-        });
+          
+          });
       }
     }
     const updatedCart = {
@@ -179,12 +195,27 @@ export const purchaseCart = async (req, res) => {
         quantity: item.quantity,
       })),
     };
-    console.log("---------------nuevo carrito despues de compra", updatedCart)
-    //tiene que enviar el cart y ese cart solo contener los productos con estock
+    console.log("---------------New cart after verification Stock", updatedCart)
+    //esta OK el nuevo cart / purchasedProducts y outStockProducts
+
+
+    console.log("ESTO ES AMOUNT: ",amount)
+    const code = uuidv4()
+    const tiketData = {
+      code: code,
+      amount: amount,
+      purchaser: user.email
+    }
+
+    const ticket = await ticketService.createTicket(tiketData); 
+
+    //como pasar esto a un ticket.service.js que consuma el ticket model y le pase los datos del cart
+
     res.status(200).json({
       message: 'Purchase completed successfully',
       purchasedProducts: purchasedProducts,
       outOfStockProducts: outOfStockProducts,
+      ticket:ticket
     });
   } catch (error) {
     console.error('Error completing purchase:', error);
@@ -192,15 +223,8 @@ export const purchaseCart = async (req, res) => {
   }
 }
 
+//Despues de que tengo nuevo carrito con el stock disponible que hacer?
+//como se vincularia el ticket y el mailer?????????????
+//el mailer lo piden en una nueva ruta => /mail
+//el ticket ya tiene su schema
 
-/* 
-      
-
-      
-    }
-
-    // Finalizar el proceso de compra
-    // Aquí puedes agregar la lógica adicional, como crear un pedido, etc.
-
-    // Borrar el carrito una vez que se haya completado la compra (si es necesario)
-    await cartService.deleteAllProductsByCart(cid); */

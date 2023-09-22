@@ -1,3 +1,4 @@
+
 import CartModel from './models/cart.model.js'
 import mongoose from 'mongoose'
 
@@ -9,11 +10,11 @@ export default class Cart {
     return await CartModel.create({})
   }
 
-  cartById = async (cid, res) => {
+  cartById = async (cid) => {
     
     try {
       if (!mongoose.Types.ObjectId.isValid(cid)) {
-        return res.status(400).json({ error: "ID de carrito no válido" });
+        return undefined;
       }
   
       const populatedCart = await CartModel.findOne({ _id: cid })
@@ -31,31 +32,63 @@ export default class Cart {
       throw error;
     }
   };
-
-
-
+ 
   saveCart = async (cart) => {
-    return await cart.save(cart)
-  }
+    if (!cart) {
+      throw new Error("Cart not found");
+    }
+    const updatedCart = await CartModel.findOneAndUpdate(
+      { _id: cart._id }, // Filtra el carrito por su ID
+      { product: cart.product }, // Actualiza la lista de productos
+      { new: true } // Devuelve el carrito actualizado
+    );
 
+    if (!updatedCart) {
+      throw new Error('Cart not found');
+    }
+    return updatedCart;
+};
 
-  updatedCart = async (cid, updates)=>{
+  updatedCart = async (cid, updates) => {
     await CartModel.findOneAndUpdate(
       { _id: cid },
       {
         $push: {
-          "product": updates.product
+          "product": updates.product 
         },
       },
-      { new: true } 
+      { new: true }
     );
-}
-  
+  }
+
+
+
 
   deleteCart = async (cid) => {
     return await CartModel.findByIdAndDelete({ _id: cid })
   }
 
 
+
+  /* deleteProductByCart = async (cid, pid) => {
+    try {
+      // Busca el carrito por su ID
+      const cart = await CartModel.findById(cid);
+      if (!cart) {
+        throw new Error('Cart not found');
+      }
+      const productIndex = cart.product.findIndex((product) => product.id === pid);
+      if (productIndex === -1) {
+        throw new Error('Product not found in cart');
+      }
+      // Elimina el producto del carrito
+      cart.product.splice(productIndex, 1);
+      // Guarda el carrito actualizado en la base de datos
+      await cart.save();
+      return cart; // Devuelve el carrito actualizado
+    } catch (error) {
+      throw error; // Lanza el error para que se maneje en el controlador
+    }
+  }; */
 
 }

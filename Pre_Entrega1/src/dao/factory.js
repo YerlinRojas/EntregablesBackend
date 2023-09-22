@@ -10,6 +10,7 @@ export let User
 export let Cart
 export let Product
 export let Chat
+export let Ticket
 
 console.log(`Persistence with ${config.PERSISTENCE}`);
 
@@ -64,11 +65,13 @@ switch (config.PERSISTENCE) {
                 const { default: CartMongo } = await import("./mongo/cart.mongo.js");
                 const { default: UserMongo } = await import("./mongo/user.mongo.js");
                 const { default: ChatMongo } = await import("./mongo/chat.mongo.js");
+                const {default: TicketMongo} = await import ("./mongo/tiket.mongo.js")
 
                 User = UserMongo;
                 Cart = CartMongo;
                 Product = ProductMongo;
                 Chat = ChatMongo;
+                Ticket = TicketMongo
           
             
         

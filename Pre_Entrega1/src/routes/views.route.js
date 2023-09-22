@@ -3,7 +3,7 @@
 import { Router } from "express";
 import passport from "passport";
 import { generateToken, passportCall, authorization } from "../utils.js";
-import { addProductByCart, createProduct, listProduct, productByCard,  viewCartById,deleteProductByCart  } from "../controller/views.controller.js";
+import { addProductByCart, createProduct, listProduct, productByCard,  viewCartById,deleteProductByCart, mailer  } from "../controller/views.controller.js";
 import config from "../config/config.js";
 
 const COOKIE_KEY = config.COOKIE_KEY
@@ -116,15 +116,16 @@ router.get('/products',
 passportCall('jwt'),authorization('user'),
 productByCard);
 
+
 router.post("/addProduct/:cid/product/:pid",passportCall('jwt'), authorization('user'),
 addProductByCart
 );
 
 
 // VISTA DEL CARRITO -user-
-router.get("/:cid", viewCartById); 
+router.get("/cart/:cid", viewCartById); 
 
-router.get("/delete/:cid/product/:pid", deleteProductByCart)
+router.get("/cart/delete/:cid/product/:pid", deleteProductByCart)
 
 
 
@@ -143,6 +144,9 @@ router.post("/realtimeproducts",passportCall('jwt'), authorization('admin'),
 createProduct
 );
 
+//MAILER
+router.get('/mail', mailer)
+//el jwt me trae los datos del usuario
 
 
 

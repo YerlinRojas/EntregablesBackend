@@ -12,9 +12,12 @@ export default class CartRepository {
         const insertCart = new CartDTO(this.dao);
         return await this.dao.createCart(insertCart);
     };
-    cartById = async (cid) => {
-        return await this.dao.cartById(cid);
+    cartByIdPopulate = async (cid, { populate = false }) => {
+        return await this.dao.cartById(cid, { populate });
     };
+    cartById = async(cid) => {
+        return this.dao.cartById(cid)
+    }
     saveCart = async (cart) => {
         return await this.dao.saveCart(cart);
     };
@@ -27,7 +30,7 @@ export default class CartRepository {
     };
 
     //SERVICES
-addProductByCart = async (cid, pid, quantity) => {
+    addProductByCart = async (cid, pid, quantity) => {
 
         const cart = await this.cartById(cid);
         if (!cart) {
@@ -53,23 +56,22 @@ addProductByCart = async (cid, pid, quantity) => {
     };
 
     
-
     deleteProductByCart = async (cid, pid) => {
+
         const cart = await this.cartById(cid);
         if (!cart) {
-            throw new Error('Cart not Found');
+          throw new Error('Cart not found');
         }
-        const pidString = pid.toString();
-
-        console.log("esto es pid", pidString);
-        const productIndex = cart.product.findIndex(product => product.id === pid);
+        const productIndex = cart.product.findIndex((product) => product.id === pid);
         if (productIndex === -1) {
-            throw new Error('Product not found in cart');
+          throw new Error('Product not found in cart');
         }
+        // Elimina el producto del carrito
         cart.product.splice(productIndex, 1);
-        await this.saveCart(cart);
-        return cart;
+        return this.saveCart(cart);
     };
+
+
 
     quantityProductByCart = async (cid, pid) => {
         const cart = await this.cartById(cid)
@@ -90,8 +92,8 @@ addProductByCart = async (cid, pid, quantity) => {
     }
 
     deleteAllProductsByCart = async (cid) => {
-       const cart = await this.deleteCart (cid)
-       return cart
+        const cart = await this.deleteCart(cid)
+        return cart
 
-    } 
+    }
 }
