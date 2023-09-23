@@ -207,8 +207,13 @@ export const purchaseCart = async (req, res) => {
     }
 
     const ticket = await ticketService.createTicket(ticketData); 
+
+    const ticketJSON = JSON.stringify(ticket)
+
     const correoController = new CorreoController()
-    await correoController.enviarCorreo(user, ticket)
+    await correoController.enviarCorreo(user, ticketJSON)
+    console.log("Este es el mensaje",correoController);
+
        res.status(200).json({
       message: 'Purchase completed successfully',
       purchasedProducts: purchasedProducts,

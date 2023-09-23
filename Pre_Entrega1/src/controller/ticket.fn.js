@@ -13,19 +13,21 @@ export default class CorreoController {
         }
       });
     }
-   async enviarCorreo(user, ticket) {
+   async enviarCorreo(user, ticketJSON) {
       const mailOptions = {
         from: config.NODEMAILER_USER,
         to: user.email,
         subject: "GRACIAS POR TU COMPRA",
-        text: ticket,
+        text: ticketJSON,
       };
   
       try {
         await this.transporter.sendMail(mailOptions)
         return true;
       } catch (error) {
+        console.log("error", error);
         return false;
+
       }
     }}
 

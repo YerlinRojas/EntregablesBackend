@@ -16,7 +16,10 @@ import handlebars from 'express-handlebars'
 
 import __dirname from './utils.js'
 
-
+import ProductFile from "./dao/manager/product.file.js"
+import http from "http";
+import { Server } from 'socket.io'
+const productFile = new ProductFile ()
 
 //config express
 const app = express ()
@@ -65,26 +68,87 @@ app.use('/api/products', productRouter)
 app.use('/api/carts', cartRouter)
 app.use('/api/chat', chatRouter)
 
+// Create an HTTP server using Express
+const server = http.createServer(app);
 
-//PORT se importa desde configMongo.js
-app.listen(config.PORT, () => console.log('Listening...'))
+// Start listening on the server
+server.listen(config.PORT, () => {
+  console.log('Listening...');
 
+  // Configure Socket.io logic here
+  const io = new Server(server); // Create a Socket.io instance and attach it to the HTTP server
+  const messages = [];
 
+  //socket logic
+  io.on("connection", (socket) => {
+    socket.on("new", (user) =>
+      console.log(`${user} se acaba de conectar`)
+    );
 
+    //chat
+    socket.on("message", (data) => {
+      messages.push(data);
+      io.emit("logs", messages);
+    });
 
+    //Agrega producto por el productManager import
+    socket.on("addProduct", async (data) => {
+      await productFile.create(data);
+      const get = await productFile.getList();
+      io.emit("productAdded", get);
+    });
 
+    //Delete product
+    socket.on("deleteProduct", async (id) => {
+      await productFile.deleteProduct(id);
+      const get = await productFile.getList();
+      console.log(get);
+      io.emit("productDeleted", get);
+    });
 
+    socket.on("disconnect", () => {
+      console.log("Client disconnected");
+    });
+  });
+});
 
+/* 
+server.listen(config.PORT,
+() => {console.log('Listening...')
+ //configuracion socket io
+              const httpServer = http.createServer(app);
+             const io = new Server(httpServer);
+             const messages = [];
+            //socket-------------
+             io.on("connection", (socket) => {
+                socket.on("new", (user) =>
+                    console.log(`${user} se acaba de conectar`)
+                );
 
+                //chat
+                socket.on("message", (data) => {
+                    messages.push(data);
+                    io.emit("logs", messages);
+                });
 
+                //Agrega producto por el productManager import
+                socket.on("addProduct", async (data) => {
+                    await productFile.create(data);
+                    const get = await productFile.getList();
+                    io.emit("productAdded", get);
+                });
 
+                //Delete product
+                socket.on("deleteProduct", async (id) => {
+                    await productFile.deleteProduct(id);
+                    const get = await productFile.getList();
+                    console.log(get);
+                    io.emit("productDeleted", get);
+                });
 
+                socket.on("disconnect", () => {
+                    console.log("Client disconnected");
+                });
 
-
-
-
-
-
-
-
-
+})
+ */
