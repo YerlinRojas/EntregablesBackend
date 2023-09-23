@@ -1,6 +1,6 @@
 import { cartService, productService, ticketService } from '../services/index.js'
 import { v4 as uuidv4 } from 'uuid'
-
+import CorreoController from './ticket.fn.js'
 
 
 export const createCart = async (req, res) => {
@@ -102,12 +102,13 @@ export const quantityProductByCart = async (req, res) => {
 
     const cart = await cartService.quantityProductByCart(cid, pid, quantity)
     console.log("Quantity products by cart:", cart)
+    res.send(cart)
   } catch (error) {
     console.error("Error to quantityProducts at cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
-//utiliza el find cart
+
 export const deleteAllProductsByCart = async (req, res) => {
   try {
     const cid = req.params.cid;
@@ -124,10 +125,7 @@ export const deleteAllProductsByCart = async (req, res) => {
 
 
 
-
-
-
-
+//crear una fn para el mailer
 
 
 export const purchaseCart = async (req, res) => {
@@ -171,7 +169,8 @@ export const purchaseCart = async (req, res) => {
         //resta de products OK
         product.stock -= cartItem.quantity;
         amount += product.price * cartItem.quantity; 
-        //depuracion 
+       
+
         console.log("----------------Updated stock for product:", product.stock);
 
         await product.save();
@@ -201,17 +200,16 @@ export const purchaseCart = async (req, res) => {
 
     console.log("ESTO ES AMOUNT: ",amount)
     const code = uuidv4()
-    const tiketData = {
+    const ticketData = {
       code: code,
       amount: amount,
       purchaser: user.email
     }
 
-    const ticket = await ticketService.createTicket(tiketData); 
-
-    //como pasar esto a un ticket.service.js que consuma el ticket model y le pase los datos del cart
-
-    res.status(200).json({
+    const ticket = await ticketService.createTicket(ticketData); 
+    const correoController = new CorreoController()
+    await correoController.enviarCorreo(user, ticket)
+       res.status(200).json({
       message: 'Purchase completed successfully',
       purchasedProducts: purchasedProducts,
       outOfStockProducts: outOfStockProducts,
@@ -222,9 +220,4 @@ export const purchaseCart = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 }
-
-//Despues de que tengo nuevo carrito con el stock disponible que hacer?
-//como se vincularia el ticket y el mailer?????????????
-//el mailer lo piden en una nueva ruta => /mail
-//el ticket ya tiene su schema
 

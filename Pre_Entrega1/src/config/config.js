@@ -26,7 +26,8 @@ export default {
     COOKIE_KEY: process.env.COOKIE_KEY,
 
     NODEMAILER_USER: process.env.NODEMAILER_USER,
-    NODEMAILER_PASS: process.env.NODEMAILER_PASS
+    NODEMAILER_PASS: process.env.NODEMAILER_PASS,
+    NODEMAILER_TYPE_SERVICE : process.env.NODEMAILER_TYPE_SERVICE
 }
 
 
