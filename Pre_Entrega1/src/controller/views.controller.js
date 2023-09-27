@@ -1,8 +1,7 @@
-import { productService, cartService, userService } from '../services/index.js'
-
-import nodemailer from 'nodemailer'
-import config from '../config/config.js';
+import { productService, cartService } from '../services/index.js'
 import __dirname from '../utils.js';
+import CustomError from '../services/errors/custom_error.js';
+import EErrors from '../services/errors/enums.js';
 
 export const productByCard = async (req, res) => {
   try {
@@ -33,12 +32,10 @@ export const productByCard = async (req, res) => {
     const prevPage = page > 1 ? page - 1 : null;
     const nextPage = page < totalPages ? page + 1 : null;
 
-    //console.log("productByCard, desde view.controller", paginatedProducts);
-    //console.log("user, desde view.controller", user);
-    //-----------------------------------------------------------
+
     res.render("products", {
       products:
-        paginatedProducts,
+      paginatedProducts,
       prevPage,
       nextPage,
       user,
@@ -78,7 +75,7 @@ export const listProduct = async (req, res) => {
     //-----------------------------------------------------------
     res.render("home", {
       products:
-        paginatedProducts,
+      paginatedProducts,
       prevPage,
       nextPage,
 
@@ -94,9 +91,19 @@ export const listProduct = async (req, res) => {
 export const createProduct = async (req, res) => {
   try {
     const newProduct = req.body
+
+    if(!newProduct.title || !newProduct.description || !newProduct.price || !newProduct.category || !newProduct.thumbnail || !newProduct.code || !newProduct.stock) {
+
+      CustomError.createError({
+          name: 'Product creation error',
+          cause: generateProductErrorInfo(newProduct),
+          message: 'Error trying to create product',
+          code: EErrors.INVALID_TYPES_ERROR
+      })
+      
+  }
     console.log('params from REQ BODY:', { newProduct })
 
-    //se importa por user services
     const newProductGenerated = await productService.createProduct(newProduct)
 
     console.log('new product from FRONT:', { newProductGenerated })
@@ -121,12 +128,8 @@ export const addProductByCart = async (req, res) => {
     const addProductByCart = await cartService.addProductByCart(cid, pid, quantity)
     console.log("AddPorductByCart :", addProductByCart);
 
-    //ERROR
-    //duplica pq no guarda el nuevo cart para agregar nuevos prod
     res.redirect(`/cart/${cid}`); 
-   
-    // Guarda el carrito actualizado en la base de datos
-    //await cart.save();
+
   } catch (error) {
     console.error("Error to add product at cart:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -169,7 +172,7 @@ export const deleteProductByCart = async (req, res) => {
 
     const cart = await cartService.cartById(cid, res)
 
-     // Check if the cart exists
+
      if (!cart) {
       return res.status(404).json({ error: "Cart not found" });
     }
@@ -178,12 +181,11 @@ export const deleteProductByCart = async (req, res) => {
     const productIndex = cart.product.findIndex((product) => product.id === pid);
 
     console.log("product.id?", product.id)
-    // Si el producto no se encuentra en el carrito, devuelve un error
+
     if (productIndex === -1) {
       return res.status(404).json({ error: "Producto no encontrado en el carrito" });
     }
 
-    // Elimina el producto del carrito
     cart.product.splice(productIndex, 1);
 
     console.log("Producto eliminado con cid:", cid, "y pid:", pid);
@@ -198,53 +200,3 @@ export const deleteProductByCart = async (req, res) => {
 
 
 
-
-const transport = nodemailer.createTransport({
-  service: 'gmail',
-  port: 587,
-  auth: {
-    user: config.NODEMAILER_USER,
-    pass: config.NODEMAILER_PASS
-  }
-})
-
-//se puede adjuntar los datos del tikect??????????
-//o desde purchase Cart... 
-//en purchase cart Tengo los productos resultado del stok 
-
-export const mailer = async (req, res) => {
-
-  try {
-    //INTENTE OBTENER LOS DATOS DEL USUARIO DESDE EL JWT 
-    //const user = req.user
-    //console.log("user mailer",user);
-    // const getUser = await userService.getUser({ user.email })
-    // console.log("ESTE ES EL EMAIL DEL USER PARA Mailer",getUser.email)
-
-    //probar esta logica..-..
-    const result = await transport.sendMail({
-      from: config.NODEMAILER_USER,
-      to: 'yerlinrojas808@gmail.com',
-      subject: 'Gracias por tu compra!!',
-      html: `
-          <div>
-              Gracias por tu compra
-  
-              <img src="cid:logoCorp" />
-          </div>
-      `, attachments: [
-        {
-          filename: 'logo.jpg',
-          path: `${__dirname}/public/logo.jpg`,
-          cid: 'logoCorp'
-        }
-      ]
-
-    })
-    console.log(result)
-    res.send('Email sent')
-  } catch (error) {
-    console.error('error sending mailer', error)
-    res.status(500).json({ error: 'Internal server error' })
-  }
-}

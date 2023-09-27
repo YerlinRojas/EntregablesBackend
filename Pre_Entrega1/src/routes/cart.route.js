@@ -1,19 +1,21 @@
 import { Router } from "express";
 import{ deleteAllProductsByCart, addProductByCart, cartById, cartList, createCart, deleteProductByCart, quantityProductByCart, purchaseCart, updatedCart } from '../controller/cart.controller.js'
 import { passportCall } from "../utils.js";
+import { dataBasesError, cartNotFoundError, routingError} from '../midleware/error.js'
+
 const router = Router();
 
 //crear carrito
-router.post("/", createCart);
+router.post("/", dataBasesError, routingError, createCart);
 
 //CART POR ID
-router.get("/:cid", cartById);
+router.get("/:cid", cartNotFoundError, cartById);
 
 //LISTADO cart
-router.get("/", cartList);
+router.get("/",cartNotFoundError, cartList);
 
 //agrega productos a la lista de carritos
-router.post("/:cid/product/:pid", addProductByCart);
+router.post("/:cid/product/:pid",routingError, addProductByCart);
 
 //Eliminar producto del carrito);
 router.get("/:cid/product/:pid", deleteProductByCart)

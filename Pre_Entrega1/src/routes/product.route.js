@@ -1,5 +1,6 @@
 import { Router} from 'express'
-import { createProduct, deleteProduct, getList, updateProduct } from '../controller/product.controller.js'
+import { createProduct, deleteProduct, getList, updateProduct, mockingProducts } from '../controller/product.controller.js'
+import {typeError, routingError,dataBasesError} from '../midleware/error.js'
 
 const router = Router()
 
@@ -7,13 +8,17 @@ const router = Router()
 router.get('/',getList)
 
 //CREATE PRODUCT
-router.post('/create', createProduct) 
+router.post('/create', typeError, routingError,dataBasesError,
+ createProduct) 
 
 //DELETE PRODUCT
 router.get('/delete/:pid', deleteProduct)
 
 //UPDATE PRODUCT
 router.put('/:pid',updateProduct )
+
+//MOCKING PRODUCTS
+router.get('/mockingProducts', mockingProducts)
 
 
 export default router

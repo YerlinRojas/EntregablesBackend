@@ -1,10 +1,12 @@
-//contiene renderizaciones
 
 import { Router } from "express";
+import compression from 'express-compression'
 import passport from "passport";
 import { generateToken, passportCall, authorization } from "../utils.js";
-import { addProductByCart, createProduct, listProduct, productByCard,  viewCartById,deleteProductByCart, mailer  } from "../controller/views.controller.js";
+import { addProductByCart, createProduct, listProduct, productByCard,  viewCartById,deleteProductByCart } from "../controller/views.controller.js";
 import config from "../config/config.js";
+import {routingError, dataBasesError, cartNotFoundError, typeError} from '../midleware/error.js'
+
 
 const COOKIE_KEY = config.COOKIE_KEY
 const router = Router();
@@ -102,7 +104,9 @@ router.get("/login", (req, res) => {
 });
 
 //REGISTER render----------------
-router.get("/register", (req, res) => {
+router.get("/register", 
+typeError,
+(req, res) => {
   if (req.session?.user) {
     res.redirect("/products");
   }
@@ -113,24 +117,30 @@ router.get("/register", (req, res) => {
 
 //PRODUCTS EN CARDS SOLO AUTORIZA -user-
 router.get('/products',
-passportCall('jwt'),authorization('user'),
+passportCall('jwt'),
+authorization('user'),
+compression({brotli: {enabled: true, zlib: {}}}),
+routingError,
+dataBasesError,
 productByCard);
 
 
 router.post("/addProduct/:cid/product/:pid",passportCall('jwt'), authorization('user'),
+routingError, cartNotFoundError,
 addProductByCart
 );
 
 
 // VISTA DEL CARRITO -user-
-router.get("/cart/:cid", viewCartById); 
+router.get("/cart/:cid", routingError, cartNotFoundError, viewCartById); 
 
-router.get("/cart/delete/:cid/product/:pid", deleteProductByCart)
+router.get("/cart/delete/:cid/product/:pid", routingError, cartNotFoundError, deleteProductByCart)
 
 
 
 //LISTADO DE PRODUCTS AUTORIZA -admin-
 router.get('/home', passportCall('jwt'), authorization('admin'), 
+routingError, cartNotFoundError, dataBasesError,
 listProduct
 );
 
@@ -141,13 +151,8 @@ router.get("/realtimeproducts",passportCall('jwt'), authorization('admin'),
 }
 );
 router.post("/realtimeproducts",passportCall('jwt'), authorization('admin'),
+routingError, cartNotFoundError, typeError,
 createProduct
 );
-
-//MAILER
-router.get('/mail', mailer)
-//el jwt me trae los datos del usuario
-
-
 
 export default router;
