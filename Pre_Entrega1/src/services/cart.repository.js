@@ -12,9 +12,6 @@ export default class CartRepository {
         const insertCart = new CartDTO(this.dao);
         return await this.dao.createCart(insertCart);
     };
-    cartByIdPopulate = async (cid, { populate = false }) => {
-        return await this.dao.cartById(cid, { populate });
-    };
     cartById = async(cid) => {
         return this.dao.cartById(cid)
     }
@@ -36,22 +33,17 @@ export default class CartRepository {
         if (!cart) {
             throw new Error("Cart not found");
         }
+        cart.product=[]
         const existingProduct = cart.product.find((product) => product.id === pid);
-
-         if (existingProduct) {
-      // Si el producto ya está en el carrito, actualizar la cantidad
-          existingProduct.quantity += quantity;
-    }    else {
-          // Si el producto no está en el carrito, agregarlo
-          cart.product.push({
+        if (existingProduct) {
+        existingProduct.quantity += quantity;
+        }else {
+        cart.product.push({
         id: pid,
         quantity: quantity,
-      });
+    });
     }
-
         await this.updatedCart(cid, cart);
-        //await this.saveCart(cart)
-        //aca no puedo salvar el actual carrito con los productos adentro
         return cart;
     };
 

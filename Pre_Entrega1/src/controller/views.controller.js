@@ -180,7 +180,7 @@ export const deleteProductByCart = async (req, res) => {
     // Encuentra el índice del producto en el carrito
     const productIndex = cart.product.findIndex((product) => product.id === pid);
 
-    console.log("product.id?", product.id)
+   // console.log("product.id?",cart.product[productIndex].pid)
 
     if (productIndex === -1) {
       return res.status(404).json({ error: "Producto no encontrado en el carrito" });
