@@ -7,12 +7,15 @@ import { v4 as uuidv4 } from "uuid";
 import CorreoController from "./ticket.fn.js";
 import CustomError from "../services/errors/custom_error.js";
 import EErrors from "../services/errors/enums.js";
+import { logger } from "../logger.js";
 
 export const createCart = async (req, res) => {
   try {
     const cart = await cartService.createCart();
 
-    console.log("Cart from createCart: ", { cart });
+    logger.info("Cart from createCart: ", { cart });
+    logger.http('Solicitud HTTP exitosa en /api/cart/');
+
     res.send(cart);
   } catch (error) {
     console.error("Error to create cart:", error);
@@ -35,13 +38,14 @@ export const cartById = async (req, res) => {
     }
     const populatedCart = await cartModel.findById(cid).populate("product.id");
 
-    console.log(
-      "Populate from cartById: ",
+    logger.info(
+      "Populate from cartById BACKEND: ",
       JSON.stringify(populatedCart, null, "\t")
     );
+    logger.http('Solicitud HTTP exitosa en /api/cart/:cid');
     res.send(result);
   } catch (error) {
-    console.error("Error to get cartId:", error);
+    logger.error("Error to get cartId:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -49,10 +53,12 @@ export const cartById = async (req, res) => {
 export const cartList = async (req, res) => {
   try {
     const cartList = await cartService.cartList();
-    console.log("cartList from CartList: ", { cartList });
+    logger.info("cartList from CartList BACKEND: ", { cartList });
+    logger.http('Solicitud HTTP exitosa en /api/cart/');
+
     res.status(200).json(cartList);
   } catch (error) {
-    console.error("Error to get cartList:", error);
+    logger.error("Error to get cartList:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -77,11 +83,13 @@ export const addProductByCart = async (req, res) => {
       pid,
       quantity
     );
-    console.log("AddPorductByCart :", addProductByCart);
+    logger.info("AddPorductByCart :", addProductByCart);
+    logger.http('Solicitud HTTP exitosa en /api/cart/:cid/product/:pid');
+
 
     res.send(addProductByCart);
   } catch (error) {
-    console.error("Error to add product at cart:", error);
+    logger.error("Error to add product at cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -94,10 +102,12 @@ export const deleteProductByCart = async (req, res) => {
     const cart = await cartService.deleteProductByCart(cid, pid);
     cart.id = cid;
 
-    console.log("delete Product by Cart :", { cart });
+    logger.info("delete Product by Cart :", { cart });
+    logger.http('Solicitud HTTP exitosa en /api/cart/:cid/product/:pid');
+
     res.send(cart);
   } catch (error) {
-    console.error("Error to delete products at cart:", error);
+    logger.error("Error to delete products at cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -108,10 +118,12 @@ export const updatedCart = async (req, res) => {
     const updatedFields = req.body;
 
     const result = await cartService.updatedCart(cid, updatedFields);
-    console.log("update Cart:", result);
+    logger.info("update Cart:", result);
+    logger.http('Solicitud HTTP exitosa en /api/cart/:cid');
+    
     res.send(result);
   } catch (error) {
-    console.error("Error to update cart:", error);
+    logger.error("Error to update cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -123,7 +135,9 @@ export const quantityProductByCart = async (req, res) => {
     const quantity = req.body;
 
     const cart = await cartService.quantityProductByCart(cid, pid, quantity);
-    console.log("Quantity products by cart:", cart);
+    logger.log("Quantity products by cart:", cart);
+    logger.http('Solicitud HTTP exitosa en /api/cart/:cid/product/:pid');
+
     res.send(cart);
   } catch (error) {
     console.error("Error to quantityProducts at cart:", error);
@@ -136,11 +150,13 @@ export const deleteAllProductsByCart = async (req, res) => {
     const cid = req.params.cid;
 
     const cart = await cartService.deleteAllProductsByCart(cid);
-    console.log("delete all products by cart:", { cart });
+    logger.info("delete all products by cart:", { cart });
+    logger.http('Solicitud HTTP exitosa en /api/cart/delete/:cid');
+
 
     res.send(cart);
   } catch (error) {
-    console.error("Error to delete all products at cart:", error);
+    logger.error("Error to delete all products at cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -151,7 +167,7 @@ export const purchaseCart = async (req, res) => {
     const cart = await cartService.cartById(cid);
     const user = req.user.user;
     //esta ok el user.email
-    console.log("purchased", user.email);
+    logger.info("User EMAIL for Purchase", user.email);
 
     if (!cart) {
       CustomError.createError({
@@ -171,9 +187,9 @@ export const purchaseCart = async (req, res) => {
     for (const cartItem of cart.product) {
       const product = await productService.productById(cartItem.id._id);
 
-      console.log("stock de product en cart", product.stock);
-      console.log("cart item quantity", cartItem.quantity);
-      console.log("Objet de cada product en el cart", cartItem.id);
+      logger.info("stock de product en cart", product.stock);
+      logger.info("cart item quantity", cartItem.quantity);
+      logger.info("Objet de cada product en el cart", cartItem.id);
 
       if (!product) {
         return res
@@ -190,8 +206,8 @@ export const purchaseCart = async (req, res) => {
         product.stock -= cartItem.quantity;
         amount += product.price * cartItem.quantity;
 
-        console.log(
-          "----------------Updated stock for product:",
+        logger.info(
+          "Updated stock for product:",
           product.stock
         );
 
@@ -211,8 +227,8 @@ export const purchaseCart = async (req, res) => {
         quantity: item.quantity,
       })),
     };
-    console.log(
-      "---------------New cart after verification Stock",
+    logger.info(
+      "New cart after verification Stock",
       updatedCart
     );
     const code = uuidv4();
@@ -228,6 +244,8 @@ export const purchaseCart = async (req, res) => {
 
     const correoController = new CorreoController();
     await correoController.enviarCorreo(user, ticketJSON);
+    logger.http('Solicitud HTTP exitosa en /api/cart/:cid/purchase');
+    
     res.status(200).json({
       message: "Purchase completed successfully",
       purchasedProducts: purchasedProducts,
@@ -235,7 +253,7 @@ export const purchaseCart = async (req, res) => {
       ticket: ticket,
     });
   } catch (error) {
-    console.error("Error completing purchase:", error);
+    logger.error("Error completing purchase:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };

@@ -2,7 +2,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
 
-console.log(process.env.PERSISTENCE)
+
 
 export default {
 
@@ -27,7 +27,9 @@ export default {
 
     NODEMAILER_USER: process.env.NODEMAILER_USER,
     NODEMAILER_PASS: process.env.NODEMAILER_PASS,
-    NODEMAILER_TYPE_SERVICE : process.env.NODEMAILER_TYPE_SERVICE
+    NODEMAILER_TYPE_SERVICE : process.env.NODEMAILER_TYPE_SERVICE,
+
+    NODE_ENV: process.env.NODE_ENV
 }
 
 

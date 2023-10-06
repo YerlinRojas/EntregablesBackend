@@ -1,6 +1,7 @@
 
 import CartModel from './models/cart.model.js'
 import mongoose from 'mongoose'
+import {logger} from '../../logger.js'
 
 export default class Cart {
   cartList = async () => {
@@ -22,13 +23,11 @@ export default class Cart {
         .lean()
         .exec();
   
-      console.log("ESTE ES EL CART POPULATE:", JSON.stringify(populatedCart, null, "\t"));
-  
-      
-  
+      logger.info("CartById Populate MONGO_DTO:", JSON.stringify(populatedCart, null, "\t"));
+
       return populatedCart;
     } catch (error) {
-      console.error("Error obteniendo el carrito por id:", error);
+      logger.error("Error obteniendo el carrito por id:", error);
       throw error;
     }
   };
@@ -70,25 +69,4 @@ export default class Cart {
 
 
 
-  /* deleteProductByCart = async (cid, pid) => {
-    try {
-      // Busca el carrito por su ID
-      const cart = await CartModel.findById(cid);
-      if (!cart) {
-        throw new Error('Cart not found');
-      }
-      const productIndex = cart.product.findIndex((product) => product.id === pid);
-      if (productIndex === -1) {
-        throw new Error('Product not found in cart');
-      }
-      // Elimina el producto del carrito
-      cart.product.splice(productIndex, 1);
-      // Guarda el carrito actualizado en la base de datos
-      await cart.save();
-      return cart; // Devuelve el carrito actualizado
-    } catch (error) {
-      throw error; // Lanza el error para que se maneje en el controlador
-    }
-  }; */
-
-}
+} 

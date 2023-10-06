@@ -2,10 +2,11 @@ import { productService, cartService } from '../services/index.js'
 import __dirname from '../utils.js';
 import CustomError from '../services/errors/custom_error.js';
 import EErrors from '../services/errors/enums.js';
+import { logger } from '../logger.js';
 
 export const productByCard = async (req, res) => {
   try {
-    console.log("User after authentication: ", req.user);
+    logger.info("User after authentication: ", req.user);
     const user = req.user;
 
 
@@ -32,7 +33,7 @@ export const productByCard = async (req, res) => {
     const prevPage = page > 1 ? page - 1 : null;
     const nextPage = page < totalPages ? page + 1 : null;
 
-
+    logger.http('Solicitud HTTP exitosa en /products');
     res.render("products", {
       products:
       paginatedProducts,
@@ -42,7 +43,7 @@ export const productByCard = async (req, res) => {
       cid
     });
   } catch (error) {
-    console.error("Error obteniendo el producto:", error);
+    logger.error("Error obteniendo el producto:", error);
     res.status(500).json({ error: "Error en Products view Internal server error" });
   }
 };
@@ -69,9 +70,9 @@ export const listProduct = async (req, res) => {
     const prevPage = page > 1 ? page - 1 : null;
     const nextPage = page < totalPages ? page + 1 : null;
 
-    console.log("productList, desde view.controller", paginatedProducts);
+    logger.info("ProductList", paginatedProducts);
 
-
+    logger.http('Solicitud HTTP exitosa en /home');
     //-----------------------------------------------------------
     res.render("home", {
       products:
@@ -82,7 +83,7 @@ export const listProduct = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Error obteniendo el producto:", error);
+    logger.error("Error obteniendo el producto:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }
@@ -102,15 +103,15 @@ export const createProduct = async (req, res) => {
       })
       
   }
-    console.log('params from REQ BODY:', { newProduct })
+    logger.info('PARAMS FROM REQUEST')
 
     const newProductGenerated = await productService.createProduct(newProduct)
-
-    console.log('new product from FRONT:', { newProductGenerated })
+    logger.http('Solicitud HTTP exitosa en /realtimeproducts');
+    logger.info('New Product CREATE', {newProduct})
     res.redirect('/home')
 
   } catch (error) {
-    console.error("Error obteniendo el producto:", error);
+    logger.error("Error obteniendo el producto:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 }
@@ -126,12 +127,12 @@ export const addProductByCart = async (req, res) => {
 
 
     const addProductByCart = await cartService.addProductByCart(cid, pid, quantity)
-    console.log("AddPorductByCart :", addProductByCart);
-
+    logger.info("AddPorductByCart :", addProductByCart);
+    logger.http('Solicitud HTTP exitosa en /addProduct/:cid/product/:pid');
     res.redirect(`/cart/${cid}`); 
 
   } catch (error) {
-    console.error("Error to add product at cart:", error);
+    logger.error("Error to add product at cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -143,7 +144,7 @@ export const viewCartById = async (req, res) => {
     const cid = req.params.cid;
     const cart = await cartService.cartById(cid);
 
-    console.log("ESTE ES EL CART_", cart);
+    logger.info("CART BY ID", cart);
     let totalPrice = 0;
 
     for (const product of cart.product) {
@@ -152,13 +153,16 @@ export const viewCartById = async (req, res) => {
         totalPrice += product.id.price * product.quantity;
       }
     }
-    console.log("Este es el cart.product", cart.product);
-    console.log("total price", totalPrice);
+
+    logger.info("CART WITH PRODUCTS", cart.product);
+    logger.info("TOTAL PRICE:", totalPrice);
+    logger.http('Solicitud HTTP exitosa en /cart/:cid');
+    
 
     res.render("carts", { cart, totalPrice });
 
   } catch (error) {
-    console.error("Error obteniendo el carrito por id DESDE GET CARTID:", error);
+    logger.error("Error obteniendo el carrito por id DESDE GET CARTID:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
@@ -168,35 +172,14 @@ export const deleteProductByCart = async (req, res) => {
   try {
     const cid = req.params.cid;
     const pid = req.params.pid;
-    console.log("-----------cid, pid for delete", cid, pid);
-
-    const cart = await cartService.cartById(cid, res)
-
-
-     if (!cart) {
-      return res.status(404).json({ error: "Cart not found" });
-    }
-
-    // Encuentra el índice del producto en el carrito
-    const productIndex = cart.product.findIndex((product) => product.id === pid);
-
-   // console.log("product.id?",cart.product[productIndex].pid)
-
-    if (productIndex === -1) {
-      return res.status(404).json({ error: "Producto no encontrado en el carrito" });
-    }
-
-    cart.product.splice(productIndex, 1);
-
-    console.log("Producto eliminado con cid:", cid, "y pid:", pid);
-
-
-     res.redirect(`/${cid}`);
-  } catch (error) {
-    console.error("Error to delete products at cart:", error);
+    logger.info("Params from REQ cid & pid", cid, pid);
+  
+    await cartService.deleteProductByCart (cid,pid)
+    logger.http('Solicitud HTTP exitosa en /cart/delete/:cid/product/:pid');
+    
+    res.redirect(`/${cid}`);
+  }catch (error){
+    logger.error("Error to delete products at cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
-};
-
-
-
+}

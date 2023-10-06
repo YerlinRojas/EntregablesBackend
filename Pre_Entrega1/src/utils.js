@@ -7,6 +7,7 @@ import jwt from 'jsonwebtoken'
 import passport from 'passport'
 
 import config from './config/config.js'
+import { logger } from './logger.js'
 
 const PRIVATE_KEY = config.PRIVATE_KEY
 const COOKIE_KEY = config.COOKIE_KEY
@@ -22,8 +23,7 @@ export const isValidPassword = (user, password) => {
 // JWT Generamos el token
 export const generateToken = (user) => {
     const token = jwt.sign( {user}, PRIVATE_KEY, {expiresIn: '24h'})
-    console.log("privateKEY from generateToken utils.js :", PRIVATE_KEY)
-    console.log("user", user)
+    logger.info("GenerateToken")
     return token
 }
 
@@ -31,7 +31,7 @@ export const generateToken = (user) => {
 export const cookieExtractor = req => {
     const token = (req?.cookies) ? req.cookies[COOKIE_KEY] : null
 
-    console.log('COOKIE EXTRACTOR: ', token)
+    logger.info('COOKIE EXTRACTOR: ', token)
     return token
 }
 
@@ -66,7 +66,7 @@ export const passportCall = strategy => {
             if(err) return next(err)
             if(!user) {
                 return res.status(401).send(
-                console.log({error: info.messages? info.messages : info.toString()}) 
+                logger.error({error: info.messages? info.messages : info.toString()}) 
                 )
             }
             req.user = user
@@ -82,7 +82,7 @@ export const authorization = role => {
 
         if(!user) return res.status(401).send({error: 'Unauthorized'})
         if(user.user.role != role) return res.status(403).send({error: 'No permission'})
-    console.log(user.user.role)
+        logger.info(user.user.role)
         return next()
     }
 }

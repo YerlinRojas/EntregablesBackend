@@ -46,7 +46,7 @@ router.get(
           maxAge: 60 * 60 * 1000,
           httpOnly: true
       });
-
+      logger.http('Solicitud HTTP exitosa en /callback-google');
       res.redirect("/products");
     } catch (error) {
       console.error("error google call back", error);
@@ -76,6 +76,8 @@ router.get(
 
             if (req.user && req.user.role === 'admin') {
               // Si el usuario es administrador, redirigir a /home
+              logger.http('Solicitud HTTP exitosa en /githubcallback');
+              
               return res.redirect('/home');
           } else {
               // Si el usuario no es administrador, redirigir a /products
@@ -134,7 +136,7 @@ addProductByCart
 // VISTA DEL CARRITO -user-
 router.get("/cart/:cid", routingError, cartNotFoundError, viewCartById); 
 
-router.get("/cart/delete/:cid/product/:pid", routingError, cartNotFoundError, deleteProductByCart)
+router.post("/cart/delete/:cid/product/:pid", routingError, cartNotFoundError, deleteProductByCart)
 
 
 

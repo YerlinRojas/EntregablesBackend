@@ -1,6 +1,6 @@
 import config from "../config/config.js";
 import mongoose from "mongoose";
-
+import {logger} from '../logger.js'
 
 export let User
 export let Cart
@@ -8,7 +8,7 @@ export let Product
 export let Chat
 export let Ticket
 
-console.log(`Persistence with ${config.PERSISTENCE}`);
+logger.debug(`Persistence with ${config.PERSISTENCE}`);
 
 switch (config.PERSISTENCE) {
     case "MONGO":
