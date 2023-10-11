@@ -15,6 +15,9 @@ export default class UserRepository {
     userById= async(uid)=>{
         return await this.dao.userById(uid)
     }
+    userByEmail= async(email)=>{
+        return await this.dao.userByEmail(email)
+    }
     saveUser = async (user) =>{
         return await  this.dao.saveUser(user)
     }
@@ -27,4 +30,7 @@ export default class UserRepository {
         return await this.dao.updateUser(uid,updatedFields)
     }
 
+    updatePass = async (userId, password) => {
+        return await this.dao.updatePass(userId,password)
+    }
 }

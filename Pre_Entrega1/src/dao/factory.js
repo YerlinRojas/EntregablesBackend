@@ -7,8 +7,9 @@ export let Cart
 export let Product
 export let Chat
 export let Ticket
+export let Recovery
 
-logger.debug(`Persistence with ${config.PERSISTENCE}`);
+logger.debug(`Persistence with  ${config.PERSISTENCE}`);
 
 switch (config.PERSISTENCE) {
     case "MONGO":
@@ -25,7 +26,9 @@ switch (config.PERSISTENCE) {
                 const { default: UserMongo } = await import("./mongo/user.mongo.js");
                 const { default: ChatMongo } = await import("./mongo/chat.mongo.js");
                 const {default: TicketMongo} = await import ("./mongo/tiket.mongo.js")
-
+                const  {default: RecoveryMongo} = await import ("./mongo/recovery.mongo.js")
+                
+                Recovery = RecoveryMongo;
                 User = UserMongo;
                 Cart = CartMongo;
                 Product = ProductMongo;

@@ -1,3 +1,4 @@
+import { createHash } from '../../utils.js';
 import UserModel from '../mongo/models/user.model.js'
 
 export default class User {
@@ -15,6 +16,9 @@ export default class User {
     userById= async(uid)=>{
         return await UserModel.findOne({_id:uid})
     }
+    userByEmail = async(email)=>{
+        return await UserModel.findOne({email:email})
+    }
     saveUser = async (user) =>{
         return await  user.save()
     }
@@ -27,4 +31,11 @@ export default class User {
         return await UserModel.updateOne(uid,updatedFields)
     }
 
+    updatedPass =async (userId, password)=>{
+     await User.findByIdAndUpdate(
+        userId,
+        {password:createHash(password)},
+        { new: true }
+      );
+    }
 }

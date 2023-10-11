@@ -1,0 +1,11 @@
+    <h1>Nueva Contraseña</h1>
+    <p>Ingrese su nueva contraseña</p>
+
+
+    <form action="/api/session/reset-password/{{recoveryToken}}" method="POST">
+    <input type="hidden" name="recoveryToken" value=":recoveryToken">
+
+    <label for="password">Contraseña nueva:</label>
+    <input type="password" id="password" name="newPassword" required>
+    <button type="submit">Actualizar nueva contraseña</button>
+</form>

@@ -8,6 +8,7 @@ import passport from 'passport'
 
 import config from './config/config.js'
 import { logger } from './logger.js'
+import { productService } from './services/index.js'
 
 const PRIVATE_KEY = config.PRIVATE_KEY
 const COOKIE_KEY = config.COOKIE_KEY
@@ -85,6 +86,38 @@ export const authorization = role => {
         logger.info(user.user.role)
         return next()
     }
-}
+} 
+
+/* export const authorization = (role) => {
+    return async (req, res, next) => {
+        const user = req.user;
+
+        if (!user) return res.status(401).send({ error: 'Unauthorized' });
+
+        if (user.role === 'admin') {
+            // Si el usuario es un administrador, tiene permisos completos
+            return next();
+        } else if (user.role === 'premium') {
+            // Si el usuario es premium
+            if (req.method === 'DELETE' && req.params.pid) {
+                // Si es una solicitud de eliminación (DELETE) y se proporciona un productId en los parámetros
+                const product = await productService.productById(req.params.pid);
+
+                if (!product) {
+                    return res.status(404).send({ error: 'Product not found' });
+                }
+
+                if (product.owner.toString() === user._id.toString()) {
+                    // El usuario premium solo puede eliminar productos que le pertenecen
+                    return next();
+                } else {
+                    return res.status(403).send({ error: 'No permission' });
+                }
+            }
+        }
+
+        return res.status(403).send({ error: 'No permission' });
+    };
+}; */
 
 export default __dirname

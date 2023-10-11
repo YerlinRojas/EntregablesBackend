@@ -27,6 +27,7 @@ export default class Product extends FileManager {
       thumbnail,
       code,
       stock,
+      owner: await this.getById()
     };
 
     const listProduct = await this.getList();

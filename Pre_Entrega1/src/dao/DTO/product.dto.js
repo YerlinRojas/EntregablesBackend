@@ -6,6 +6,7 @@ export default class ProductDTO {
         this.category = product.category || 'Categoría no especificada';
         this.code = product.code || 0;
         this.stock = product.stock || 0;
+        this.owner = product.owner 
     }
 }
 

@@ -1,4 +1,4 @@
-import { productService } from "../services/index.js";
+import { productService, userService } from "../services/index.js";
 import getMockingProducts from "./mocking.fn.js";
 import CustomError from "../services/errors/custom_error.js";
 import EErrors from "../services/errors/enums.js";
@@ -19,7 +19,7 @@ export const getList = async (req, res) => {
 export const createProduct = async (req, res) => {
     try {
         const newProduct = req.body;
-
+        const userId = req.user.user;
         if (
             !newProduct.title ||
             !newProduct.description ||
@@ -38,6 +38,16 @@ export const createProduct = async (req, res) => {
         }
 
         logger.info("PARAMS FROM REQ, CREATE PRODUCT BACKEND", { newProduct });
+
+        const user = await userService.findOne(userId);
+
+        if (!user) {
+            logger.error("OWNER FOR PRODUCT NO FIND");
+        }
+
+        
+        newProduct.owner = user._id;
+        console.log("este usuario creo el product", user._id);
         const newProductGenerated = await productService.createProduct(newProduct);
 
         logger.info("new product from BACKEND:", { newProductGenerated });
@@ -51,7 +61,7 @@ export const createProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
     try {
-        const pid = req.params.id;
+        const pid = req.params.pid;
         logger.info("Product by ID:", pid);
         const deleteProduct = await productService.deleteProduct(pid);
         logger.http('Solicitud HTTP exitosa en /api/cart/delete/:pid');
