@@ -8,7 +8,7 @@ import passport from 'passport'
 
 import config from './config/config.js'
 import { logger } from './logger.js'
-import { productService } from './services/index.js'
+
 
 const PRIVATE_KEY = config.PRIVATE_KEY
 const COOKIE_KEY = config.COOKIE_KEY
@@ -101,7 +101,7 @@ export const authorization = role => {
             // Si el usuario es premium
             if (req.method === 'DELETE' && req.params.pid) {
                 // Si es una solicitud de eliminación (DELETE) y se proporciona un productId en los parámetros
-                const product = await productService.productById(req.params.pid);
+                const product = await productModel.productById(req.params.pid);
 
                 if (!product) {
                     return res.status(404).send({ error: 'Product not found' });

@@ -12,7 +12,7 @@ export default class Recovery {
         return await recoveryModel.findOne({ token: recoveryToken });
       };
 
-    recoveryRecord = async(recoveryToken) => {
-        await recoveryModel.findOne({ token: recoveryToken });
+    recoveryRecord = async(recoveryTokenObject) => {
+        await recoveryModel.findOne(recoveryTokenObject);
     }
 }

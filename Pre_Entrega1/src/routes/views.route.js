@@ -146,10 +146,15 @@ routingError, cartNotFoundError, dataBasesError,
 listProduct
 );
 
-router.get('/delete/:pid', passportCall('jwt'), authorization('admin'), 
+
+
+router.get('/delete/:pid', passportCall('jwt'), authorization('admin','premium'), 
 routingError, cartNotFoundError, dataBasesError,
 deleteProduct
 );
+
+
+
 
 //CREA PRODUCTS AUTORIZA -admin-
 router.get("/realtimeproducts",passportCall('jwt'), authorization('admin'),

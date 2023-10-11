@@ -31,8 +31,8 @@ export default class User {
         return await UserModel.updateOne(uid,updatedFields)
     }
 
-    updatedPass =async (userId, password)=>{
-     await User.findByIdAndUpdate(
+    updatedPass = async (userId, password) => {
+     await UserModel.findByIdAndUpdate(
         userId,
         {password:createHash(password)},
         { new: true }

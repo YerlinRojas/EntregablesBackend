@@ -6,5 +6,5 @@ const recoveryTokenSchema = new mongoose.Schema({
     expiration: { type: Date, required: true },
   });
   
-  const recovery = mongoose.model('RecoveryToken', recoveryTokenSchema);
+  const recovery = new mongoose.model('RecoveryToken', recoveryTokenSchema);
   export default recovery

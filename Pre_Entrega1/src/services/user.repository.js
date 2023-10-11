@@ -30,7 +30,7 @@ export default class UserRepository {
         return await this.dao.updateUser(uid,updatedFields)
     }
 
-    updatePass = async (userId, password) => {
-        return await this.dao.updatePass(userId,password)
+    updatedPass= async (userId, password) => {
+        return await this.dao.updatedPass(userId,password)
     }
 }

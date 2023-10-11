@@ -22,7 +22,7 @@ export default class RecoveryRepository{
         return await this.dao.findRecoveryByToken(recoveryToken);
       };
 
-      recoveryRecord = async(recoveryToken) => {
-        return await this.dao.recoveryRecord({ token: recoveryToken });
+      recoveryRecord = async(recoveryTokenObject) => {
+        return await this.dao.recoveryRecord(recoveryTokenObject);
     }
 }
