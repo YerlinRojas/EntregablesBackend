@@ -23,4 +23,7 @@ export default class Product {
         return await productModel.updateOne(pid,updatedFields)
     }
 
+    productByOwner = async (pid, userId)=>{
+        return await productModel.findOne({ _id: pid, owner: userId})
+    } 
 }

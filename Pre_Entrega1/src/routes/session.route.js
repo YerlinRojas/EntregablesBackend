@@ -27,14 +27,14 @@ router.post(
         maxAge: 60 * 60 * 1000,
         httpOnly: true,
       });
-
-      if (req.user && req.user.role === "admin") {
-        // Si el usuario es administrador, redirigir a /home
+      if (req.user && (req.user.role === "admin" || req.user.role === "premium")) {
+        // Si el usuario es administrador o premium, redirigir a /home
         return res.redirect("/home");
       } else {
-        // Si el usuario no es administrador, redirigir a /products
+        // Si el usuario no es administrador ni premium, redirigir a /products
         return res.redirect("/products");
       }
+
     } catch (error) {
       logger.error("error al registrar", error);
       return res.redirect("/register");

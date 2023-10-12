@@ -26,4 +26,8 @@ export default class ProductRepository{
     updateProduct = async (pid,updatedFields ) => {
         return await this.dao.updateProduct(pid,updatedFields)
     }
+
+    productByOwner= async (pid, userId)=>{
+        return await this.dao.productByOwner(pid,userId)
+    } 
 }

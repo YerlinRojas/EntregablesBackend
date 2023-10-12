@@ -6,6 +6,7 @@ import { generateToken, passportCall, authorization } from "../utils.js";
 import { addProductByCart, createProduct, listProduct, productByCard,  viewCartById,deleteProductByCart, deleteProduct } from "../controller/views.controller.js";
 import config from "../config/config.js";
 import {routingError, dataBasesError, cartNotFoundError, typeError} from '../midleware/error.js'
+import { authorizeDelete } from "../midleware/authorizeDelete.js";
 
 
 const COOKIE_KEY = config.COOKIE_KEY
@@ -115,19 +116,19 @@ typeError,
   res.render("register", {});
 });
 
-
+const allowedRolesUser = ['user','premium']
 
 //PRODUCTS EN CARDS SOLO AUTORIZA -user-
 router.get('/products',
 passportCall('jwt'),
-authorization('user'),
+authorization(allowedRolesUser),
 compression({brotli: {enabled: true, zlib: {}}}),
 routingError,
 dataBasesError,
 productByCard);
 
 
-router.post("/addProduct/:cid/product/:pid",passportCall('jwt'), authorization('user'),
+router.post("/addProduct/:cid/product/:pid",passportCall('jwt'), authorization(allowedRolesUser),
 routingError, cartNotFoundError,
 addProductByCart
 );
@@ -139,16 +140,15 @@ router.get("/cart/:cid", routingError, cartNotFoundError, viewCartById);
 router.post("/cart/delete/:cid/product/:pid", routingError, cartNotFoundError, deleteProductByCart)
 
 
-
+const allowedRoles = ['premium', 'admin'];
 //LISTADO DE PRODUCTS AUTORIZA -admin-
-router.get('/home', passportCall('jwt'), authorization('admin'), 
+router.get('/home', passportCall('jwt'), authorization(allowedRoles), 
 routingError, cartNotFoundError, dataBasesError,
 listProduct
 );
 
 
-
-router.get('/delete/:pid', passportCall('jwt'), authorization('admin','premium'), 
+router.get('/delete/:pid', passportCall('jwt'), authorizeDelete(allowedRoles), 
 routingError, cartNotFoundError, dataBasesError,
 deleteProduct
 );
@@ -157,12 +157,12 @@ deleteProduct
 
 
 //CREA PRODUCTS AUTORIZA -admin-
-router.get("/realtimeproducts",passportCall('jwt'), authorization('admin'),
+router.get("/realtimeproducts",passportCall('jwt'), authorization(allowedRoles),
 (req,res)=>{
   res.render("realtimeproducts",{})
 }
 );
-router.post("/realtimeproducts",passportCall('jwt'), authorization('admin'),
+router.post("/realtimeproducts",passportCall('jwt'), authorization(allowedRoles),
 routingError, cartNotFoundError, typeError,
 createProduct
 );
