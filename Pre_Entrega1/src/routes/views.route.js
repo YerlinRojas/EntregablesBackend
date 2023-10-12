@@ -135,7 +135,7 @@ addProductByCart
 
 
 // VISTA DEL CARRITO -user-
-router.get("/cart/:cid", routingError, cartNotFoundError, viewCartById); 
+router.get("/cart/:cid", routingError, cartNotFoundError, viewCartById,authorization(allowedRolesUser)); 
 
 router.post("/cart/delete/:cid/product/:pid", routingError, cartNotFoundError, deleteProductByCart)
 

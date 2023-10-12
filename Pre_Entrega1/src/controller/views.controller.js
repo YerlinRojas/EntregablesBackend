@@ -3,7 +3,7 @@ import __dirname from "../utils.js";
 import CustomError from "../services/errors/custom_error.js";
 import EErrors from "../services/errors/enums.js";
 import { logger } from "../logger.js";
-//import { productBelongsToUser } from "../module/productBelongsToUser.js";
+import { productBelongsToUser } from "../module/productBelongsToUser.js";
 
 export const productByCard = async (req, res) => {
   try {
@@ -137,6 +137,7 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
+//-------------------------------ACA
 
 export const addProductByCart = async (req, res) => {
   try {
@@ -144,18 +145,18 @@ export const addProductByCart = async (req, res) => {
     const pid = req.params.pid;
     const quantity = req.params.quantity || 1;
 
-/*      // Obtén el usuario actual del objeto req
      const user = req.user.user;
+     console.log("USER ADD REQ" , user);
 
      // Verifica si el usuario es premium y si el producto le pertenece
      if (user && user.role === "premium") {
        // Aquí debes implementar la lógica para verificar si el producto pertenece al usuario
-       const productBelongs = await productBelongsToUser(user, pid);
+       const productBelongs = await productBelongsToUser(pid, user._id);
  
        if (productBelongs) {
          return res.status(403).json({ error: "Premium users cannot add their own products to the cart." });
        }
-     } */
+     } 
 
     const addProductByCart = await cartService.addProductByCart(
       cid,
@@ -171,12 +172,17 @@ export const addProductByCart = async (req, res) => {
   }
 };
 
+//SI ES PRIMIUM NO PUEDO ACCEDER A LAS PROPIEDADES DEL CARRITO
 export const viewCartById = async (req, res) => {
   try {
+    
+    
     const cid = req.params.cid;
     const cart = await cartService.cartById(cid);
 
     logger.info("CART BY ID", cart);
+    console.log("CARRITO ViewCartByID", cart);
+
     let totalPrice = 0;
 
     for (const product of cart.product) {

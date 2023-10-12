@@ -6,19 +6,13 @@ export const authorizeDelete = role =>{
 
     const user = req.user.user; 
     const pid = req.params.pid; 
-
-    //const userId = user._id
-
     console.log("user desde authorizeDelete ", user);//ok
-    //console.log("userID desde authorizeDelete ", userId);//ok
-    
 
     if (user.role === "admin") {
         console.log("user role admin middleware " );
       return next(); // El administrador puede borrar cualquier producto
     }
-  
-    
+
     if (user.role === "premium") {
         const productBelongs = await productBelongsToUser(pid, user._id);
 
