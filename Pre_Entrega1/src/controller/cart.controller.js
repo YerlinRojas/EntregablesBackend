@@ -18,7 +18,7 @@ export const createCart = async (req, res) => {
 
     res.send(cart);
   } catch (error) {
-    console.error("Error to create cart:", error);
+    logger.error("Error to create cart:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };

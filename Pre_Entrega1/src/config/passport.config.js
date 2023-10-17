@@ -138,7 +138,7 @@ const initializePassport = () => {
             async (req, username, password, done) => {
                 logger.info("Request body:", req.body);
 
-                const { firts_name, last_name, age, email } = req.body;
+                const { firts_name, last_name, age, email, role } = req.body;
                 if (!req) {
                     return done("Invalid request object");
                 }
@@ -161,6 +161,7 @@ const initializePassport = () => {
                         email,
                         password: createHash(password),
                         cartId: cart._id,
+                        role
                     };
                     const result = await userService.createUser(newUser);
                     const tokenPayload = { user: result, cartId: cart._id };
