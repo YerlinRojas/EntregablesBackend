@@ -3,6 +3,7 @@ import productRouter from './routes/product.route.js'
 import cartRouter from './routes/cart.route.js'
 import viewsRouter from './routes/views.route.js'
 import chatRouter from './routes/chat.route.js'
+import userRouter from './routes/user.router.js'
 
 import config from './config/config.js'
 
@@ -92,6 +93,7 @@ if (cluster.isPrimary && config.NODE_ENV === 'production') {
   app.use('/api/products', productRouter)
   app.use('/api/carts', cartRouter)
   app.use('/api/chat', chatRouter)
+  app.use('/api/user', userRouter)
   
   // Create an HTTP server using Express
   const server = http.createServer(app);

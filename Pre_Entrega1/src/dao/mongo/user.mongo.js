@@ -38,4 +38,22 @@ export default class User {
         { new: true }
       );
     }
+
+    newRole = async (userId,newRole) => {
+      
+     
+      const updatedUser = await UserModel.findOneAndUpdate(
+        { _id: userId },
+        { role: newRole },
+        { new: true } 
+      );
+      console.log("userId user controller", userId);
+      if (!updatedUser) {
+        console.log('Usuario no encontrado en la base de datos');
+      } else {
+        console.log('Usuario actualizado:', updatedUser);
+      }
+        return updatedUser
+    }
+
 }

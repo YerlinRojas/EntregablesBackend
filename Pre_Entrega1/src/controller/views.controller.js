@@ -220,3 +220,13 @@ export const deleteProductByCart = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+ export const userRole = async (req, res)=>{
+  try {
+    logger.http("solicitud HTPP exitosa en /userRole")
+    res.render('userRole')    
+  } catch (error) {
+    logger.error("Error to render userRole", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+  }

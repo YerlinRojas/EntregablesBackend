@@ -33,4 +33,9 @@ export default class UserRepository {
     updatedPass= async (userId, password) => {
         return await this.dao.updatedPass(userId,password)
     }
+
+    newRole = async(userId, newRole) => {
+        return await this.dao.newRole(userId, newRole)
+    }
+
 }

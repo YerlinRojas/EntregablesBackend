@@ -1,14 +1,22 @@
 <div>
-    profile
+  profile
 </div>
 
-  <h1>Bienvenido </h1>
+<h1>Bienvenido </h1>
 
-  <div >
-        <img src="" alt="Foto de Perfil">
-        <h2>Nombre: {{user.firts_name}} {{user.last_name}} </h2>
-        <p>Edad: {{user.age}}</p>
-        <p>Email: {{user.email}}</p>
-        
-        </div>  
+<div>
+  <img src="" alt="Foto de Perfil">
+  <h2>Nombre: {{user.firts_name}} {{user.last_name}} </h2>
+  <p>Edad: {{user.age}}</p>
+  <p>Email: {{user.email}}</p>
+  <p>Rol: {{user.role}}</p>
 
+  <form id="changeRoleForm" action="/api/user/premium/{{user._id}}" method="POST">
+    <select name="newRole">
+      <option value="user">User</option>
+      <option value="premium">Premium</option>
+      
+    </select>
+    <button type="submit">Cambiar Rol</button>
+  </form>
+</div>

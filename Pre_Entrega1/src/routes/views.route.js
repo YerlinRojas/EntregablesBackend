@@ -3,7 +3,13 @@ import { Router } from "express";
 import compression from 'express-compression'
 import passport from "passport";
 import { generateToken, passportCall, authorization } from "../utils.js";
-import { addProductByCart, createProduct, listProduct, productByCard,  viewCartById,deleteProductByCart, deleteProduct } from "../controller/views.controller.js";
+import { addProductByCart, 
+  createProduct, 
+  listProduct, 
+  productByCard,  
+  viewCartById,deleteProductByCart, 
+  deleteProduct, 
+  userRole } from "../controller/views.controller.js";
 import config from "../config/config.js";
 import {routingError, dataBasesError, cartNotFoundError, typeError} from '../midleware/error.js'
 import { authorizeDelete } from "../midleware/authorizeDelete.js";
@@ -166,5 +172,7 @@ router.post("/realtimeproducts",passportCall('jwt'), authorization(allowedRoles)
 routingError, cartNotFoundError, typeError,
 createProduct
 );
+
+router.get("/userRole", userRole)
 
 export default router;
