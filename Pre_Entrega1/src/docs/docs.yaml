@@ -1,0 +1,262 @@
+paths:
+  /api/products/:
+    get:
+      summary: Get all products
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Get all products satisfactorily
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Products'
+        "500":
+          description: Error internal Server. 
+  /api/products/create:
+    post:
+      summary: create new product
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/insertProduct'
+  /api/products/delete/{pid}:
+    get:
+      summary: Delete product
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: product ID
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Delete product satisfactorily
+        "500":
+          description: Error internal Server. Error delete product 
+  /api/products/{pid}:
+    put:
+      summary: Update a product by ID
+      tags:
+        - Products
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: Product ID
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/insertProduct'
+    responses:
+      "200":
+        description: Product updated successfully
+      "400":
+        description: Bad request. Invalid input.
+      "404":
+        description: Product not found.
+      "500":
+        description: Internal Server Error.
+  /api/products/mockingProducts:
+    get:
+      summary: Get all products from api
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Get all products satisfactorily
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Products'
+        "500":
+          description: Error internal Server. Error to get products from api
+  /api/users/premium/{userId}:
+    post:
+      summary: swich role
+      tags: 
+        - Users
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: userId
+          schema:
+            type: String
+      responses:
+        "200":
+          description: Swich role Ok 
+        "500":
+          description: Error internal server  
+  /api/carts/:
+    post:
+      summary: create cart
+      tags: 
+      - Carts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/insertCart'
+  /api/carts/{cid}:
+    get:
+      summary: Get cart by Id
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: cartId
+          schema:
+            type: String
+      responses:
+        "200":
+          description: Get cart ok
+        "500":
+          description: Error internal Server. Error to get cart
+  /api/carts/:
+    get:
+      summary: Get cart
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Get cart satisfactorily
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Cart'
+        "500":
+          description: Error internal Server. 
+
+components:
+  schemas:
+    Users:
+      _id:
+        type: ObjectId
+        description: Id auto generated Mongo
+      firts_name:
+        type: String
+        description: User name
+      last_name: 
+        type: String
+        description:  User last name
+      age:
+        type: Number
+        description: User Age   
+      email:
+        type: String
+        description: User email
+      password:
+        type: String
+        description: User password
+      cartId: 
+        type: ObjectId
+        description: user Cart id  
+      role:
+        type: String
+        description: User role 
+    CartProduct:
+       type: object
+       properties:
+         id:
+           type: string
+           format: ObjectId
+           description: ID del producto en el carrito
+         quantity:
+           type: integer
+           description: Cantidad del producto en el carrito
+    Cart:
+        type: object
+        properties:
+          product:
+            type: array
+            items:
+              $ref: '#/components/schemas/CartProduct'
+    Products:
+      type: object
+      properties:
+        _id: 
+          type: Number
+          description: ID auto generated Mongo
+        title:
+          type: String
+          description: Title of each products
+        description:
+          type: String
+          description: description of each products
+        price:
+          type: Number
+          description: Price of each products
+        category:
+          type: String
+          description: Category of each products 
+        thumbail:
+          type: String
+          description: Image, Foto, illustration of each products
+        code: 
+          type: Number
+          description: Code of each products
+        stock:
+          type: Number
+          description: Stock of each products
+        owner: 
+          type: Number
+          description: Id to owner of each products, Id generated for mongo
+  requestBodies:
+    insertCart:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Cart'
+    insertProduct:
+      type: object
+      properties: 
+        title:
+          type: String
+          description: Title of product
+        description:
+          type: String
+          description: description of product
+        price:
+          type: Number
+          description: Price of product
+        category:
+          type: String
+          description: Category of  products
+        thumbail:
+          type: String
+          description: Image, Foto, illustration of  product
+        code: 
+          type: Number
+          description: Code of  product
+        stock:
+          type: Number
+          description: Stock of product
+      example:
+        title: new product
+        description: new product description
+        price: 451
+        category: shoes
+        thumbail: newImage
+        code: 784
+        stock: 55

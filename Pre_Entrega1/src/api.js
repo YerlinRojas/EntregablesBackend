@@ -17,6 +17,10 @@ import handlebars from 'express-handlebars'
 
 import __dirname from './utils.js'
 
+//swagger
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUiExpress from 'swagger-ui-express' 
+
 //cluster
 import cluster from 'cluster'
 import { cpus } from 'os'
@@ -59,8 +63,6 @@ if (cluster.isPrimary && config.NODE_ENV === 'production') {
   //config public static
   app.use('/public', express.static(__dirname + '/public'))
   
-  //logger
-  //app.use(logMiddleware)
   
   //cookie parser
   app.use(cookieParser())
@@ -87,7 +89,23 @@ if (cluster.isPrimary && config.NODE_ENV === 'production') {
   app.use(passport.initialize())
   app.use(passport.session())
   
-  //routes 
+  //Swagger options
+  const swaggerOptions = {
+    definition: {
+        openapi: '3.0.1',
+        info: {
+            title: 'Docs e-commerce',
+            description: 'e-commerce Proyect s '
+        }
+    },
+    apis: [
+      `${__dirname}/docs/**/*.yaml`
+  ]
+}
+
+  const specs = swaggerJSDoc(swaggerOptions)
+//routes 
+  app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
   app.use('/api/session', sessionRouter) 
   app.use('/', viewsRouter) //Index
   app.use('/api/products', productRouter)
@@ -95,16 +113,15 @@ if (cluster.isPrimary && config.NODE_ENV === 'production') {
   app.use('/api/chat', chatRouter)
   app.use('/api/user', userRouter)
   
+
   // Create an HTTP server using Express
   const server = http.createServer(app);
   
   // Start listening on the server
-  
   server.listen(config.PORT, () => {
     logger.debug('Servidor iniciado con éxito', { port: config.PORT, environment: config.NODE_ENV });
   
-    // Configure Socket.io logic here
-    const io = new Server(server); // Create a Socket.io instance and attach it to the HTTP server
+    const io = new Server(server); 
     const messages = [];
   
     //socket logic
