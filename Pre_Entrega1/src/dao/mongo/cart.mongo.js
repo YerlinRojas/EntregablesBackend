@@ -32,6 +32,7 @@ export default class Cart {
     }
   };
  
+/*   
   saveCart = async (cart) => {
     if (!cart) {
       throw new Error("Cart not found");
@@ -47,7 +48,7 @@ export default class Cart {
     }
     return updatedCart;
 };
-
+ */
   updatedCart = async (cid, updates) => {
     await CartModel.findOneAndUpdate(
       { _id: cid },

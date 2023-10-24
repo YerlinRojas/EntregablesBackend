@@ -29,7 +29,10 @@ export default {
     NODEMAILER_PASS: process.env.NODEMAILER_PASS,
     NODEMAILER_TYPE_SERVICE : process.env.NODEMAILER_TYPE_SERVICE,
 
-    NODE_ENV: process.env.NODE_ENV
+    NODE_ENV: process.env.NODE_ENV,
+
+    URL_DATA_TEST : process.env.URL_DATA_TEST,
+    dbName_dataTest : process.env.dbName_dataTest
 }
 
 

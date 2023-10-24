@@ -114,6 +114,22 @@ paths:
           application/json:
             schema:
               $ref: '#components/requestBodies/insertCart'
+    get:
+      summary: Get cart
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Get cart satisfactorily
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Cart'
+        "500":
+          description: Error internal Server. 
+
   /api/carts/{cid}:
     get:
       summary: Get cart by Id
@@ -131,22 +147,6 @@ paths:
           description: Get cart ok
         "500":
           description: Error internal Server. Error to get cart
-  /api/carts/:
-    get:
-      summary: Get cart
-      tags:
-        - Carts
-      responses:
-        "200":
-          description: Get cart satisfactorily
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#components/schemas/Cart'
-        "500":
-          description: Error internal Server. 
 
 components:
   schemas:
