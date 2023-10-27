@@ -1,7 +1,5 @@
 import { productService, userService } from "../services/index.js";
 import getMockingProducts from "./mocking.fn.js";
-import CustomError from "../services/errors/custom_error.js";
-import EErrors from "../services/errors/enums.js";
 import { logger } from "../logger.js";
 
 export const getList = async (req, res) => {

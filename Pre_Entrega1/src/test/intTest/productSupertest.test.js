@@ -25,7 +25,7 @@ describe('Test e-commerce', ()=>{
         expect(response.body).to.have.property('description', 'This is a test product'); 
         
         const createdProductId = response.body._id;
-        console.log(createdProductId)
+        
         const deleteResponse = await requester.get(`/api/products/delete/${createdProductId}`);
         expect(deleteResponse.status).to.equal(200);
         expect(deleteResponse.body).to.be.an('object');
