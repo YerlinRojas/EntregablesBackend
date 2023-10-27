@@ -3,7 +3,7 @@ import Assert from 'assert'
 import chai from 'chai'
 import mongoose from 'mongoose'
 import config from '../../config/config.js'
-import { faker } from '@faker-js/faker'
+
 
 
 
@@ -12,7 +12,7 @@ const assert = Assert.strict
 //expect de chai mas utiliado en la industria
 const expect = chai.expect
 
-describe('Test user DAO', function () {
+describe('Test User DAO', function () {
 
     before(function (done) {
         mongoose.connect(config.URL_DATA_TEST, {
@@ -117,7 +117,7 @@ describe('Test user DAO', function () {
             expect(updatedUser.role).to.equal('admin');
         });
     });
-    describe('Test user DAO', function () {
+   
         describe('Deletes User', function () {
             it('should delete a user by ID', async function () {
                 const userDao = new User();
@@ -147,4 +147,4 @@ describe('Test user DAO', function () {
             });
         });
     })
-})
+

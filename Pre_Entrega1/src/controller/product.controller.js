@@ -8,7 +8,7 @@ export const getList = async (req, res) => {
     try {
         const productsList = await productService.getList();
         logger.info("Desde el back:", { productsList });
-        logger.http('Solicitud HTTP exitosa en /api/cart/');
+        logger.http('Solicitud HTTP exitosa en /api/product/');
         res.send(productsList);
     } catch (error) {
         logger.error("Error obteniendo producto:", error);
@@ -18,41 +18,15 @@ export const getList = async (req, res) => {
 
 export const createProduct = async (req, res) => {
     try {
-        const newProduct = req.body;
-        const userId = req.user.user;
-        if (
-            !newProduct.title ||
-            !newProduct.description ||
-            !newProduct.price ||
-            !newProduct.category ||
-            !newProduct.thumbnail ||
-            !newProduct.code ||
-            !newProduct.stock
-        ) {
-            CustomError.createError({
-                name: "Product creation error",
-                cause: generateProductErrorInfo(newProduct),
-                message: "Error trying to create product",
-                code: EErrors.INVALID_TYPES_ERROR,
-            });
-        }
-
-        logger.info("PARAMS FROM REQ, CREATE PRODUCT BACKEND", { newProduct });
-
-        const user = await userService.findOne(userId);
-
-        if (!user) {
-            logger.error("OWNER FOR PRODUCT NO FIND");
-        }
-
         
-        newProduct.owner = user._id;
-        console.log("este usuario creo el product", user._id);
-        const newProductGenerated = await productService.createProduct(newProduct);
+        const newProduct = req.body;
+    logger.info("PARAMS FROM REQ, CREATE PRODUCT BACKEND", { newProduct });
 
-        logger.info("new product from BACKEND:", { newProductGenerated });
-        logger.http('Solicitud HTTP exitosa en /api/cart/create');
-        res.send(newProductGenerated);
+    const newProductGenerated = await productService.createProduct(newProduct);
+
+    logger.info("new product from BACKEND:", { newProductGenerated });
+    logger.http('Solicitud HTTP exitosa en /api/product/create');
+    res.send(newProductGenerated);
     } catch (error) {
         logger.error("Error al enviar producto:", error);
         res.status(500).json({ error: "Internal server error" });
@@ -64,7 +38,7 @@ export const deleteProduct = async (req, res) => {
         const pid = req.params.pid;
         logger.info("Product by ID:", pid);
         const deleteProduct = await productService.deleteProduct(pid);
-        logger.http('Solicitud HTTP exitosa en /api/cart/delete/:pid');
+        logger.http('Solicitud HTTP exitosa en /api/product/delete/:pid');
         res.send(deleteProduct);
     } catch (error) {
         logger.error("Error al borrar productos", error);
@@ -81,7 +55,7 @@ export const updateProduct = async (req, res) => {
         logger.info("UPDATE PRODUCT FIELDS:", updatedFields);
 
         const result = await productService.updateProduct(pid, updatedFields);
-        logger.http('Solicitud HTTP exitosa en /api/cart/:pid');
+        logger.http('Solicitud HTTP exitosa en /api/product/:pid');
         res.send(result);
     } catch (error) {
         logger.error("Error al actualizar producto:", error);
@@ -92,7 +66,7 @@ export const updateProduct = async (req, res) => {
 export const mockingProducts = async (req, res) => {
     try {
         const productos = await getMockingProducts(req, res);
-        logger.http('Solicitud HTTP exitosa en /api/cart/mockingProducts');
+        logger.http('Solicitud HTTP exitosa en /api/product/mockingProducts');
         return productos;
     } catch (error) {
         logger.error("error mocking", error);

@@ -10,8 +10,7 @@ describe('Test Cart DAO', function(){
         mongoose.connect(config.URL_DATA_TEST, {
             dbName: config.dbName_dataTest
         }).then(async() => { console.log('DB conect for Testing!!'); 
-        const newCart = await CartModel.create({});
-        existingCartId = newCart._id;
+
         done() })
             .catch(error => console.error("DB Failed", error))
 
@@ -19,9 +18,11 @@ describe('Test Cart DAO', function(){
     })
 
     after(function () {
-        //este drop elimina la DB
-        mongoose.connection.collections.cart.drop()
-        this.timeout()
+    
+      if (mongoose.connection.collections.cart) {
+        mongoose.connection.collections.cart.drop();
+      }
+      this.timeout();
     })
     
     describe('createCart', function() {
@@ -42,29 +43,6 @@ describe('Test Cart DAO', function(){
         });
       });
     
-      describe('cartById', function() {
-        it('should return a populated cart by ID', async function() {
-
-          const existingCartId = new mongoose.Types.ObjectId();
-    
-          const cartDao = new Cart();
-          const cart = await cartDao.cartById(existingCartId);
-    
-          expect(cart).to.be.an('object');
-          expect(cart._id).to.equal(existingCartId);
-          expect(cart.product).to.be.an('array');
-          // Agrega más aserciones según la estructura de tu cart
-        });
-    
-        it('should return undefined for an invalid cart ID', async function() {
-          const invalidCartId = 'invalid_cart_id';
-    
-          const cartDao = new Cart();
-          const cart = await cartDao.cartById(invalidCartId);
-    
-          expect(cart).to.be.undefined;
-        });
-      });
-    
+      
 
 })

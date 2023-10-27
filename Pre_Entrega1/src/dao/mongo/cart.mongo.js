@@ -11,7 +11,7 @@ export default class Cart {
     return await CartModel.create({})
   }
 
-  cartById = async (cid) => {
+   cartById = async (cid) => {
     
     try {
       if (!mongoose.Types.ObjectId.isValid(cid)) {
@@ -22,7 +22,8 @@ export default class Cart {
         .populate("product.id")
         .lean()
         .exec();
-  
+
+              
       logger.info("CartById Populate MONGO_DTO:", JSON.stringify(populatedCart, null, "\t"));
 
       return populatedCart;
@@ -30,8 +31,31 @@ export default class Cart {
       logger.error("Error obteniendo el carrito por id:", error);
       throw error;
     }
-  };
- 
+  }; 
+
+
+  /* cartById = async (cid) => {
+    try {
+      if (!mongoose.Types.ObjectId.isValid(cid)) {
+        return undefined;
+      }
+  
+      const cart = await CartModel.findOne({ _id: cid }).lean().exec();
+  
+      if (cart.product && cart.product.length > 0) {
+        // Si el campo 'product' no está vacío, realiza la populación
+        const populatedCart = await CartModel.findOne({ _id: cid })
+          .populate("product.id")
+          .lean()
+          .exec();
+  
+        logger.info("CartById Populate MONGO_DTO:", JSON.stringify(populatedCart, null, "\t"));
+        return populatedCart;
+      } } catch (error) {
+        logger.error("Error obteniendo el carrito por id:", error);
+        throw error;
+      }
+    } */
 /*   
   saveCart = async (cart) => {
     if (!cart) {
@@ -60,9 +84,6 @@ export default class Cart {
       { new: true }
     );
   }
-
-
-
 
   deleteCart = async (cid) => {
     return await CartModel.findByIdAndDelete({ _id: cid })
