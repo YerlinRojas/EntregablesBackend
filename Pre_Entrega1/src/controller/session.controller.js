@@ -1,5 +1,5 @@
 import { recoveryService, userService } from "../services/index.js";
-import CorreoController from "./ticket.fn.js";
+import CorreoController from "../module/ticket.fn.js";
 import { logger } from "../logger.js";
 
 export const getNewPass = async (req, res) => {

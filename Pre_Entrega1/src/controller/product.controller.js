@@ -1,5 +1,5 @@
 import { productService, userService } from "../services/index.js";
-import getMockingProducts from "./mocking.fn.js";
+import getMockingProducts from "../module/mocking.fn.js";
 import { logger } from "../logger.js";
 
 export const getList = async (req, res) => {

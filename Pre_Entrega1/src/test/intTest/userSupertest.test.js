@@ -31,19 +31,6 @@ describe('Test e-commerce Users', () => {
             const followUpResponse = await requester.get(redirectUrl);
             expect(followUpResponse.status).to.equal(200);
         })
-/* 
-        it('should return a login user', async function () {
-            this.timeout(8000)
-            const response = await requester.post('/api/session/login').send({
-                email: newUser.email,
-                password: newUser.password
-            })
-
-            expect(response.status).to.equal(302);
-            const redirectUrl = response.headers.location;
-            const followUpResponse = await requester.get(redirectUrl);
-            expect(followUpResponse.status).to.equal(200);
-
-        }) */
+        
     })
 })

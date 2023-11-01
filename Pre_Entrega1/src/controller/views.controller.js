@@ -214,7 +214,7 @@ export const deleteProductByCart = async (req, res) => {
     await cartService.deleteProductByCart(cid, pid);
     logger.http("Solicitud HTTP exitosa en /cart/delete/:cid/product/:pid");
 
-    res.redirect(`/${cid}`);
+    res.redirect(`/cart/${cid}`);
   } catch (error) {
     logger.error("Error to delete products at cart:", error);
     res.status(500).json({ error: "Internal server error" });

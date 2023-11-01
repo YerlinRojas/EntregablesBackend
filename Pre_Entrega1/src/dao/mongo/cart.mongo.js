@@ -33,46 +33,6 @@ export default class Cart {
     }
   }; 
 
-
-  /* cartById = async (cid) => {
-    try {
-      if (!mongoose.Types.ObjectId.isValid(cid)) {
-        return undefined;
-      }
-  
-      const cart = await CartModel.findOne({ _id: cid }).lean().exec();
-  
-      if (cart.product && cart.product.length > 0) {
-        // Si el campo 'product' no está vacío, realiza la populación
-        const populatedCart = await CartModel.findOne({ _id: cid })
-          .populate("product.id")
-          .lean()
-          .exec();
-  
-        logger.info("CartById Populate MONGO_DTO:", JSON.stringify(populatedCart, null, "\t"));
-        return populatedCart;
-      } } catch (error) {
-        logger.error("Error obteniendo el carrito por id:", error);
-        throw error;
-      }
-    } */
-/*   
-  saveCart = async (cart) => {
-    if (!cart) {
-      throw new Error("Cart not found");
-    }
-    const updatedCart = await CartModel.findOneAndUpdate(
-      { _id: cart._id }, // Filtra el carrito por su ID
-      { product: cart.product }, // Actualiza la lista de productos
-      { new: true } // Devuelve el carrito actualizado
-    );
-
-    if (!updatedCart) {
-      throw new Error('Cart not found');
-    }
-    return updatedCart;
-};
- */
   updatedCart = async (cid, updates) => {
     await CartModel.findOneAndUpdate(
       { _id: cid },
@@ -89,6 +49,31 @@ export default class Cart {
     return await CartModel.findByIdAndDelete({ _id: cid })
   }
 
-
+  deleteProductByCart = async (cid, pid) => {
+    try {
+      const cart = await CartModel.findOne({ _id: cid });
+  
+      if (!cart) {
+        throw new Error('Cart not found');
+      }
+  
+      // Busca el índice del producto en el carrito por su ID.
+      const productIndex = cart.product.findIndex(product => product._id.toString() === pid);
+  
+      if (productIndex === 1) {
+        throw new Error('Product not found in cart');
+      }
+  
+      // Elimina el producto del carrito.
+      cart.product.splice(productIndex, 1);
+  
+      // Guarda el carrito actualizado en la base de datos.
+      await cart.save();
+  
+    } catch (error) {
+      throw error;
+    }
+  };
+  
 
 } 

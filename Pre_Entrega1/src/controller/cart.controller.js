@@ -4,7 +4,7 @@ import {
   ticketService,
 } from "../services/index.js";
 import { v4 as uuidv4 } from "uuid";
-import CorreoController from "./ticket.fn.js";
+import CorreoController from "../module/ticket.fn.js";
 import CustomError from "../services/errors/custom_error.js";
 import EErrors from "../services/errors/enums.js";
 import { logger } from "../logger.js";

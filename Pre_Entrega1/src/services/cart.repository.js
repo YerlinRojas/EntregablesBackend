@@ -1,5 +1,4 @@
 import CartDTO from "../dao/DTO/cart.dto.js";
-import { cartService } from "./index.js";
 
 
 export default class CartRepository {
@@ -49,31 +48,8 @@ export default class CartRepository {
     };
 
 //revisar-------------------------------------------
-    deleteProductByCart = async ( cid, pid,req) => {
-        try {
-          // Trae el cid y pid del controller
-          //esta ok
-          console.log("este es cid",cid);
-          console.log("este es pid",pid);
-
-          const cart = await cartService.cartById(cid);
-          if (!cart) {
-            throw new Error('Cart not found');
-          }
-       
-          const productIndex = cart.product.findIndex((product) => product && product.id && product.id._id === pid);
-          console.log(productIndex);
-          if (productIndex === -1) {
-            throw new Error('Product not found in cart');
-            //entra aqui , no consigue el producto
-          }
-          cart.product.splice(productIndex, 1);
-          
-          await cart.save();
-          return cart; 
-        } catch (error) {
-          throw error; // Lanza el error para que se maneje en el controlador
-        }
+    deleteProductByCart = async ( cid, pid) => {
+        return await this.dao.deleteProductByCart(cid, pid);
       };
       
 
