@@ -17,10 +17,22 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['user', 'premium', 'admin'], 
         default: 'user', 
-    }
+    },
+    documents : 
+    [{
+        name:String,
+        reference: String,
+    }],
+    last_connection: {
+        type: Date,
+        default: Date.now
+      }
 })
+
+
+
 
 const userModel = new mongoose.model(userCollection, userSchema)
 
-export default userModel
+export default userModel 
 

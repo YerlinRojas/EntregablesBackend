@@ -194,6 +194,8 @@ const initializePassport = () => {
                     const passwordIsValid = isValidPassword(user, password);
                     logger.info("Password Is Valid:", passwordIsValid);
 
+                    const updateLastConnection = await userService.updateLastConnection(user._id)
+
                     if (!isValidPassword(user, password)) {
                         logger.error("Password not valid");
                         return done(null, false);

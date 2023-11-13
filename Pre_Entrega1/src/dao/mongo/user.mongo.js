@@ -1,6 +1,8 @@
 import { createHash } from '../../utils.js';
 import UserModel from '../mongo/models/user.model.js'
 
+
+
 export default class User {
     getUser = async (query = {}) => {
         try {
@@ -30,6 +32,26 @@ export default class User {
     updateUser = async (uid,updatedFields ) => {
         return await UserModel.updateOne(uid,updatedFields)
     }
+
+    updateLastConnection = async (uid) => {
+      try {
+          const user = await UserModel.findOne({ _id: uid });
+  
+          if (!user) {
+              console.error("Usuario no encontrado");
+              return null;
+          }
+  
+          user.last_connection = new Date();
+          await user.save();
+  
+          console.log("Hora de entrada actualizada:", user.last_connection);
+          return user;
+      } catch (error) {
+          console.error("Error al actualizar la hora de entrada:", error);
+          return null;
+      }
+  };
 
     updatedPass = async (userId, password) => {
      await UserModel.findByIdAndUpdate(

@@ -8,5 +8,6 @@ export default class UserDTO {
         this.password = user.password;
         this.cartId = user.cartId;
         this.role = user?.role ?? 'user'
+        this.last_connection = user?.last_connection
     }
 }

@@ -38,4 +38,8 @@ export default class UserRepository {
         return await this.dao.newRole(userId, newRole)
     }
 
+    updateLastConnection = async (uid) => {
+        return await this.dao.updateLastConnection(uid)
+    }
+
 }
