@@ -5,6 +5,9 @@ const __dirname = dirname(__filename)
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import passport from 'passport'
+import multer from 'multer'
+import  path from 'path'
+import fs from 'fs'
 
 import config from './config/config.js'
 import { logger } from './logger.js'
@@ -12,6 +15,51 @@ import { logger } from './logger.js'
 
 const PRIVATE_KEY = config.PRIVATE_KEY
 const COOKIE_KEY = config.COOKIE_KEY
+
+/* export const uploadProfile = multer({ 
+  storage: multer.diskStorage({
+      destination: function (req, file, cb) {
+          const destinationFolder = path.join(__dirname, `../uploads/profiles`);
+          fs.mkdirSync(destinationFolder, { recursive: true });
+          cb(null, destinationFolder);
+      },
+      filename: function (req, file, cb) {
+          const userId = req.params.uid;
+          cb(null, `${userId}_${Date.now()}${path.extname(file.originalname)}`);
+      },
+  }),
+}); */
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      const { documentType, profileType, productType } = req.body;
+
+      let folder;
+      if (profileType === "profile") {
+          folder = "profiles";
+      } else if (productType === "product") {
+          folder = "products";
+      } else if (documentType === "document") {
+          folder = "documents";
+      } else {
+          return cb(new Error("Tipo de documento no válido"));
+      }
+      const destinationFolder = path.join(__dirname, `../uploads/${folder}`);
+      // Verificar si el directorio existe, y si no, crearlo
+      fs.mkdirSync(destinationFolder, { recursive: true });
+      cb(null, destinationFolder);
+  },
+  filename: function (req, file, cb) {
+      const userId = req.params.uid;
+      cb(null, `${userId}_${Date.now()}${path.extname(file.originalname)}`);
+  },
+});
+
+export const upload = multer({ storage: storage }).fields([
+  { name: 'profile', maxCount: 1 },
+  { name: 'document', maxCount: 10 },
+]);
 
 export const createHash = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10)) 

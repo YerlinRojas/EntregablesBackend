@@ -1,22 +1,69 @@
-<div>
-  profile
-</div>
 
-<h1>Bienvenido </h1>
 
-<div>
-  <img src="" alt="Foto de Perfil">
-  <h2>Nombre: {{user.firts_name}} {{user.last_name}} </h2>
-  <p>Edad: {{user.age}}</p>
-  <p>Email: {{user.email}}</p>
-  <p>Rol: {{user.role}}</p>
+    <style>
 
-  <form id="changeRoleForm" action="/api/user/premium/{{user._id}}" method="POST">
-    <select name="newRole">
-      <option value="user">User</option>
-      <option value="premium">Premium</option>
-      
-    </select>
-    <button type="submit">Cambiar Rol</button>
-  </form>
-</div>
+        #profileContainer {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+            background-color: aliceblue;
+            border-radius: 5%;
+        }
+
+        select, input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 5px 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+
+
+    <div id="profileContainer">
+        <h1>Bienvenido</h1>
+
+        <div>
+            <img src="#" alt="Foto de Perfil" />
+            <h4>Nombre: {{user.firts_name}} {{user.last_name}}</h4>
+            <p>Edad: {{user.age}}</p>
+            <p>Email: {{user.email}}</p>
+            <p>Rol: {{user.role}}</p>
+
+            <form action="/api/user/{{user._id}}/documents" method="post" enctype="multipart/form-data">
+                <h5>Actualizar foto de perfil</h5>
+                <input type="file" name="profile" accept=".jpg, .png" />
+                <input type="hidden" name="profileType" value="profile" />
+
+                <h5>Documentos para cargar: </h5>
+                <p>Identificación, Comprobante de domicilio, Comprobante de estado de cuenta</p>
+                <input type="file" name="document" multiple />
+                <input type="hidden" name="documentType" value="document" />
+
+                <button type="submit">Subir Archivos</button>
+            </form>
+
+            <form id="changeRoleForm" action="/api/user/premium/{{user._id}}" method="POST">
+                <label for="newRole">Cambiar Rol:</label>
+                <select id="newRole" name="newRole">
+                    <option value="user">Usuario</option>
+                    <option value="premium">Premium</option>
+                </select>
+                <button type="submit">Cambiar Rol</button>
+            </form>
+        </div>
+    </div>
