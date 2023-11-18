@@ -36,11 +36,11 @@ const storage = multer.diskStorage({
       const { documentType, profileType, productType } = req.body;
 
       let folder;
-      if (profileType === "profile") {
+      if (file?.fieldname === "profile") {
           folder = "profiles";
-      } else if (productType === "product") {
+      } else if (file?.fieldname === "product") {
           folder = "products";
-      } else if (documentType === "document") {
+      } else if (file?.fieldname === "document") {
           folder = "documents";
       } else {
           return cb(new Error("Tipo de documento no válido"));
