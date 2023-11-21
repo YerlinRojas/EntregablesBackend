@@ -42,4 +42,7 @@ export default class UserRepository {
         return await this.dao.updateLastConnection(uid)
     }
 
+    findByIdAndUpdate = async(userId, documents) =>{
+        return await this.dao.findByIdAndUpdate(userId, documents)
+    }
 }

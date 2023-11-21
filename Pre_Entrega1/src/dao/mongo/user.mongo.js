@@ -53,6 +53,14 @@ export default class User {
       }
   };
 
+  findByIdAndUpdate= async(userId, documents) =>{
+    await UserModel.findByIdAndUpdate(
+      userId,
+      { $push: { documents: { name:`documents`, reference: `../../uploads/documents/${userId}`} } },
+      { new: true }
+    );
+  }
+
     updatedPass = async (userId, password) => {
      await UserModel.findByIdAndUpdate(
         userId,

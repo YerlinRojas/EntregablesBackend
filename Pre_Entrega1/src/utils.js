@@ -16,20 +16,6 @@ import { logger } from './logger.js'
 const PRIVATE_KEY = config.PRIVATE_KEY
 const COOKIE_KEY = config.COOKIE_KEY
 
-/* export const uploadProfile = multer({ 
-  storage: multer.diskStorage({
-      destination: function (req, file, cb) {
-          const destinationFolder = path.join(__dirname, `../uploads/profiles`);
-          fs.mkdirSync(destinationFolder, { recursive: true });
-          cb(null, destinationFolder);
-      },
-      filename: function (req, file, cb) {
-          const userId = req.params.uid;
-          cb(null, `${userId}_${Date.now()}${path.extname(file.originalname)}`);
-      },
-  }),
-}); */
-
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -52,7 +38,7 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
       const userId = req.params.uid;
-      cb(null, `${userId}_${Date.now()}${path.extname(file.originalname)}`);
+      cb(null, `${userId}${path.extname(file.originalname)}`);
   },
 });
 

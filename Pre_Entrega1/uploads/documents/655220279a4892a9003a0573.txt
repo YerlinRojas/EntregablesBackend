@@ -1,0 +1,441 @@
+P1007/Zapatillas/Maquinaria/1/1er piso. Sistema de cintas transportadoras de banda de 30 mts x 75cm de ancho + cinta transportadora de banda de 5,5 mts x 75cm de ancho en "Z" con extremo final inferiior de chapa
+P1008/Zapatillas/Maquinaria/1/2do piso. Sistema de cintas transportadoras de banda de 23,8 mts x 75cm de ancho + cinta transportadora de banda de 5,5 mts x 75cm de ancho en "Z" con extremo final inferiior de chapa
+P1024/Colgantes/Instalación/2244/2do piso. Soporte media caña para caño redondo colgante de percha o apoyo de estante de fenolico. Color celeste
+P1011/Zapatillas/Maquinaria/1/3er piso. Sistema de cintas transportadoras de banda de 18 mts x 75cm de ancho + cinta transportadora de banda de 5,5 mts x 75cm de ancho en "Z" con extremo final inferiior de chapa
+P0212/Mezzanina/Instalación/1/Aire Acondicionado / Mezzanina P0212
+P0200/Oficina/Instalación/5/Aire Acondicionado / Oficina P0200
+P0885/Comedor/Instalación/1/Aire Acondicionado BGH Modelo BSE55CP
+P0086/Tarjetas/Instalación/1/Aire Acondicionado BGH Modelo SILENT AIR BSE30CP 3400W
+P0118/Espacio recreativos/Instalación/1/Aire Acondicionado BGH Modelo SILENT AIR BSE45CI 5200 FC P0118
+P0119/Espacio recreativos/Instalación/1/Aire Acondicionado BGH Modelo SILENT AIR BSE45CI 5200 FC P0119
+P1100/Sala CCTV/Instación/1/Aire Acondicionado CARRIER Modelo 42HMC090
+P0323/Recepción/Instalación/1/Aire Acondicionado CARRIER Modeo 44HCV1202M
+P0082/Fotografía/Instalación/1/Aire Acondicionado CARRIER 4700 Modelo 53HNG1801F
+P0110/Log. Inversa/Instalación/1/Aire Acondicionado CARRIER Modelo 53HNGR01F 2900KC
+P0943/Oficina/Instalación/1/Aire Acondicionado CARRIER / Oficina P0943
+P0084/Fotografía/Instalación/1/Aire Acondicionado DAEWOO Modeo DWT41 3200FC
+P0883/Comedor/Instalación/1/Aire Acondicionado DAEWOO Modelo DWT415000FC
+P0087/Tarjetas/Instalación/1/Aire Acondicionado DELONGHI 3200 FC
+P1147/Sala CCTV/Instalación/1/Aire Acondicionado DELONGHI 6300FC
+P0115/Espacio recreativos/Instalación/1/Aire Acondicionado DELONGHI Modelo DI3000FC
+P0941/Oficina/Instalación/5/Aire Acondicionado DELONGUI 2250F
+P0081/Fotografía/Instalación/1/Aire Acondicionado ELECTRA 3500 Modelo AS35UNDJNNA
+P0321/Recepción/Instalación/1/Aire Acondicionado ELECTRA Modelo SB22HUQY
+P0395/Ingreso, comedor y vestuario/Instalación/1/Aire Acondicionado ELECTRA Modelo TAC52HBQI
+P0109/Log. Inversa/Instalación/1/Aire Acondicionado KELVINATOR K3400FC
+P0182/Oficina/Instalación/12/Aire Acondicionado LG / Oficina P0182
+P0183/Oficina/Instalación/1/Aire Acondicionado LG / Oficina P0183
+P0909/Portería/Instalación/1/Aire Acondicionado LG / Porteria P0909
+P0360/Recepción/Instalación/1/Aire Acondicionado LG / Recepcion P0360
+P0083/Fotografía/Instalación/1/Aire Acondicionado LG Modelo TSNH126TLO 3000FC
+P0102/Fotografía/Instalación/1/Aire Acondicionado MIDEA 6000 F / Fotografia P0102
+P0104/Fotografía/Instalación/1/Aire Acondicionado MIDEA 6000 F / Fotografia P0104
+P0965/Recepción/Instalación/1/Aire Acondicionado MIDEA Modelo MSMI09H01F
+P0101/Fotografía/Instalación/1/Aire Acondicionado PHILCO 6000 F / Fotografia P0101
+P0107/Fotografía/Instalación/1/Aire Acondicionado PHILCO 6000 F / Fotografia P0107
+P0359/Recepción/Instalación/3/Aire Acondicionado PHILCO Modelo PH550H18NI / Recepcion P0359
+P0886/Comedor/Instalación/1/Aire Acondicionado PHILCO Modelo PH550H18NI / Comedor P0886
+P0117/Espacio recreativos/Instalación/1/Aire Acondicionado RECCO 3200FC
+P0384/Ingreso, comedor y vestuario/Instalación/1/Aire Acondicionado RECCO Modelo AS12HUQI
+P0322/Recepción/Instalación/1/Aire Acondicionado RECCO Modelo GWH12NBC21
+P0396/Ingreso, comedor y vestuario/Instalación/1/Aire Acondicionado SAMSUNG Modelo AR24MSFPBWQMBG
+P0884/Comedor/Instalación/1/Aire Acondicionado SURREY Modelo 619ICQ2202M
+P1148/Sala CCTV/Instalación/1/Aire Acondicionado SURREY Modelo 619VFH0921F
+P0942/Oficina/Instalación/2/Aire Acondicionado SURREY / Oficina P0942
+P0901/Portería/Instalación/1/Aire Acondicionado WHITE WESTINGHOUSE Modelo WWS32H10L
+P0116/Espacio recreativos/Instalación/1/Aire Acondicionado YORK Modelo YOS32H11I3200FC
+P0326/Recepción/Muebles/3/Archivador 80 x 40 x 40 
+P0327/Recepción/Muebles/1/Archivador 80 x 50 x 80
+P0889/Comedor/Muebles/1/Archivador Madera 90 x 46 x 74
+P0890/Comedor/Muebles/1/Archivador Madera 93 x 45 x 104
+P0357/Recepción/Muebles/1/Archivo con estante 93 x 45 x 105
+P0355/Recepción/Muebles/1/Archivo madera 90 x 47 x 74 / Recepcion P0355
+P0356/Recepción/Muebles/6/Archivo madera 90 x 47 x 74 / Recepcion P0356
+P1118/Sala CCTV/Muebles/1/Armario de 2 puertas 120 x 70 x 50 aprox
+P0354/Recepción/Muebles/1/Armario madera 90 x 47 x 135
+P0328/Recepción/Muebles/1/Armario tipo jaula 200 x 90 x 80
+P0987/Mezzanina/Instalación/1/Balanza de piso
+P0222/Mezzanina/Instalación/1280/Balda metálica 100 x 14
+P0203/Mezzanina/Instalación/108/Balda Mezzanina 160 x 60
+P0208/Mezzanina/Instalación/1449/Balda Mezzanina 180 x 120 (malla)
+P0207/Mezzanina/Instalación/15524/Balda Mezzanina 60 x 60 (malla)
+P0001/Colgantes/Instalación/40/Balda naranja 60 x 20
+P1051/Centro/Instalación/11952/BALDAS (equivalente a cubrir 1992 posiciones ARLOG)
+P0340/Recepción/Instalación/112/BALDAS (equivalente a cubrir 20 posiciones ARLOG)
+P0339/Recepción/Instalación/16/BALDAS (equivalente a cubrir 4 posiciones ARLOG)
+P0282/Angosto/Instalación/220/BALDAS (equivalente a cubrir 40 posiciones ARLOG)
+P0140/Mezzanina/Muebles/11/Banco de madera rebatible 
+P0152/Mezzanina/Muebles/1/Banco metálico gris
+P1165/Sala CCTV/Tecnología/3/Batería recargable de 12 volt 2,25 A máx y 7,5 Ah
+P1116/Sala CCTV/Tecnología/148/Cable conector BNC 2 mts
+P0983/Mezzanina/Muebles/4/Cajas plásticas
+P1119/Sala CCTV/Muebles/1/Cajonera 1 cajón
+P0400/Ingreso, comedor y vestuario/Muebles/1/Cajonera 3 cajones 43 x 45 x 60
+P0132/Mezzanina/Muebles/8/Cajonera 3 cajones blanca
+P0186/Oficina/Muebles/68/Cajonera 3 cajones con ruedas
+P0966/Recepción/Muebles/1/Cajonera 45 x 55 x 75
+P0385/Ingreso, comedor y vestuario/Muebles/1/Cajonera 6 cajones 60 x 50 
+P0353/Recepción/Muebles/14/Cajones 47 x 47 x 55
+P1167/Sala CCTV/Maquinaria/20/Calculadoras varias
+P1010/Zapatillas/Muebles/1/Cama de rodillo de 2 mts x 60 cm / 1er piso
+P0269/Zapatillas/Muebles/1/Cama de rodillo de 3 mts x 60 cm / 1er piso
+P1012/Zapatillas/Muebles/3/Cama de rodillo de 3 mts x 65cm / 2do piso
+P0013/Colgantes/Muebles/4/Cama de rodillos 1,5mts
+P0260/Zapatillas/Maquinaria/4/Cama de rodillos 120 x 60
+P0012/Colgantes/Muebles/4/Cama de rodillos 2,7mts
+P0302/Mezzanina/Instalación/12/Cama de rodillos 300 x 62
+P1005/Colgantes/Muebles/12/Cama de rodillos 3mts
+P1013/Zapatillas/Muebles/3/Cama de rodillos de 1mt x 65cm / 2do piso
+P0881/Comedor/Instalación/1/Cámara de frío
+P1142/Sala CCTV/Tecnología/1/Cámara Vigilancia EVERFOCUS / Sala CCTV P1142
+P1156/Sala CCTV/Tecnología/28/Cámara Vigilancia / Sala CCTV P1156
+P0419/Centro/Tecnología/1/Cámara Vigilancia / Centro P0419
+P0420/Centro/Tecnología/1/Cámara Vigilancia / Centro P0420
+P0306/Mezzanina/Tecnología/8/Cámara Vigilancia DOMO SAMSUNG
+P0006/Colgantes/Tecnología/17/Cámara Vigilancia EVERFOCUS / Colgantes P0006
+P0397/Ingreso, comedor y vestuario/Tecnología/2/Cámara Vigilancia EVERFOCUS / Ingreso, comedor y vestuario P0397
+P0253/Zapatillas/Tecnología/4/Cámara Vigilancia EVERFOCUS / Zapatillas P0253
+P0343/Recepción/Instalación/5/Cámara Vigilancia FEVER FOCUS / Recepcion P0343
+P0348/Recepción/Instalación/12/Cámara Vigilancia FEVER FOCUS / Recepcion P0348
+P0103/Fotografía/Instalación/2/Cámara Vigilancia / Fotografia P0103
+P0304/Mezzanina/Tecnología/8/Cámara Vigilancia HIKVISION
+P0113/Log. Inversa/Instalación/2/Cámara Vigilancia / Log. Inversa P0113
+P0233/Mezzanina/Instalación/20/Cámara Vigilancia / Mezzanina P0233
+P0967/Recepción/Instalación/3/Cámara Vigilancia / Recepcion P0967
+P0867/Zapatillas/Tecnología/1/Cámara Vigilancia / Zapatillas P0867
+P0171/Fondo/Tecnología/6/Cámara Vigilancia / Fondo P0171
+P0172/Fondo/Tecnología/1/Cámara Vigilancia / Fondo P0172
+P0123/Mezzanina/Tecnología/70/Cámara Vigilancia / Mezzanina P0123
+P0197/Oficina/Tecnología/4/Cámara Vigilancia / Oficina P0197
+P0386/Ingreso, comedor y vestuario/Muebles/1/Camilla SEGALINI
+P0891/Comedor/Instalación/1/Campana cocina
+P0026/Colgantes/Instalación/1/Caño baranda 450 m2 x 13 diametro
+P0028/Colgantes/Instalación/524/Caño cuadrado azules x 210
+P0023/Colgantes/Instalación/24/Caño perchero 130 x 10
+P0022/Colgantes/Instalación/156/Caño perchero 180 x 10
+P0027/Colgantes/Instalación/790/Caño sistema transporte de perchas
+P0157/Mezzanina/Muebles/1/Carro metálico amarillo con ruedas
+P0964/Recepción/Muebles/1/Casilleros de madera 134 x 200 x 40
+P0963/Recepción/Muebles/1/Casilleros de madera 90 x 200 x 40
+P0096/Exterior/Instalación/1/Celdas de media tensión - calle + banco coseno fi
+P1138/Sala CCTV/Tecnología/3/Central de alarma GENERAL ELECTRIC
+P0255/Zapatillas/Instalación/1/Cinta transportadora - Motorizada / banda de 40 (50 x 680) MICHELOTTI P0255
+P0258/Zapatillas/Instalación/2/Cinta transportadora - Motorizada / banda de 40 (50 x 680) MICHELOTTI P0258
+P0268/Zapatillas/Maquinaria/3/Cinta transportadora - Motorizada / banda de 40 (50 x 680) MICHELOTTI P0268
+P0256/Zapatillas/Instalación/1/Cinta transportadora - Motorizada de 2do a 1er piso - 6mts x 50cm de ancho UNIRROL CPF5600-400 P0256 
+P0257/Zapatillas/Instalación/1/Cinta transportadora - Motorizada de 2do a 1er piso - 6mts x 50cm de ancho UNIRROL CPF5600-400 P0257
+P0289/Angosto/Instalación/30/Codo Perfil "L" 0,10 x 0,10
+P0174/Fondo/Maquinaria/1/Compresor Atlas Copco CAI658409
+P1139/Sala CCTV/Tecnología/3/Comunicadores NANOCOMM
+P1151/Sala CCTV/Tecnología/1/Conversor de video análogo a IP // 16 canales AVER EH1116H-4 NANO
+P0347/Recepción/Instalación/12/Cortinas metálicas
+P1115/Sala CCTV/Tecnología/1/CPU / procesador INTEL CORE I3
+P1153/Sala CCTV/Tecnología/1/CPU BAGHO | P1153
+P1121/Sala CCTV/Tecnología/1/CPU BANGHO OPTIMA B01 I3 SMB F / SERIE 801002401001085 |P1121
+P1154/Sala CCTV/Tecnología/1/CPU HP | P1154
+P0989/Mezzanina/Instalación/609/Defensa / puntera amarilla
+P0988/Mezzanina/Instalación/455/Defensa / puntera naranja
+P0173/Fondo/Maquinaria/2/Dispensador de cinta reforzada (engomada) Better Pack Modelo 333
+P0303/Mezzanina/Maquinaria/9/Dispensador de cinta reforzada (engomada) Better Packages Modelo 333PLUS
+P0131/Mezzanina/Instalación/45/Dock Level (Mezzanina | P0131)
+P0346/Recepción/Instalación/9/Dock Level (Recepcion | P0346)
+P0105/Fotografía/Instalación/1/Equipo de ventilación con canalización de aire ROOFTOP
+P1022/Colgantes/Instalación/1/Escalera 5 mts x 1 mt de ancho
+P0031/Colgantes/Instalación/1/Escalera 5,4 mts x 1,5 mts de ancho
+P0872/Colgantes/Instalación/2/Escalera 6,4 mts x 1,2 mts de ancho
+P0310/Mezzanina/Muebles/1/Escalera con ruedas | P0310
+P0336/Recepción/Muebles/1/Escalera con ruedas | P0336
+P0332/Recepción/Muebles/1/Escalera metálica 12 escalones
+P0153/Mezzanina/Muebles/36/Escalera metálica con ruedas | P0153
+P0170/Fondo/Muebles/2/Escalera metálica con ruedas | P0170
+P0265/Zapatillas/Muebles/1/Escalera movil 4 escalones
+P0216/Mezzanina/Instalación/2/Escalera Picking altura 2 metros
+P0324/Recepción/Muebles/12/Escritorio 1,45 x 1,20 x 0,75 x 0,70
+P0301/Mezzanina/Muebles/16/Escritorio 100 x 160
+P1120/Sala CCTV/Muebles/3/Escritorio 100 x 60
+P0352/Recepción/Muebles/4/Escritorio 120 x 70 x 75
+P0351/Recepción/Muebles/23/Escritorio 140 x 70 x 75
+P0341/Recepción/Muebles/2/Escritorio 160 x 70 x 75
+P0888/Comedor/Muebles/2/Escritorio 70 x 140 x 75
+P0387/Ingreso, comedor y vestuario/Muebles/1/Escritorio 90 x 55 x 75
+P0133/Mezzanina/Muebles/3/Escritorio blanco
+P0156/Mezzanina/Muebles/3/Escritorio grande con cajones
+P0163/Fondo/Muebles/11/Escritorio oficina (Fondo | P0163)
+P0192/Oficina/Muebles/85/Escritorio oficina (Oficina | P0192)
+P0961/Recepción/Muebles/1/Escritorio tipo "L" 150 x 70 x 54
+P1155/Sala CCTV/Tecnología/1/Espada detector de metáles SAFIR
+P0165/Fondo/Muebles/39/Estante blanco x 6 // 235 x 90 x 30
+P0164/Fondo/Muebles/45/Estante gris x4 // 200 x 90 x 55
+P0311/Mezzanina/Instalación/1/Estantería 160 x 100
+P0329/Recepción/Instalación/8/Estantería 190 x 90 x 30
+P1149/Sala CCTV/Muebles/2/Estantería madera 200 x 80 con 10 estantes de 40 x 40 en 2 lineas de 5 
+P1117/Sala CCTV/Muebles/1/Estantería madera con puerta inferior
+P0158/Mezzanina/Muebles/9/Estantería metálica
+P0287/Angosto/Instalación/3/Estantería metálica 1,75 x 0,45
+P0286/Angosto/Instalación/6/Estantería metálica 1,75 x 0,90
+P0214/Mezzanina/Instalación/18/Estantería metálica 180 x 90
+P1027/Recepción/Muebles/6/Estantería metálica de 90 x 60 x 200 (5 estantes)
+P1026/Recepción/Muebles/3/Estantería metálica de 90 x 60 x 220 (7 estantes)
+P0985/Mezzanina/Instalación/40/Estantería roja en zona de clasificación del sorter
+P0194/Oficina/Muebles/3/Estanterias 3 niveles
+P0191/Oficina/Muebles/4/Estanterías sala de reunión
+P0005/Colgantes/Muebles/142/Estantes de 90 x 245
+P0033/Mezzanina/Instalación/20/Estractor industrial
+P1102/Sala CCTV/Instación/1/Evaporador para aire acondicionado HiFlow2L Modelo FP2122R
+P1101/Sala CCTV/Instación/1/Extractor/Ventilación Hydra
+P0093/Exterior/Instalación/2/Extractores turbina de 1/4HP
+P0923/Colgantes/Instalación/1098/Fenolicos 175 x 122
+P1144/Sala CCTV/Tecnología/4/Fuentes cargadoras para el sistema de alarma
+P1103/Sala CCTV/Muebles/1/Gabinete de llaves
+P1107/Sala CCTV/Tecnología/1/Grabador de CCTV de 16 CH analógicos American Dynamics | Modelo ADD600DVS016 Serie 105A0625022540 |P1107
+P1160/Sala CCTV/Tecnología/1/Grabador de CCTV de 16 CH analógicos American Dynamics |DVMS 16 CH | P1160
+P1161/Sala CCTV/Tecnología/1/Grabador de CCTV de 16 CH analógicos American Dynamics |DVMS 16 CH | P1161
+P1158/Sala CCTV/Tecnología/6/Grabador de CCTV de 16 CH analógicos American Dynamics |LT 16 CH | P1158
+P1159/Sala CCTV/Tecnología/4/Grabador de CCTV de 16 CH analógicos American Dynamics |LT 16 CH | P1159
+P1163/Sala CCTV/Tecnología/2/Grabador de CCTV de 16 CH analógicos HIKVISION
+P1110/Sala CCTV/Tecnología/1/Grabador de CCTV de 25 CH analógicos American Dynamics | Modelo ADD60032D025P Serie 105A0541019454 | P1110
+P1108/Sala CCTV/Tecnología/1/Grabador de CCTV de 25 CH analógicos American Dynamics | Modelo ADD60032D025P Serie 105A0541019457 | P1108
+P1113/Sala CCTV/Tecnología/1/Grabador de CCTV de 25 CH analógicos American Dynamics | Modelo ADD600LTPV025 Serie C01A1025804614 | P1113
+P1109/Sala CCTV/Tecnología/1/Grabador de CCTV de 25 CH analógicos American Dynamics | Modelo ADD600LTPV025 Serie C01A1025804615 | P1109
+P1111/Sala CCTV/Tecnología/1/Grabador de CCTV de 25 CH analógicos American Dynamics | Modelo ADD600LTPV025 Serie C01A1025804634 | P1111 
+P1112/Sala CCTV/Tecnología/1/Grabador de CCTV de 25 CH analógicos American Dynamics | Modelo ADD600LTPV025 Serie C01A1025805341 | P1112 
+P1114/Sala CCTV/Tecnología/1/Grabador de CCTV de 25 CH analógicos American Dynamics | Modelo ADD600LTPV025 Serie C01A1025805353 | P1114
+P0098/Exterior/Instalación/1/Grupo electrogeno (verde) TAD734GE Serie 5311619283
+P0100/Exterior/Instalación/1/Grupo electrogeno grande (azul) VOLVO PENTA | Modelo TWD1643GE Serie 20160224607
+P0902/Portería/Instalación/1/Heladera c/freezer GAFA
+P0887/Comedor/Muebles/1/Heladera GAFA Modelo HGF357AFB
+P0029/Colgantes/Instalación/207/Iluminación tubo Colgantes P0029
+P0931/Colgantes/Instalación/151/Iluminación tubo Colgantes P0931
+P0990/Mezzanina/Instalación/430/Iluminación tubo Mezzanina P0990
+P0364/Recepción/Instalación/46/Iluminación tubo Recepcion P0364
+P0250/Zapatillas/Instalación/168/Iluminación tubo Zapatilas 2do piso P0250
+P0244/Zapatillas/Instalación/168/Iluminación tubo Zapatillas 1er piso P0244
+P0262/Zapatillas/Instalación/168/Iluminación tubo Zapatillas 3er piso P0262
+P0242/Zapatillas/Instalación/135/Iluminación tubo Zapatillas PB P0242
+P0160/Mezzanina/Maquinaria/1/Impresora de tarjetas CIM
+P0150/Mezzanina/Tecnología/1/Impresora térmica ZEBRA ZM400
+P0982/Mezzanina/Muebles/3/Jaula metálica con ruedas
+P0015/Colgantes/Instalación/408/Lámparas Colgantes P0015
+P0308/Mezzanina/Tecnología/56/Lámparas Mezzanina P0308
+P1123/Sala CCTV/Tecnología/1/Lector biometrico SUPREMA BLS-OC
+P0259/Zapatillas/Tecnología/1/Lector de código barra SYMBOL
+P0381/Ingreso, comedor y vestuario/Muebles/5/Locker para celulares (80 ubicaciones)
+P0392/Ingreso, comedor y vestuario/Muebles/1/Locker Vestuario metálico (12 ubicaciones)
+P0390/Ingreso, comedor y vestuario/Muebles/2/Locker Vestuario metálico (16 ubicaciones)
+P0391/Ingreso, comedor y vestuario/Muebles/1/Locker Vestuario metálico (16 ubicaciones)
+P0382/Ingreso, comedor y vestuario/Muebles/7/Locker Vestuario metálico (20 ubicaciones) P0382
+P0389/Ingreso, comedor y vestuario/Muebles/11/Locker Vestuario metálico (20 ubicaciones) P0389
+P0383/Ingreso, comedor y vestuario/Muebles/1/Locker Vestuario metálico (6 ubicaciones) P0383
+P0393/Ingreso, comedor y vestuario/Muebles/1/Locker Vestuario metálico (6 ubicaciones) P0393
+P0252/Zapatillas/Instalación/4/Luz de emergencia ATOMLUX | P0252
+P0421/Centro/Tecnología/1/Luz de emergencia Centro P0241
+P0016/Colgantes/Instalación/6/Luz de emergencia Colgantes P0016
+P0932/Colgantes/Instalación/29/Luz de emergencia Colgantes P0932
+P0882/Comedor/Instalación/2/Luz de emergencia Comedor P0882
+P0120/Espacio recreativos/Instalación/2/Luz de emergencia Espacio recreativos P0120
+P0168/Fondo/Instalación/17/Luz de emergencia Fondo P0168
+P0106/Fotografía/Instalación/2/Luz de emergencia Fotografia P0106
+P0933/Colgantes/Instalación/2/Luz de emergencia GAMASONIC | Colgantes P0933
+P0267/Zapatillas/Instalación/2/Luz de emergencia GAMASONIC | P0267
+P0270/Zapatillas/Instalación/4/Luz de emergencia GAMASONIC | P0270
+P1136/Sala CCTV/Instalación/1/Luz de emergencia GAMASONIC | P1136
+P0904/Portería/Instalación/3/Luz de emergencia GAMASONIC Modelo GXZF1230L3HL | P0904
+P0399/Ingreso, comedor y vestuario/Instalación/2/Luz de emergencia Ingreso, comedor y vestuario P0399
+P0154/Mezzanina/Instalación/2/Luz de emergencia LUMENAC Modelo MAX 2 | P0154
+P0128/Mezzanina/Instalación/26/Luz de emergencia Mezzanina P0128
+P0209/Mezzanina/Instalación/64/Luz de emergencia Mezzanina P0209
+P0196/Oficina/Instalación/3/Luz de emergencia Oficina P0196
+P0968/Recepción/Instalación/6/Luz de emergencia Recepcion P0968
+P0247/Zapatillas/Instalación/4/Luz de emergencia Zapatillas P0247
+P0213/Mezzanina/Instalación/498/Luz pasillo (tubo) 
+P1023/Colgantes/Instalación/650/Malla sima metálica (m2) de 5 x 5 cm en paños varios de tamaños.
+P0350/Recepción/Instalación/9/Manga de DOCK de descarga
+P1152/Sala CCTV/Maquinaria/1/Máquina de café OSTER
+P0871/Colgantes/Maquinaria/1/Maquina de estampar
+P0309/Mezzanina/Muebles/5/Mesa de embalaje 160 x 60
+P0125/Mezzanina/Muebles/1/Mesa de hierro Mezzanina P0125
+P0148/Mezzanina/Muebles/1/Mesa de hierro Mezzanina P0148
+P0190/Oficina/Muebles/2/Mesa de reunión
+P0142/Mezzanina/Muebles/1/Mesa madera con ruedas
+P0141/Mezzanina/Muebles/2/Mesa redonda de madera y pata de caño
+P0166/Fondo/Muebles/10/Mesones metálicos con ruedas
+P0288/Angosto/Instalación/690/Metros de Perfil "L" 0,10 x 0,10
+P1016/Mezzanina/Instalación/1/Mezzanina de 216 mts x 20 mts (4320m2). Consta de 2 pisos con 6 escaleras y 7 compuertas para subida de pallets. 27582 posiciones totales
+P1015/Fondo/Instalación/1/Mezzanina de 37 x 22 mts (814m2). Con 96 patas modulares cada 4,3 mts x 2,3 mts. Altura 3,8 mts del piso. Consta de un primer piso con 1 escalera y 1 compuerta para subida de pallets
+P1025/Colgantes/Instalación/1/Mezzanina de 40 mts x 51 mts (2040m2). Consta de PB más 2 pisos con ubicaciones y sistema de transporte colgante en primer piso y estantes de fenolico en 2do piso. Está en proceso de desarme.
+P1014/Zapatillas/Instalación/1/Mezzanina de 50 mts x 24 mts (1200m2). Consta de PB más 3 pisos con 8 escaleras y 11 compuertas para subida de pallets. 12616 posiciones totales.
+P0903/Portería/Instalación/1/Microondas SERIE DORADA Modelo SD25G
+P0907/Portería/Instalación/1/Molinete vertical 2 mts x 1,5 de diametro
+P1135/Sala CCTV/Tecnología/1/Monitor 12" BENQ
+P1134/Sala CCTV/Tecnología/2/Monitor 17" 4:3 HP Modelo LE1711
+P1122/Sala CCTV/Tecnología/1/Monitor BENQ Modelo W1508 Serie ETR4918314SLO
+P1150/Sala CCTV/Tecnología/1/Monitor LG Modelo W1943TE-PFV
+P0361/Recepción/Maquinaria/1/Montacargas 600 Kg
+P0139/Mezzanina/Muebles/1/Mueble blanco 1 cajón
+P0134/Mezzanina/Muebles/3/Mueble blanco con ruedas
+P0135/Mezzanina/Muebles/12/Mueble de 2 puertas color maiz
+P0143/Mezzanina/Muebles/1/Mueble gris desarmado
+P0159/Mezzanina/Muebles/2/Mueble metálico (servidor)
+P0199/Oficina/Muebles/1/Mueble organizador cocina
+P0184/Oficina/Muebles/38/Muebles de 2 puertas
+P0198/Oficina/Muebles/2/Muebles de lactancia
+P0009/Colgantes/Instalación/506/Parante azul baranda 207 x 10
+P0010/Colgantes/Instalación/506/Parante azul piso
+P0008/Colgantes/Instalación/575/Parantes amarillos 206 x 13
+P0921/Mezzanina/Instalación/825/Parantes amarillos 270 x 7
+P1164/Sala CCTV/Tecnología/1/Patchera RJ45 / 24 puertos de redes
+P0908/Portería/Tecnología/1/PC BANGHO | P0908
+P0906/Portería/Tecnología/1/PC DELL con Monitor LG | P0906
+P1105/Sala CCTV/Tecnología/1/"PDU (Power distribution unit) 
+Rackeable x 12 tomas y  llave térmica"
+P0144/Mezzanina/Muebles/2/Perchero metálico
+P0021/Colgantes/Instalación/137/Perchero móvil
+P0129/Mezzanina/Instalación/17/Persiana metálica 
+P0130/Mezzanina/Instalación/28/Persiana plástica 
+P0025/Colgantes/Instalación/415/Placa fenolico 190 x 160
+P0870/Colgantes/Instalación/106/Planchuelas de madera 100 x 230
+P1006/Zapatillas/Maquinaria/1/Planta baja. Sistema de cintas transportadoras motorizadas MARCA MOVIL-MAT | SITE INGENIERIA: 19 mts de largo x 0,8 de ancho de camas de rodillo motorizadas con 2 curvas de 180° de 1,5 mts de radio + 2 tramos de 3 mts de cama de rodillos motorizado + 1 curva de 90° + 8 mts de cama de rodillos + 14,5 mts de cinta transportadora de 70 cm + 1 cinta transportadora de 19 mts + 1 cinta transportadora de 13,8 mts. 
+P0088/Exterior/Instalación/2/Plantas de tratamiento cloacal
+P0111/Log. Inversa/Instalación/16/Posiciones ARLOG / 5 defensas
+P1028/Mezzanina/Instalación/6360/Posiciones de BALDA 60 x 60 x 42. 1er PISO | P1028
+P1033/Mezzanina/Instalación/16596/Posiciones de BALDA 60 x 60 x 42. 2do PISO | P1033
+P1029/Mezzanina/Instalación/2868/Posiciones de BALDA 60 x 60 x 84. 1er PISO | P1029
+P1034/Mezzanina/Instalación/30/Posiciones de BALDA 60 x 60 x 84. 2do PISO | P1034
+P0243/Zapatillas/Muebles/3312/Posiciones de Estantería metálicas 100 x 70 x 47 1er piso P0243
+P0249/Zapatillas/Muebles/3312/Posiciones de Estantería metálicas 100 x 70 x 47 2do piso P0249
+P0264/Zapatillas/Muebles/3312/Posiciones de Estantería metálicas 100 x 70 x 47 3er piso P0264
+P0241/Zapatillas/Muebles/2680/Posiciones de Estantería metálicas 100 x 70 x 47 PB P0241
+P1030/Mezzanina/Instalación/198/Posiciones de PERCHA ALTA 60 x 60 x 168. 1er PISO
+P1031/Mezzanina/Instalación/1176/Posiciones de PERCHA BAJA 60 x 60 x 84. 1er PISO P1031
+P1035/Mezzanina/Instalación/54/Posiciones de PERCHA BAJA 60 x 60 x 84. 2do PISO P1035
+P1032/Mezzanina/Instalación/216/Posiciones de PISO 60 x 60 x 168. 1er PISO P1032
+P1036/Mezzanina/Instalación/84/Posiciones de PISO 60 x 60 x 168. 2do PISO P1036
+P0002/Pared sur/Instalación/16/Posiciones en LARGUERO de 170
+P1037/Fondo/Instalación/480/Posiciones en LARGUERO de 230 P1037
+P1039/Angosto/Instalación/3600/Posiciones en LARGUERO de 230 P1039
+P1041/Centro/Instalación/2544/Posiciones en LARGUERO de 230 P1041
+P1046/Pared sur/Instalación/730/Posiciones en LARGUERO de 230 P1046
+P1043/Centro/Instalación/4196/Posiciones en LARGUERO de 240 P1043
+P1048/Pared sur/Instalación/60/Posiciones en LARGUERO de 240 P1048
+P1038/Fondo/Instalación/110/Posiciones en PISO de 230  Fondo P1038
+P1040/Angosto/Instalación/40/Posiciones en PISO de 230 Angosto P1040
+P1042/Centro/Instalación/154/Posiciones en PISO de 230 Centro P1042
+P1047/Pared sur/Instalación/152/Posiciones en PISO de 230 Pared Sur P1047
+P1044/Centro/Instalación/266/Posiciones en PISO de 240 Centro P1044
+P1049/Pared sur/Instalación/12/Posiciones en PISO de 240 Pared Sur P1049
+P0014/Colgantes/Instalación/3/Puente riel piso
+P0349/Recepción/Instalación/5/Puesto metálico para PC
+P0195/Oficina/Tecnología/5/Racks servidores Oficina P0195
+P1168/Sala CCTV/Instalación/2/Racks servidores Sala CCTV P1168
+P0126/Mezzanina/Instalación/2/Rampas metálicas
+P0032/Mezzanina/Instalación/552/Red malla sima (m2) / Mezzanina | P0032
+P0024/Colgantes/Instalación/267/Red malla sima (m2) / Perimetro 1er piso. | P0024
+P1166/Sala CCTV/Tecnología/1/Regleta telefónica para CCTV
+P0121/Mezzanina/Muebles/29/Rejas
+P0926/Colgantes/Instalación/23/Rejas 180 x 200
+P0927/Colgantes/Instalación/20/Rejas 200 x 200
+P0145/Mezzanina/Muebles/5/Rejas de roll container
+P0151/Mezzanina/Muebles/93/Repisa metálica (verde)
+P0986/Mezzanina/Maquinaria/1/Respuestos varios, estantes VAN DER LANDE
+P0011/Colgantes/Instalación/641/Riel de rodillo piso x mt x 22cm de ancho Colgantes P0011
+P0177/Colgantes/Instalación/8/Riel de rodillo piso x mt x 22cm de ancho Colgantes P0177
+P0169/Fondo/Tecnología/3/Router Fondo P0169
+P0108/Fotografía/Instalación/1/Router Fotografia P0108
+P0210/Mezzanina/Instalación/14/Router Mezzanina P0210
+P0017/Colgantes/Tecnología/2/Router MOTOROLA | Colgantes P0017
+P0254/Zapatillas/Tecnología/3/Router MOTOROLA | Zapatillas P0254
+P0271/Zapatillas/Tecnología/4/Router MOTOROLA | Zapatillas P0271
+P0245/Zapatillas/Tecnología/5/Router SYMBOL P0245
+P0090/Exterior/Instalación/1/"Sala bombas de incendio:
+1 x Moto bomba DOOSAN n/s: EADOA800404 
+1 x Motor CUMMINS mod: S022011 n/s: 30448385 
+1 x Motor SCANIA mod: DC09072A n/s: 8724784
+1 x Bomba GRUNDFOS mod: 100LB228FT130C n/s: 85805710
+1 x Bomba KSB mod: RDL200.500P n/s: P195407"
+P0091/Exterior/Instalación/1/Sala de celdas de media tensión + transferencia
+P0089/Exterior/Instalación/1/Sala TGBT (interior nave) Tableros (13) (4 controladores detección de incendios) + 1 luz de emergencia
+P0175/Fondo/Maquinaria/1/Secador de aire comprimido CECCATO Modelo 7121RLC7,5/10
+P0176/Fondo/Maquinaria/1/Secador de aire comprimido CECCATO Modelo 777334DL8
+P0981/Mezzanina/Maquinaria/3/Selladora con pedal negra
+P0305/Mezzanina/Maquinaria/2/Selladora de plástico HERMEPLASS
+P0146/Mezzanina/Maquinaria/4/Selladora HERMEPLASS
+P1141/Sala CCTV/Tecnología/1/Sensor de movimiento / Sala CCTV P1141
+P0261/Zapatillas/Instalación/42/Sensores de movimento Luces / Zapatillas P0261
+P0263/Zapatillas/Instalación/42/Sensores de movimento Luces / Zapatillas P0263
+P0273/Zapatillas/Instalación/34/Sensores de movimento Luces / Zapatillas P0273
+P0124/Mezzanina/Instalación/59/Sensores de movimiento / Mezzanina P0124
+P0211/Mezzanina/Instalación/172/Sensores de movimiento / Mezzanina P0211
+P0248/Zapatillas/Instalación/42/Sensores de movimiento Luces / Zapatillas P0248
+P0401/Centro/Instalación/576/Separador de balda mallado 60 x 100
+P0162/Fondo/Muebles/1/Silla / Fondo P0162
+P0137/Mezzanina/Muebles/2/Silla amarilla de madera
+P0161/Fondo/Muebles/18/Silla con ruedas / Fondo P0161
+P0388/Ingreso, comedor y vestuario/Muebles/1/Silla con ruedas / Ingreso, comedor y vestuario P0388
+P0325/Recepción/Muebles/12/Silla con ruedas / Recepcion P0325
+P0358/Recepción/Muebles/16/Silla con ruedas / Recepcion P0358
+P0962/Recepción/Muebles/2/Silla con ruedas / Recepcion P0962
+P0136/Mezzanina/Muebles/12/Silla de caño verde
+P0138/Mezzanina/Muebles/6/Silla plástica
+P0155/Mezzanina/Muebles/2/Silla tipo cajera con ruedas
+P0185/Oficina/Muebles/109/Sillas con ruedas / Oficina P0185
+P0187/Oficina/Muebles/13/Sillas sin ruedas
+P0398/Ingreso, comedor y vestuario/Muebles/1/Sillón Recepción
+P0147/Mezzanina/Muebles/1/Sillón turquesa mimbre
+P1145/Sala CCTV/Tecnología/1/Sistema de alimentación de CCTV
+P1146/Sala CCTV/Tecnología/1/Sistema de control de acceso LENEL
+P0092/Exterior/Instalación/1/Sistema de ventilación (3 equipos turbina) / Exterior P0092
+P0094/Exterior/Instalación/1/Sistema de ventilación S:75050 OF 19853 año 01/19 / Exterior P0094
+P0095/Exterior/Instalación/1/Sistema de ventilación S:75051 OF 19853 año 01/19 / Exterior P0095
+P1157/Sala CCTV/Tecnología/24/Soporte de cámara de vigilancia
+P1018/Colgantes/Instalación/2461/Soporte media caña para caño redondo colgante de percha o apoyo de estante de fenolico. Color celeste en 1er piso
+P0924/Colgantes/Instalación/2548/Soporte media caña para caño redondo colgante de percha o apoyo de estante de fenolico. Color celeste en 2do piso
+P1019/Colgantes/Instalación/224/Soporte media caña para caño redondo colgante de percha o apoyo de estante de fenolico. Color gris en 1er piso
+P0934/Colgantes/Instalación/52/Soporte triple caño para baranda
+P0149/Mezzanina/Instalación/36/Soportes de pared
+P0984/Mezzanina/Maquinaria/1/"Sorter para bandejas MARCA VAN DER LANDE de 600 x 400 x 200 (mm) con 16 estaciones de empaque y 14 rampas de clasificación más ""NO READ"". 
+Con 500 mts aprox de camas de rodillo y cinta transportadora. 
+Se adjunto anexo con la descripción del sistema (versión original al momento de la compra)"
+P1162/Sala CCTV/Tecnología/4/Swicher de CCTV de 40 CH analógicos | Marca PELCO Modelo CM6800
+P1106/Sala CCTV/Tecnología/1/Swicht para red Marca 3COM Modelo Swicth 4500 - 26 port
+P1137/Sala CCTV/Tecnología/3/Teclado de alarma GENERAL ELECTRIC
+P1133/Sala CCTV/Tecnología/1/Teclado de control American Dynamics Modelo ADTT16E
+P1132/Sala CCTV/Tecnología/1/Teclado de control PELCO Modelo KBD300A Serie 691-5862
+P1131/Sala CCTV/Tecnología/1/Teclado de control PELCO Modelo KBD300A Serie ABT-PT44
+P1130/Sala CCTV/Tecnología/1/Teclado DELL
+P1129/Sala CCTV/Tecnología/1/Teclado GENIUS
+P1128/Sala CCTV/Tecnología/1/Teléfono ALCATEL Modelo 4035 PHONE GRAPHITE
+P1124/Sala CCTV/Tecnología/1/Teléfono ALCATEL-LUCENT Modelo 4029 PHONE INT
+P1125/Sala CCTV/Tecnología/1/Teléfono Inalambrico PANASONIC Modelo KX-TGD210AG
+P0099/Exterior/Instalación/1/TGBT y transformador / 4 tableros grandes + 2 chicos
+P0097/Exterior/Instalación/1/Transformador 1 Calle 800KVA
+P0193/Oficina/Tecnología/1/Transformador 380 x 380 Aislación 250k
+P0922/Mezzanina/Instalación/672/Travesaños azul 206 x 10 x 5
+P0928/Colgantes/Instalación/327/Tubo baranda (mts)
+P0925/Colgantes/Instalación/3660/Tubo parante soporte fenolico (mts)
+P1127/Sala CCTV/Tecnología/1/TV LED 32" PANASONIC
+P1126/Sala CCTV/Tecnología/2/TV LED 42" LG Modelo 42LE5500
+P0394/Ingreso, comedor y vestuario/Tecnología/1/TV LED 43" LG
+P0189/Oficina/Tecnología/1/TV LED LG
+P0188/Oficina/Tecnología/2/TV LED PHILLIPS
+P0085/Fotografía/Instalación/1/UPS con 2 bancos de baterías
+P0030/Colgantes/Instalación/3/Ventilador / Colgantes P0030
+P0929/Colgantes/Instalación/21/Ventilador / Colgantes P0929
+P0034/Mezzanina/Instalación/18/Ventilador / Mezzanina P0034
+P0232/Mezzanina/Instalación/12/Ventilador / Mezzanina P0232
+P0266/Zapatillas/Instalación/3/Ventilador / Zapatillas P0266
+P0272/Zapatillas/Instalación/3/Ventilador / Zapatillas P0272
+P0112/Log. Inversa/Instalación/4/Ventilador 32" / Log. Inversa P0112
+P0167/Fondo/Instalación/7/Ventilador c/ mensula / Fondo P0167
+P0007/Colgantes/Instalación/12/Ventilador KACEMASTER / Colgantes P0007
+P0930/Colgantes/Instalación/2/Ventilador KC MASTER / Colgantes P0930
+P0122/Mezzanina/Instalación/31/Ventilador LILIANA / Mezzanina P0122
+P0910/Portería/Instalación/1/Ventilador LILIANA / Porteria P0910
+P1104/Sala CCTV/Instación/1/Ventilador LILIANA Modelo VWOC20 
+P0342/Recepción/Instalación/8/Ventilador MOG / Recepcion P0342
+P0307/Mezzanina/Tecnología/3/Ventilador MT HOME / Mezzanina P0307
+P0905/Portería/Instalación/1/Ventilador MT HOME / Porteria P0905
+P0246/Zapatillas/Instalación/4/Ventilador MT HOME / Zapatillas P0246
+P0251/Zapatillas/Instalación/3/Ventilador MT HOME / Zapatillas P0251
+P0114/Log. Inversa/Maquinaria/1/Zorra hidráulica ARLOG / Log. Inversa P0114
+P0363/Recepción/Maquinaria/1/Zorra hidráulica ARLOG / Recepcion P0363
+P0362/Recepción/Maquinaria/2/Zorra hidráulica EURO
