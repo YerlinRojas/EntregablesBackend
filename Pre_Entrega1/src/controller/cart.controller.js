@@ -246,12 +246,12 @@ export const purchaseCart = async (req, res) => {
     await correoController.enviarCorreo(user, ticketJSON);
     logger.http('Solicitud HTTP exitosa en /api/cart/:cid/purchase');
     
-    res.status(200).json({
-      message: "Purchase completed successfully",
-      purchasedProducts: purchasedProducts,
-      outOfStockProducts: outOfStockProducts,
-      ticket: ticket,
-    });
+  console.log('amount: ',amount);
+    res.render('payment', {
+      amount,
+      cid
+    })
+
   } catch (error) {
     logger.error("Error completing purchase:", error);
     res.status(500).json({ error: "Internal server error" });

@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
       } else {
           return cb(new Error("Tipo de documento no válido"));
       }
-      const destinationFolder = path.join(__dirname, `../uploads/${folder}`);
+      const destinationFolder = path.join(__dirname, `../src/uploads/${folder}`);
       // Verificar si el directorio existe, y si no, crearlo
       fs.mkdirSync(destinationFolder, { recursive: true });
       cb(null, destinationFolder);

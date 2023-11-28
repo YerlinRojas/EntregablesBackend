@@ -31,14 +31,19 @@
             border-radius: 4px;
             cursor: pointer;
         }
+        .imgProfile{
+            width: 20%;
+            height: 20%;
+            
+        }
     </style>
-
+    
 
     <div id="profileContainer">
         <h1>Bienvenido</h1>
 
         <div>
-            <img src="#" alt="Foto de Perfil" />
+            <img class="imgProfile" src="/public/avatar.png" alt="" />
             <h4>Nombre: {{user.firts_name}} {{user.last_name}}</h4>
             <p>Edad: {{user.age}}</p>
             <p>Email: {{user.email}}</p>

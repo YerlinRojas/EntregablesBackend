@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
     },
     documents : 
     [{
-        name:String,
+        name: String,
         reference: String,
     }],
     last_connection: {

@@ -1,11 +1,14 @@
 import express from 'express'
+import bodyParser from 'body-parser'
 import productRouter from './routes/product.route.js'
 import cartRouter from './routes/cart.route.js'
 import viewsRouter from './routes/views.route.js'
 import chatRouter from './routes/chat.route.js'
 import userRouter from './routes/user.router.js'
+import paymentRouter from './routes/payment.route.js'
 
 import config from './config/config.js'
+
 
 import sessionRouter from './routes/session.route.js'
 import cookieParser from 'cookie-parser'
@@ -54,6 +57,7 @@ if (cluster.isPrimary && config.NODE_ENV === 'production') {
   app.use(express.json())
   //cuando pasamos info por la url
   app.use(express.urlencoded({extended:true}))
+  app.use(bodyParser.urlencoded({ extended: true }));
   
   //config handlebars
   app.engine('handlebars', handlebars.engine())
@@ -62,6 +66,8 @@ if (cluster.isPrimary && config.NODE_ENV === 'production') {
   
   //config public static
   app.use('/public', express.static(__dirname + '/public'))
+  app.use('/uploads', express.static(__dirname + '/uploads'))
+  
   
   
   //cookie parser
@@ -112,6 +118,7 @@ if (cluster.isPrimary && config.NODE_ENV === 'production') {
   app.use('/api/carts', cartRouter)
   app.use('/api/chat', chatRouter)
   app.use('/api/user', userRouter)
+  app.use('/api/payment', paymentRouter)
   
 
   // Create an HTTP server using Express

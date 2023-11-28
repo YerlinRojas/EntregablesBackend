@@ -8,39 +8,24 @@ import { userService } from "../services/index.js";
 
 const router = Router()
 
-
-  router.post('/premium/:userId', async (req, res) => {
-    try {
-        const userId = req.params.userId;
-        const newRole = req.body.newRole;
-
-        logger.info("userId user controller", userId);
-
-        if (!['user', 'premium'].includes(newRole)) {
-            throw new Error('Rol no válido');
+router.post('/premium/:userId', async(req,res)=> {
+  try {
+      const userId = req.params.userId;
+      const newRole = req.body.newRole
+       logger.info("userId user controller", userId);
+      if (!['user', 'premium'].includes(newRole)) {
+          throw new Error('Rol no válido');
         }
-
-        // Check if the user has documents
-        const user = await userService.userById(userId);
-
-        if (!user) {
-            throw new Error('Usuario no encontrado');
-        }
-
-        if (user.documents.length > 0) {
-            // Update the user's role only if they have documents
-            const updateRole = await userService.newRole(userId, newRole);
-            logger.http("Solicitud HTTP exitosa en api/user/premium/:userId");
-            res.redirect("/userRole");
-        } else {
-            res.status(400).json({ error: "El usuario no tiene documentacion necesaria para cambiar de rol" });
-        }
-
-    } catch (error) {
-        logger.error("error al cambiar rol de usuario");
-        res.status(500).json({ error: "Internal server error" });
-    }
-});
+      const updateRole = await userService.newRole(userId, newRole)
+      logger.http("Solicitud HTTP exitosa en api/user/premium/:userId");
+      res.redirect("/userRole");
+  
+      
+  } catch (error) {
+      logger.error("error al cambiar rol de usuario")
+      res.status(500).json({ error: "Internal server error" });
+  }
+  })
 
 
 router.post("/:uid/documents", async (req, res) => {
@@ -55,6 +40,9 @@ router.post("/:uid/documents", async (req, res) => {
     const documents = req.files;
     console.log('userId',userId,'documentType', documentType,'documentos', documents);
     
+   // const originalName = documents.documents.originalname;
+    //console.log(originalName); //OK
+
     
     try { 
       // Actualizar el usuario para incluir la información del nuevo documento
@@ -66,7 +54,12 @@ router.post("/:uid/documents", async (req, res) => {
         console.log(user)
 
       logger.http("Solicitud HTTP exitosa en /api/user/:uid/documents");
-      res.redirect("/api/session/current")
+      res.status(200).json({
+        message: "Archivos subidos exitosamente",
+        userId,
+        documentType,
+        documents,
+      });
     } catch (error) {
       console.error("Error al guardar documentos:", error);
       res.status(500).json({ error: "Error interno del servidor" });
