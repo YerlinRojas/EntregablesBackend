@@ -247,10 +247,7 @@ export const purchaseCart = async (req, res) => {
     logger.http('Solicitud HTTP exitosa en /api/cart/:cid/purchase');
     
   console.log('amount: ',amount);
-    res.render('payment', {
-      amount,
-      cid
-    })
+    res.render('payment',{amount})
 
   } catch (error) {
     logger.error("Error completing purchase:", error);

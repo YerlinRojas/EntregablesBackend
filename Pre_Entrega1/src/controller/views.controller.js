@@ -86,13 +86,13 @@ export const createProduct = async (req, res) => {
     const newProduct = req.body;
     const userId = req.user.user;
    
-
+    console.log(newProduct.thumbnail)
     if (
       !newProduct.title ||
       !newProduct.description ||
       !newProduct.price ||
       !newProduct.category ||
-      !newProduct.thumbnail ||
+      !newProduct.thumbnail||
       !newProduct.code ||
       !newProduct.stock
     ) {
@@ -103,6 +103,11 @@ export const createProduct = async (req, res) => {
         code: EErrors.INVALID_TYPES_ERROR,
       });
     }
+
+    // Verificar existencia de thumbnail
+    if (!newProduct.thumbnail) {
+      return res.status(400).json({ error: "El campo 'thumbnail' es obligatorio" });
+    }
     logger.info("PARAMS FROM REQUEST");
     
     const user = await userService.userById(userId);
@@ -112,8 +117,10 @@ export const createProduct = async (req, res) => {
     }
     newProduct.owner = user._id;
    console.log("este usuario creo el product", user._id);
-    const newProductGenerated = await productService.createProduct(newProduct);
-
+   
+    const newProductGenerated = await productService.createProduct(newProduct); 
+    
+    
     logger.http("Solicitud HTTP exitosa en /realtimeproducts");
     logger.info("New Product CREATE", { newProduct });
     res.redirect("/home");

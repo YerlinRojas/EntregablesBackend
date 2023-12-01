@@ -6,11 +6,11 @@ const productCollection = 'product'
 const productSchema = new mongoose.Schema({
     title : String,
     description: String,
-    price: Number,
+    price: String,
     category: String,
     thumbnail: String,
-    code: Number,
-    stock: Number,
+    code: String,
+    stock: String,
     owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',

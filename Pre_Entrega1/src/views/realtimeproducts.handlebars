@@ -1,19 +1,36 @@
-<h1>Productos en tiempo real</h1>
 
-<hr>
-<h3>Formulario Ingreso de productos</h3>
 
-<form id="addProductForm" action="/realtimeproducts" method="POST">
-<div class="containerform">
-Title:<input name="title" type="text" id="title" placeholder="title" required>
-Description:<input name="description" type="text" id="description" placeholder="Description" required>
-Price:<input name="price" type="number" id="price" placeholder="Price" required>
-Category:<input name="category" type="text" id="categeory" placeholder="category" required>
-Thumbnail:<input name="thumbnail" type="text" id="thumbnail" placeholder="thumbnail" required>
-Code:<input name="code" type="number" id="code" placeholder="code" required>
-Stock:<input name="stock" type="number" id="stock" placeholder="Stock" required>
+
+<h3>Crear Productos</h3>
+<div class="divForm">
+
+<form class="formatForm" id="addProductForm" action="/realtimeproducts" method="POST">
+<div>
+  <label class="form-label">Title</label>
+  <input class="form-control" name="title" type="text" id="title" placeholder="title" required>
+  
+  <label class="form-label">Descripcion</label>
+  <input  class="form-control" name="description" type="text" id="description" placeholder="Description" required>
+
+  <label class="form-label">Precio</label>
+  <input class="form-control" name="price" type="text" id="price" placeholder="Price" required>
+
+  <label class="form-label">Category</label>
+  <input  class="form-control" name="category" type="text" id="categeory" placeholder="category" required>
+
+  <label class="form-label">thumbnail</label>
+ <input class="form-control" name="thumbnail" type="text" id="thumbnail" placeholder="thumbnail" required>
+  
+  <label class="form-label">Code</label>
+  <input  class="form-control" name="code" type="text" id="code" placeholder="code" required>
+  
+
+  <label class="form-label">Stock</label>
+  <input  class="form-control" name="stock" type="text" id="stock" placeholder="Stock" required>
+  
   <input type="submit" value="Agregar producto">
 </div>
 </form> 
 
+</div>
 

@@ -1,14 +1,11 @@
   <title>Lista de Productos</title>
-  <div class="containerFiltro">
-    <h6>Filtro por Precio</h6>
-    <a href="/home?sort=asc">De Menor a Mayor</a>
-    <a href="/home?sort=desc">De Mayor a Menor</a>
-  </div>
 
+  <div class="containerFiltro">
   <div>
-    <form action="/home" method="get">
-  <label for="query">Filtrar por:</label>
-  <select name="field" id="query">
+  <form action="/home" method="get">
+  <div >
+    <label for="query">Por:</label>
+  <select  name="field" id="query">
     <option value="title">Título</option>
     <option value="description">Descripción</option>
     <option value="price">Precio</option>
@@ -16,10 +13,25 @@
     <option value="stock">Stock</option>
     <option value="code">Codigo</option>
   </select>
-  <input type="text" name="value" placeholder="Valor" />
-  <button type="submit">Filtrar</button>
+  </div>
+  <div>
+  <input  type="text" name="value" placeholder="Valor" />
+  <button class="btn btn-outline-light border" type="submit">Filtrar</button>  
+  </div>
 </form>
   </div>
+
+<div class="alingFiltro">
+    <h6>Filtrar</h6>
+    <a  href="/home?sort=asc">De Menor a Mayor</a>
+    <a href="/home?sort=desc">De Mayor a Menor</a>
+  </div>
+  
+
+  </div>
+
+  
+
 
   <h1>Lista de Productos</h1>
   <table class="containerTable">

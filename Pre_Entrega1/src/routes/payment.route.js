@@ -1,16 +1,23 @@
 import { Router} from 'express'
-import { cartService } from '../services/index.js';
 import PaymentServices from '../services/payment.repository.js';
 
 const router = Router ()
 
-//payment intens 
-router.post('/payment-intens/:cid', async (req, res) => {
-    const cid = req.params.cid;
+//render ACA SE ESTA REDEN
+router.get ('/', async(req,res)=>{
+res.render('payment', {key:'pk_test_51OHAXYGKzTAHQyjNieBv9K3JN8nDYgsrjvN8kxgztqs2g0rhcxSl5LkOiyv6zzEHjVUhq4UwXcnukCfasyDoCb7v00B3b0PpSN'})
+})
+
+
+
+ //payment intens 
+router.post('/payment-intens', async (req, res) => {
+    //const cid = req.params.cid;
     const amount = req.body.amount;
-    const cart = await cartService.cartById(cid);
+    //const cart = await cartService.cartById(cid);
+
     console.log('Amount:', amount);
-    console.log('CID:', cid);
+    //console.log('CID:', cid);
 
     const paymentIntensInfo = {
         amount: amount,
@@ -25,5 +32,6 @@ router.post('/payment-intens/:cid', async (req, res) => {
     console.log(result);
     return res.send({status: "success", payload: result})
 });
+
 
 export default router;
