@@ -1,21 +1,34 @@
 
+<div>
 
+  <a href="/api/session/current">
+    <img height="30px" src="../public/iconoProfile.png" alt=""></a>
+
+
+    <form  action="/cart/{{cid}}" method="get"> 
+        <button type="submit" class="btn btn-outline-light"> 
+        <img height="20px" src="../public/shopping.png" alt="">
+        </button>
+    </form> 
+
+
+    <form  action="api/session/logout" method="get"> 
+        <input type="hidden" name="logout" value="1">
+        <button type="submit" class="btn btn-outline-warning">Loguot</button>
+    </form>
+
+
+
+
+</div>
 
 
   <h1>Bienvenido {{user.user.last_name}}</h1>
-<div class="containerFiltro"><button class="btn btn-secondary">
-  <a href="/api/session/current">PROFILE</a></button></div>
+
   
 
-    <form class="containerFiltro" action="api/session/logout" method="get"> 
-        <input type="hidden" name="logout" value="1">
-        <button type="submit" class="btn btn-primary">Loguot</button>
-    </form>
 
-  <form class="containerFiltro" action="/cart/{{cid}}" method="get"> 
-        <input type="hidden" name="quantity" value="1">
-        <button type="submit" class="btn btn-primary">CARRITO</button>
-    </form> 
+
 
   <div class="containerFiltro">
     <h6>Filtro por Precio</h6>
