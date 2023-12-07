@@ -1,46 +1,39 @@
 
-<div>
+<div class="divRow justify">
 
+<div>
   <a href="/api/session/current">
     <img height="30px" src="../public/iconoProfile.png" alt=""></a>
+</div>
 
-
+  <div>
     <form  action="/cart/{{cid}}" method="get"> 
         <button type="submit" class="btn btn-outline-light"> 
         <img height="20px" src="../public/shopping.png" alt="">
         </button>
     </form> 
+  </div>
 
-
+  <div>
     <form  action="api/session/logout" method="get"> 
         <input type="hidden" name="logout" value="1">
         <button type="submit" class="btn btn-outline-warning">Loguot</button>
     </form>
-
-
-
+  </div>
 
 </div>
 
 
   <h1>Bienvenido {{user.user.last_name}}</h1>
 
-  
-
-
 
 
   <div class="containerFiltro">
-    <h6>Filtro por Precio</h6>
-    <a class = "text-b" href="/products?sort=asc">De Menor a Mayor</a>
-    <a class = "text-b" href="/products?sort=desc">De Mayor a Menor</a>
-  </div>
-
-
   <div>
-    <form action="/products" method="get">
-  <label for="query">Filtrar por:</label>
-  <select name="field" id="query">
+  <form action="/products" method="get">
+  <div >
+    <label for="query">Por:</label>
+  <select  name="field" id="query">
     <option value="title">Título</option>
     <option value="description">Descripción</option>
     <option value="price">Precio</option>
@@ -48,25 +41,38 @@
     <option value="stock">Stock</option>
     <option value="code">Codigo</option>
   </select>
-  <input type="text" name="value" placeholder="Valor" />
-  <button type="submit">Filtrar</button>
+  </div>
+  <div>
+  <input  type="text" name="value" placeholder="Valor" />
+  <button class="btn btn-outline-secondary" type="submit">Filtrar</button>  
+  </div>
 </form>
   </div>
+
+<div class="alingFiltro">
+    <h6>Filtrar</h6>
+    <a  href="/home?sort=asc">De Menor a Mayor</a>
+    <a href="/home?sort=desc">De Mayor a Menor</a>
+  </div>
+  
+
+  </div>
+
 
 <div class="row">
 {{#each products}}
 <div class="card" style="width: 18rem;">
-  <img src="{{this.thumbnail}}" alt="Thumbnail" width="100">
+  <img class="rounded-3" src="{{this.thumbnail}}" alt="Thumbnail" width="100">
   <div class="card-body">
     <h5 class="card-title">{{this.title}}</h5>
     <h6 class="card-title">Codigo : {{this.code}}</h6>
     <h6 class="card-title">categoria : {{this.title}}</h6>
-    <p class="card-text">{{this.description}}</p>
+    <p class="card-text ellipsis">{{this.description}}</p>
     <h5 class="card-title">Precio : {{this.price}}</h5>
     <h6 class="card-title">Stock : {{this.stock}}</h6>
   <form action="/addProduct/{{../cid}}/product/{{this._id}}" method="post">  
         <input type="hidden" name="quantity" value="{{cid}}">
-        <button type="submit" class="btn btn-primary">Agregar al Carrito</button>
+        <button type="submit" class="btn btn-dark">Agregar al Carrito</button>
     </form>
   </div>
 </div>

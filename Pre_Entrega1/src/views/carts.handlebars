@@ -1,31 +1,36 @@
-  <h1>Productos dentro del carrito</h1>
+  <h3 class="marginBt">Carrito</h3>
   <table class="containerTable">
     <tr>
-      <th>ID</th>
+      <th>Title</th>
       <th>Quantity</th>
       <th>Precio</th>
       <th>Eliminar</th>
     </tr>
    {{#each cart.product}}
     <tr>
-    <td>{{this.id._id}}</td>
+    <td>{{this.id.title}}</td>
     <td>{{this.quantity}}</td> 
     <td>{{this.id.price}}</td>
     <td>
      
       <form class="containerFiltro" action="/cart/delete/{{../cart._id}}/product/{{this.id._id}}" method="post"> 
       <input type="hidden" name="eliminar" value="1">
-      <button type="submit" class="btn btn-primary">🗑</button>
+      <button type="submit" class="btn btn-outline-secondary">🗑</button>
     </form></td> 
   </tr>
 {{/each}}
-<h1>TOTAL PRICE : {{this.totalPrice}}</h1>
   </table>
 
+<div class="divColumn aling">
 
+<div>
+  <h5>Total: {{this.totalPrice}} Ars</h5>
+</div>
 
-    <form class="containerFiltro" action="/api/carts/{{cart._id}}/purchase" method="post"> 
+<div>
+    <form  action="/api/carts/{{cart._id}}/purchase" method="post"> 
       <input type="hidden" name="purchase" value="{{cart._id}}">
-      <button type="submit" class="btn btn-primary">COMPRAR</button>
+      <button type="submit" class="btn btn-warning">Orden de Compra</button>
     </form>
-
+</div>
+</div>

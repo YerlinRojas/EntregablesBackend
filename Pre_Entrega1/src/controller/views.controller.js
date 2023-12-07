@@ -180,10 +180,9 @@ export const addProductByCart = async (req, res) => {
 };
 
 //SI ES PRIMIUM NO PUEDO ACCEDER A LAS PROPIEDADES DEL CARRITO
+
 export const viewCartById = async (req, res) => {
   try {
-    
-    
     const cid = req.params.cid;
     const cart = await cartService.cartById(cid);
 
@@ -193,18 +192,21 @@ export const viewCartById = async (req, res) => {
     let totalPrice = 0;
 
     for (const product of cart.product) {
+     
+      const productPrice = parseFloat(product.id.price);
+
       if (
-        typeof product.id.price === "number" &&
+        !isNaN(productPrice) &&  
         typeof product.quantity === "number"
       ) {
-        totalPrice += product.id.price * product.quantity;
+        totalPrice += productPrice * product.quantity;
       }
     }
 
     logger.info("CART WITH PRODUCTS", cart.product);
     logger.info("TOTAL PRICE:", totalPrice);
     logger.http("Solicitud HTTP exitosa en /cart/:cid");
-
+    
     res.render("carts", { cart, totalPrice });
   } catch (error) {
     logger.error("Error obteniendo el carrito por id DESDE GET CARTID:", error);

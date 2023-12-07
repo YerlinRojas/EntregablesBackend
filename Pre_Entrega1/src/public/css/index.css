@@ -134,3 +134,33 @@ padding: 5% 25% 5% 25%;
   grid-template-columns: auto;
   grid-template-rows: auto ;
 }
+
+.divRow{
+  display: flex;
+  flex-direction: row;
+}
+
+.divColumn{
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.aling{
+  align-items: end;
+}
+
+.marginBt{
+  margin-bottom: 2%;
+}
+.justify{
+  justify-content: end;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
+

@@ -1,43 +1,33 @@
 
-       <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-
-        form {
-            max-width: 400px;
-            margin: 0 auto;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
-
-     <form action="/api/payment/payment-intens/{{cid}}" method="post">
+<div class="d-flex flex-column align-items-center border ">
+<div>
+    <h4>Total a pagar: {{amount}} Ars</h4>
+</div>
+<div>
+    <button id="checkout" class="btn btn-outline-secondary">PAY</button>
+{{!--      <form action="/api/payment/payment-intens/{{cid}}" method="post">
         <input type="hidden" name="amount" value="{{amount}}">
-        <p>amount: {{amount}}</p>
-        <button type="submit">Pagar</button>
-    </form>
+        <button class="btn btn-warning" type="submit">Ir a Pagar</button>
+
+
+    </form> --}}
+  </div>  
+    </div>
+
+<script>
+  const button = document.getElementById('checkout')
+  button.addEventListener('click', async()=>{
+    const amount = {{amount}}
+    const res = await fetch('/api/payment/payment-intens', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ amount }),
+    })
+    const data = await res.json ()
+
+    console.log("ESTA ES LA DATA",data)
+    window.location.href = data.url
+  })
+</script>
