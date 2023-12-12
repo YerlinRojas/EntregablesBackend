@@ -32,7 +32,10 @@ export default {
     NODE_ENV: process.env.NODE_ENV,
 
     URL_DATA_TEST : process.env.URL_DATA_TEST,
-    dbName_dataTest : process.env.dbName_dataTest
+    dbName_dataTest : process.env.dbName_dataTest,
+
+    STRIPE_PRIVATE : process.env.STRIPE_PRIVATE,
+    STRIPE_PUBLIC : process.env.STRIPE_PUBLIC
 }
 
 

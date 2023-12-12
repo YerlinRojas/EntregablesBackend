@@ -4,30 +4,12 @@
     <h4>Total a pagar: {{amount}} Ars</h4>
 </div>
 <div>
-    <button id="checkout" class="btn btn-outline-secondary">PAY</button>
-{{!--      <form action="/api/payment/payment-intens/{{cid}}" method="post">
+ 
+   <form action="/api/payment/payment-intens" method="post">
         <input type="hidden" name="amount" value="{{amount}}">
         <button class="btn btn-warning" type="submit">Ir a Pagar</button>
-
-
-    </form> --}}
+    </form>
   </div>  
     </div>
 
-<script>
-  const button = document.getElementById('checkout')
-  button.addEventListener('click', async()=>{
-    const amount = {{amount}}
-    const res = await fetch('/api/payment/payment-intens', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ amount }),
-    })
-    const data = await res.json ()
 
-    console.log("ESTA ES LA DATA",data)
-    window.location.href = data.url
-  })
-</script>
